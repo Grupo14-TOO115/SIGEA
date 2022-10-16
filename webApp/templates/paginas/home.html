@@ -1,0 +1,32 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Inicio {%endblock %}
+
+{% block contenido %}
+
+<div class="jumbotron">
+    <h1 class="display-3">Cooperativa la esperanza</h1>
+    <hr class="my-2">
+    <br>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="card text-dark bg-white mb-center text-center" style="max-width: 18rem;">
+                <div class="card-header">
+                    <h5 class="card-title">Enviar solicitud </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        En este apartado puedes enviar una solicitud para poder ser asociado
+                    </p>
+                    <br>
+                    <p class="lead">
+                        <a class="btn btn-dark btn-lg" href="{% url 'crear_cliente' %}" role="button">Empezar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock %}

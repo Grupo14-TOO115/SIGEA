@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block titulo %} Editar transportista {%endblock %}
+
+{% block contenido %}
+
+<div class="card">
+    <div class="card-header">
+        Editar informacion del transportista
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Datos del transportista</h4>
+        {% include 'transportistas/form.html' %}
+    </div>
+</div>
+
+{%endblock %}

@@ -1,0 +1,17 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Agregar nuevo transportista {%endblock %}
+
+{% block contenido %}
+
+<div class="card">
+    <div class="card-header">
+        Crear un transportista
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Datos del transportista</h4>
+        {% include 'cliente/form.html' %}
+    </div>
+</div>
+
+{%endblock %}
