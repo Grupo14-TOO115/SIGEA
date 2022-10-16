@@ -1,12 +1,12 @@
 # SIGEA
-Es un proyecto en equipo, se trata de la gestion de solicitudes de un cliente para formar parte de una cooperativa y ser asociado
+Es un proyecto en equipo, se trata de la gestión de solicitudes de un cliente para formar parte de una cooperativa y ser asociado.
 
-Django_project: aqui se encuentran los archivos de configuracion del proyecto
+Django_project: Aquí se encuentran los archivos de configuracion del proyecto.
 
-Autenticacion: sera para el tema de login y seguridad
+Autenticacion: Será para el tema de login y seguridad.
 
-Cliente: donde se guardara toda la info del cliente y su solicitud
+Cliente: Donde se guardará toda la info del cliente y su solicitud.
 
-Facturacion: abarcara las cuentas bancarias y el proceso de facturacion
+Facturación: Abarcará las cuentas bancarias y el proceso de facturación.
 
-webApp: mostrara las paginas como el home y el perfil de los clientes y las paginas para secretario, jefatura y cajero
+webApp: Mostrará las páginas como el home y el perfil de los clientes y las páginas para secretario, jefatura y cajero.
