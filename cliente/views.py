@@ -14,7 +14,6 @@ def clientes(request):
     cliente = Cliente.objects.filter(id_usuario=request.user.id)
     return render(request, 'cliente/index.html', {'cliente': transportistas})'''
 
-
 def crear_cliente(request):
     formulario = ClienteForm(request.POST or None)
 
