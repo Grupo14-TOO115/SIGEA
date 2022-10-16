@@ -1,6 +1,8 @@
 # SIGEA
 Es un proyecto en equipo, se trata de la gestion de solicitudes de un cliente para formar parte de una cooperativa y ser asociado
 
+Django_project: aqui se encuentran los archivos de configuracion del proyecto
+
 Autenticacion: sera para el tema de login y seguridad
 
 Cliente: donde se guardara toda la info del cliente y su solicitud
