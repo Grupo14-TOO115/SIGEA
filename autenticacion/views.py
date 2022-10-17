@@ -22,7 +22,7 @@ class VistaRegistrarse(View):
             messages.success(request, "Se a registrado correctamente")
             login(request, usuario)
 
-            return redirect('inicio')
+            return redirect('home')
 
         messages.error(request, "No se ha registrado, revisar datos")
 
