@@ -22,6 +22,7 @@ urlpatterns = [
     path('', include('webApp.urls')),
     path('cliente/', include('cliente.urls')),
     path('facturacion/', include('facturacion.urls')),
+    path('estado_civil/', include('estado_civil.urls')),
 ]
 
 handler404 = 'autenticacion.views.error_404'

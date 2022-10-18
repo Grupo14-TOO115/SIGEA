@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title> Registrar estado civil </title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <style>
+    #hideValuesOnSelect {
+      display: none;
+    }
+  </style>
+  <body>
+    <div>
+      <nav class="navbar navbar-expand navbar-dark bg-dark"></nav>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header"> Registrar estado civil </div>
+              <div class="card-body">
+                <form enctype="multipart/form-data" method="post">
+                  <input type="hidden" name="csrfmiddlewaretoken" value="QIZ9g5Xw5Zja90BFn5sVsP5puoSqixJF4NK5nPQe8BNcy0t96XrYcXpy6R8aLK77">
+                  <div class="mb-3">
+                    <div id="div_estado_civil" class="form-group">
+                      <label for="estado_civil" class=" requiredField"> Seleccione su estado civil actual: <span class="asteriskField">*</span>
+                      </label>
+                      <div>
+                        <select onchange="displayDivDemo('card', this)" name="estado_civil" class="select form-control" id="estado_civil">
+                          <option value="casado">Casado(a)</option>
+                          <option value="divorciado">Divorciado(a)</option>
+                          <option value="soltero">Soltero(a)</option>
+                          <option value="viudo">Viudo(a)</option>
+                          <option value="comprometido">Comprometido(a)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- Esto es un comentario -->
+            <div id="card" class="card">
+              <div class="card-header"> Anexar datos sobre su conyugue </div>
+              <div class="card-body">
+                <form enctype="multipart/form-data" method="post">
+                  <input type="hidden" name="csrfmiddlewaretoken" value="QIZ9g5Xw5Zja90BFn5sVsP5puoSqixJF4NK5nPQe8BNcy0t96XrYcXpy6R8aLK77">
+                  <div class="mb-3">
+                    <div id="div_id_nombres" class="form-group">
+                      <label for="id_nombres" class=" requiredField"> Nombres <span class="asteriskField">*</span>
+                      </label>
+                      <div>
+                        <input type="text" name="nombres" maxlength="50" class="textinput textInput form-control" required id="id_nombres">
+                      </div>
+                    </div>
+                    <div id="div_id_apellidos" class="form-group">
+                      <label for="id_apellidos" class=" requiredField"> Apellidos <span class="asteriskField">*</span>
+                      </label>
+                      <div>
+                        <input type="text" name="apellidos" maxlength="50" class="textinput textInput form-control" required id="id_apellidos">
+                      </div>
+                    </div>
+                    <div id="div_id_telefono" class="form-group">
+                      <label class=" requiredField"> Teléfono (Con extensión según país) <span class="asteriskField">*</span>
+                      </label>
+                      <div>
+                        <input type="text" name="telefono_0" size="13" class="textinput textInput form-control" required id="id_telefono_0">
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- Esto es un comentario -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function displayDivDemo(id, elementValue) {
+      document.getElementById(id).style.display = elementValue.value == 'casado' || elementValue.value == 'comprometido' ? 'block' : 'none';
+    }
+  </script>
+</html>
