@@ -16,7 +16,21 @@ class UserCreationFormExtended(UserCreationForm):
         fields = ('first_name', 'last_name', 'email', 'username')
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
-        fields = ('__all__')
+        fields = '__all__'
+        exclude = ['es_asociado']
+        widgets = {
+            'fecha_nacimiento': DateInput(attrs={'class': 'form-control'}),
+        }
+
+
+class SolicitudForm(forms.ModelForm):
+    class Meta:
+        model = Solicitud
+        fields = '__all__'

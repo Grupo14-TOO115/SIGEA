@@ -3,28 +3,28 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from phone_field import PhoneField
 from django.contrib.auth.models import User
-from datetime import datetime
+from datetime import date
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
 
-def validar_edad(edad):
-    fecha_actual = datetime.now()
-    año_actual = fecha_actual.year
-    max_edad = año_actual - 16
-    min_edad = año_actual - 150
+def validar_edad(fecha_nacimiento):
+    fecha_actual = date.today()
+    anio_actual = fecha_actual.year
+    anio_nacimiento = fecha_nacimiento.year
 
-    if True:
+    edad = anio_actual - anio_nacimiento
+
+    if 16 <= edad <= 150:
         return edad
     else:
         raise ValidationError("Digite una fecha de nacimiento valida")
 
 
 class Genero(models.Model):
-    id_genero = models.AutoField("Cliente ID", primary_key=True)
+    id_genero = models.AutoField(primary_key=True)
     genero = models.CharField(max_length=20, null=False, blank=False)
-
 
     class Meta:
         db_table = 'genero'
@@ -33,22 +33,48 @@ class Genero(models.Model):
         return self.genero
 
 
+class TipoIdentificacion(models.Model):
+    id_tipoIdentificacion = models.AutoField(primary_key=True)
+    nombreTipoIdentificacion = models.CharField(max_length=20, null=False, blank=False)
+
+    class Meta:
+        db_table = 'tipo_identificacion'
+
+    def __str__(self):
+        return self.nombreTipoIdentificacion
+
+
 class Cliente(models.Model):
     id_cliente = models.AutoField(primary_key=True, verbose_name="Cliente ID")
-    id_genero = models.ForeignKey(Genero, verbose_name="Genero", on_delete=models.PROTECT, null=False, blank=False, default=1)
-    nombres = models.CharField(max_length=50, null=False, blank=False)
-    apellidos = models.CharField(max_length=50, null=False, blank=False)
-    identificacion = models.CharField(max_length=50, null=False, blank=False)
-    googleMap = models.CharField("Api Google Maps", max_length=50, null=False, blank=False)
-    fecha_nacimiento = models.DateField("Fecha de nacimiento",null=False, blank=False, help_text="Usar el formato: <em>YYYY-MM-DD</em>.", validators =[validar_edad])
-    localidad = models.CharField("Barrio, Colonia etc.", max_length=50, null=False, blank=False)
-    telefono = PhoneField(null=False, blank=False)
-    correo = models.EmailField(max_length=50,  null=False, blank=False)
+    nombres = models.CharField(max_length=30, null=False, blank=False)
+    apellidos = models.CharField(max_length=30, null=False, blank=False)
+    id_genero = models.ForeignKey(Genero, verbose_name="Genero", on_delete=models.PROTECT, null=False, blank=False,default=1)
+    id_tipoIdentificacion = models.ForeignKey(TipoIdentificacion, verbose_name="Tipo de identificacion", on_delete=models.PROTECT, null=False, blank=False,default=1)
+    identificacion = models.CharField("N° de identificacion", max_length=20, null=False, blank=False)
+    fecha_nacimiento = models.DateField("Fecha de nacimiento",null=False, blank=False, help_text="Consejo: <em>Presione en el calendario</em>.", validators=[validar_edad])
+    telefono = PhoneField(max_length=13, null=False, blank=False)
+    correo = models.EmailField(max_length=35,  null=False, blank=False)
     fotografia = models.ImageField(upload_to='fotografias/', null=True, blank=True)
+    es_asociado = models.BooleanField("Es asociado?", null=False, default=False)
 
     class Meta:
         db_table = 'cliente'
         ordering = ["id_cliente"]
 
     def __str__(self):
-        return self.identificacion + " - " + self.id_genero.__str__()
+        return self.id_cliente.__str__() + " - " + self.nombres + " - " + self.apellidos + " - " + self.identificacion
+
+
+class Solicitud(models.Model):
+    id_solicitud = models.AutoField(primary_key=True, verbose_name="Solicitud ID")
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=False)
+    fecha_solicitud = models.DateField(auto_now_add=True)
+    fecha_resolocion = models.DateField(null=False, default="1000-01-01")
+    es_aprobado = models.BooleanField("Es aprobado?", null=False, default=False)
+
+    class Meta:
+        db_table = 'solicitud'
+        ordering = ["id_solicitud"]
+
+    def __str__(self):
+        return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()

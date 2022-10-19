@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.contrib.staticfiles.urls import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,8 +24,7 @@ urlpatterns = [
     path('', include('webApp.urls')),
     path('cliente/', include('cliente.urls')),
     path('facturacion/', include('facturacion.urls')),
-    path('estado_civil/', include('estado_civil.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'autenticacion.views.error_404'
 handler500 = 'autenticacion.views.error_500'
