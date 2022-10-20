@@ -1,0 +1,101 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Registrar estado civil {%endblock %}
+
+<style>
+    #hideValuesOnSelect {
+      display: none;
+    }
+
+</style>
+
+{% block contenido %}
+
+<nav class="navbar navbar-expand navbar-dark bg-dark"></nav>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+            <!-- Estado civil -->
+            <div class="card">
+                <div class="card-header"> Registrar estado civil</div>
+                <div class="card-body">
+                    <form enctype="multipart/form-data" method="post">
+                        <input type="hidden" name="csrfmiddlewaretoken"
+                               value="QIZ9g5Xw5Zja90BFn5sVsP5puoSqixJF4NK5nPQe8BNcy0t96XrYcXpy6R8aLK77">
+                        <div class="mb-3">
+                            <div id="div_estado_civil" class="form-group">
+                                <label for="estado_civil" class=" requiredField"> Seleccione su estado civil actual:
+                                    <span class="asteriskField">*</span>
+                                </label>
+                                <div>
+                                    <select onchange="displayDivDemo('card', this)" name="estado_civil"
+                                            class="select form-control" id="estado_civil">
+                                        <option value="casado">Casado(a)</option>
+                                        <option value="divorciado">Divorciado(a)</option>
+                                        <option value="soltero">Soltero(a)</option>
+                                        <option value="viudo">Viudo(a)</option>
+                                        <option value="comprometido">Comprometido(a)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Datos del cónyugue -->
+                <div id="card" class="card">
+                    <div class="card-header"> Anexar datos sobre su conyugue</div>
+                    <div class="card-body">
+                        <form enctype="multipart/form-data" method="post">
+                            <input type="hidden" name="csrfmiddlewaretoken"
+                                   value="QIZ9g5Xw5Zja90BFn5sVsP5puoSqixJF4NK5nPQe8BNcy0t96XrYcXpy6R8aLK77">
+                            <div class="mb-3">
+                                <div id="div_id_nombres" class="form-group">
+                                    <label for="id_nombres" class=" requiredField"> Nombres <span class="asteriskField">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="text" name="nombres" maxlength="50"
+                                               class="textinput textInput form-control" required id="id_nombres">
+                                    </div>
+                                </div>
+                                <div id="div_id_apellidos" class="form-group">
+                                    <label for="id_apellidos" class=" requiredField"> Apellidos <span
+                                            class="asteriskField">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="text" name="apellidos" maxlength="50"
+                                               class="textinput textInput form-control" required id="id_apellidos">
+                                    </div>
+                                </div>
+                                <div id="div_id_telefono" class="form-group">
+                                    <label class=" requiredField"> Teléfono (Con extensión según país) <span
+                                            class="asteriskField">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="text" name="telefono_0" size="13"
+                                               class="textinput textInput form-control" required id="id_telefono_0">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Datos del cónyugue -->
+
+                <!-- Agregar opciones generales del formulario -->
+
+            </div>
+            <!-- Estado civil -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function displayDivDemo(id, elementValue) {
+      document.getElementById(id).style.display = elementValue.value == 'casado' || elementValue.value == 'comprometido' ? 'block' : 'none';
+    }
+
+</script>
+
+{% endblock %}
