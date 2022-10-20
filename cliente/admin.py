@@ -9,3 +9,7 @@ from .models import *
 admin.site.register(Cliente)
 
 admin.site.register(Genero)
+
+admin.site.register(Profesion)
+
+admin.site.register(TipoIdentificacion)
