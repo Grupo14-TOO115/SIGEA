@@ -762,3 +762,8 @@ section {
   color: #fff;
   text-decoration: none;
 }
+
+#map_google {
+  height: 100%;
+  width: 100%;
+}
