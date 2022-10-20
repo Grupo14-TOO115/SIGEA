@@ -41,3 +41,7 @@ def crear_cliente(request):
 def clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'cliente/index.html', {'clientes': clientes})
+
+@login_required
+def localidad(request):
+    return render(request, 'localidad/localidad.html')

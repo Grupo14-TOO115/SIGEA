@@ -6,4 +6,5 @@ from .views import *
 urlpatterns = [
     path('clientes', clientes, name='clientes'),
     path('crear', crear_cliente, name='crear_cliente'),
+    path('localidad', localidad, name='localidad'),
 ]
