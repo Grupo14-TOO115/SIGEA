@@ -42,6 +42,26 @@ def clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'cliente/index.html', {'clientes': clientes})
 
+def crear_estadocivil(request, id_cliente):
+    formulario_estadocivil = EstadocivilForm(request.POST or None)
+
+    if formulario_estadocivil.is_valid():
+        estadocivil = formulario_estadocivil.save()
+
+        cliente = Cliente.objects.get(id_cliente=id_cliente) # Recupera un objeto del tipo cliente que coincida con el id_cliente.
+
+        # Al objeto "cliente" en el atributo "id_estadocivil" se le asigna el objeto "estadocivil" recién creado.
+        cliente.id_estadocivil = estadocivil
+
+        # se guarda el objeto en la DB, almacenando los atributos que faltaban
+        cliente.save()
+
+        messages.success(request, "Se envio la solicitud exitosamente!")
+        return redirect('home')
+
+    return render(request, 'estado_civil/registrar.html', {'formulario_estadocivil': formulario_estadocivil})
+
+
 @login_required
 def localidad(request):
     return render(request, 'localidad/localidad.html')

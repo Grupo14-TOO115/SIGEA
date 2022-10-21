@@ -6,4 +6,5 @@ from .views import *
 
 urlpatterns = [
     path('', home, name='home'),
+    path('secretaria/documentos_anexos', documentos_anexos, name='documentos_anexos'),
 ]
