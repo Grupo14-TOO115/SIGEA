@@ -24,7 +24,7 @@ class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = '__all__'
-        exclude = ['es_asociado']
+        exclude = ['es_asociado','id_estadocivil']
         widgets = {
             'fecha_nacimiento': DateInput(attrs={'class': 'form-control'}),
         }
@@ -34,3 +34,13 @@ class SolicitudForm(forms.ModelForm):
     class Meta:
         model = Solicitud
         fields = '__all__'
+
+
+class EstadocivilForm(forms.ModelForm):
+
+    class Meta:
+        model = estado_civil
+        fields = '__all__'
+        widgets = {
+
+        }
