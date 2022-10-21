@@ -63,6 +63,8 @@ class Cliente(models.Model):
 
     def __str__(self):
         return self.id_cliente.__str__() + " - " + self.nombres + " - " + self.apellidos + " - " + self.identificacion
+
+
 class Profesion(models.Model):
     id_profesion = models.AutoField(primary_key=True, verbose_name="Profesion ID")
     nombre_profesion= models.CharField(max_length=50, null=False, blank=False)
