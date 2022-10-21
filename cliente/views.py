@@ -42,7 +42,6 @@ def clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'cliente/index.html', {'clientes': clientes})
 
-
 def crear_estadocivil(request, id_cliente):
     formulario_estadocivil = EstadocivilForm(request.POST or None)
 
@@ -63,4 +62,6 @@ def crear_estadocivil(request, id_cliente):
     return render(request, 'estado_civil/registrar.html', {'formulario_estadocivil': formulario_estadocivil})
 
 
-
+@login_required
+def localidad(request):
+    return render(request, 'localidad/localidad.html')

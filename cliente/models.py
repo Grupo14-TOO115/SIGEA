@@ -105,3 +105,16 @@ class Solicitud(models.Model):
     def __str__(self):
         return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()
 
+
+class Ubicacioneografica(models.Model):
+    id_ubicacion = models.AutoField(primary_key=True, verbose_name="Ubicacion ID")
+    direccion = models.CharField(max_length=50, null=False, blank=False)
+    latitud = models.FloatField(null=False, blank=False)
+    longitud = models.FloatField(null=False, blank=False)
+
+    class Meta:
+        db_table = 'ubicacion_google'
+        ordering = ["id_ubicacion"]
+
+    def __str__(self):
+        return self.id_ubicacion + " - " + self.direccion
