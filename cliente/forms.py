@@ -80,6 +80,7 @@ class EstadocivilForm(forms.ModelForm):
         }
 
 class DomicilioForm(forms.ModelForm):
-    class meta:
+    class Meta:
         model= Domicilio
         fields='__all__'
+        exclude = ['cliente']

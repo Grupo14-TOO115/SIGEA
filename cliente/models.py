@@ -164,7 +164,7 @@ class Ubicacioneografica(models.Model):
 
 class Domicilio(models.Model):
     id_domicilio=models.AutoField(primary_key=True, verbose_name="Domicilio ID")
-    tiempo_de_inmueble=models.IntegerField(null=False, blank=False, verbose_name="Tiempo de inmueble")
+    tiempo_de_inmueble=models.PositiveIntegerField(null=False, blank=False, verbose_name="Tiempo de inmueble")
     cliente=models.OneToOneField(Cliente,on_delete=models.CASCADE,null=False, blank=False, verbose_name="Cliente")
 
     class Meta:
