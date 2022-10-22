@@ -20,7 +20,9 @@
         <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-        <script type="module" src="../../static/js/map.js"></script>
+
+        {% load static %}
+        <script type="module" src="{% static 'js/map.js' %}"></script>
     </head>
     <body>
         <header id="header" class="fixed-top d-flex bg-dark align-items-center">

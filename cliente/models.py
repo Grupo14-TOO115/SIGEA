@@ -4,7 +4,6 @@ from django.core.exceptions import ValidationError
 from phone_field import PhoneField
 from django.contrib.auth.models import User
 from datetime import date
-from django_countries.fields import CountryField
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
@@ -124,11 +123,11 @@ class CapacidadEconomica(models.Model):
 class ActividadEconomica(models.Model):
     id_actividadEconomica = models.AutoField(primary_key=True, verbose_name="Actividad Economica ID")
     id_capacidadEconomica = models.ForeignKey(CapacidadEconomica, verbose_name="Capacidad Economica",on_delete=models.PROTECT,null= True)
-    situacionLaboral = models.ForeignKey(situacionLaboral, verbose_name="Situacion laboral actual",on_delete=models.PROTECT, null=False)
+    situacionLaboral = models.ForeignKey(situacionLaboral, verbose_name="Situacion laboral actual",on_delete=models.PROTECT, null=False, default=1)
     nombreProfesion = models.CharField("Profesion u Ocupacion", max_length=50, null=False, blank=False)
     lugarTrabajo = models.CharField("Nombre de Lugar de trabajo o Negocio",max_length=50, null=True, blank=True)
-    paisTrabajo = CountryField("Pais de Trabajo",null=True, blank=True)
-    ciudadTrabajo = models.CharField("Ciudad de Trabajo",max_length=50,null=True, blank=True)
+    paisTrabajo = models.CharField("Pais de Trabajo", max_length=50,null=True, blank=True)
+    ciudadTrabajo = models.CharField("Ciudad de Trabajo",max_length=50, null=True, blank=True)
     telefono = PhoneField("Telefono de lugar de trabajo",max_length=13, null=True, blank=True)
     asociacion = models.CharField("Asociaciones a la que pertenece",max_length=50, null=True, blank=True, help_text="Ayuda: <em>Puede ser asociacion economica o social</em>.")
     class Meta:
