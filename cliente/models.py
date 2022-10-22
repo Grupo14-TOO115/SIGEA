@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from phone_field import PhoneField
 from django.contrib.auth.models import User
 from datetime import date
+from django_countries.fields import CountryField
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
@@ -91,16 +92,16 @@ class Cliente(models.Model):
         return self.id_cliente.__str__() + " - " + self.nombres + " - " + self.apellidos + " - " + self.identificacion
 
 
-class Profesion(models.Model):
-    id_profesion = models.AutoField(primary_key=True, verbose_name="Profesion ID")
-    nombre_profesion= models.CharField(max_length=50, null=False, blank=False)
+class situacionLaboral(models.Model):
+    id_situacionLaboral = models.AutoField(primary_key=True, verbose_name="Situacion Laboral ID")
+    nombre_situacionLaboral= models.CharField("Situacion laboral actual", max_length=50, null=False, blank=False)
 
     class Meta:
-        db_table = 'profesion'
-        ordering = ["id_profesion"]
+        db_table = 'situacionLaboral'
+        ordering = ["id_situacionLaboral"]
 
     def __str__(self):
-        return self.nombre_profesion
+        return self.nombre_situacionLaboral
 
 
 class CapacidadEconomica(models.Model):
@@ -123,10 +124,13 @@ class CapacidadEconomica(models.Model):
 class ActividadEconomica(models.Model):
     id_actividadEconomica = models.AutoField(primary_key=True, verbose_name="Actividad Economica ID")
     id_capacidadEconomica = models.ForeignKey(CapacidadEconomica, verbose_name="Capacidad Economica",on_delete=models.PROTECT,null= True)
-    id_profesion = models.ForeignKey(Profesion, verbose_name="Profesion",on_delete=models.PROTECT, null=False)
-    es_empresario = models.BooleanField("Es asociado?", null=False, default=False)
-    lugarTrabajo = models.CharField("Lugar de trabajo",max_length=50, null=False, blank=False)
-    telefono = PhoneField("Telefono de lugar de trabajo",max_length=13, null=False, blank=False)
+    situacionLaboral = models.ForeignKey(situacionLaboral, verbose_name="Situacion laboral actual",on_delete=models.PROTECT, null=False)
+    nombreProfesion = models.CharField("Profesion u Ocupacion", max_length=50, null=False, blank=False)
+    lugarTrabajo = models.CharField("Nombre de Lugar de trabajo o Negocio",max_length=50, null=True, blank=True)
+    paisTrabajo = CountryField("Pais de Trabajo",null=True, blank=True)
+    ciudadTrabajo = models.CharField("Ciudad de Trabajo",max_length=50,null=True, blank=True)
+    telefono = PhoneField("Telefono de lugar de trabajo",max_length=13, null=True, blank=True)
+    asociacion = models.CharField("Asociaciones a la que pertenece",max_length=50, null=True, blank=True, help_text="Ayuda: <em>Puede ser asociacion economica o social</em>.")
     class Meta:
         db_table = 'ActividadEconomica'
 

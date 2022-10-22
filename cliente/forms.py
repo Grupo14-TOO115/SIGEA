@@ -35,14 +35,7 @@ class ClienteForm(forms.ModelForm):
 class ActEconoForm(forms.ModelForm):
     class Meta:
         model = ActividadEconomica
-        fields = ['id_profesion','lugarTrabajo','telefono']
-
-        widgets = {
-            'id_profesion': forms.Select(choices=Profesion.objects.all(),attrs={"class": "form-control"}),
-            'lugarTrabajo': forms.TextInput(attrs={"class": "form-control"}),
-
-        }
-
+        fields = ['nombreProfesion','situacionLaboral','lugarTrabajo','paisTrabajo','ciudadTrabajo','telefono', 'asociacion']
 
 #FORMULARIO PARA LA CAPACIDAD ECONOMICA
 class CapacidadEconoForm(forms.ModelForm):
@@ -52,13 +45,13 @@ class CapacidadEconoForm(forms.ModelForm):
         fields = ['salario', 'gastosAFP', 'gastosISSS', 'gastosPersonales', 'prestamos', 'gastosEducacion','otrosIngresos']
 
         widgets = {
-            'salario' : forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
-            'gastosAFP': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
-            'gastosISSS': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
-            'gastosPersonales': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
-            'gastosEducacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
-            'prestamos': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
-            'otrosIngresos': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'salario' : forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00', "type": "number"}),
+            'gastosAFP': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00', "type": "number"}),
+            'gastosISSS': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00', "type": "number"}),
+            'gastosPersonales': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00', "type": "number"}),
+            'gastosEducacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00', "type": "number"}),
+            'prestamos': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00', "type": "number"}),
+            'otrosIngresos': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00', "type": "number"}),
 
         }
 
