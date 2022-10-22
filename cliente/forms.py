@@ -78,3 +78,8 @@ class EstadocivilForm(forms.ModelForm):
         widgets = {
 
         }
+
+class DomicilioForm(forms.ModelForm):
+    class meta:
+        model= Domicilio
+        fields='__all__'

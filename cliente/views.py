@@ -110,6 +110,13 @@ def crear_estadocivil(request, id_cliente):
     return render(request, 'estado_civil/registrar.html', {'formulario_estadocivil': formulario_estadocivil})
 
 
-@login_required
-def localidad(request):
-    return render(request, 'localidad/localidad.html')
+#@login_required
+def localidad(request,id_cliente):
+    cliente=Cliente.objects.get(id_cliente=id_cliente)
+    formularioDomicilio=DomicilioForm(request.POST or None,request.FILES or None)
+    if formularioDomicilio.is_valid():
+        domicilio=formularioDomicilio.save(commit=False)
+        domicilio.cliente=cliente
+        domicilio.save()
+    return render(request, 'localidad/localidad.html',{'formulario':formularioDomicilio})
+

@@ -161,3 +161,15 @@ class Ubicacioneografica(models.Model):
 
     def __str__(self):
         return self.id_ubicacion + " - " + self.direccion
+
+class Domicilio(models.Model):
+    id_domicilio=models.AutoField(primary_key=True, verbose_name="Domicilio ID")
+    tiempo_de_inmueble=models.IntegerField(null=False, blank=False, verbose_name="Tiempo de inmueble")
+    cliente=models.OneToOneField(Cliente,on_delete=models.CASCADE,null=False, blank=False, verbose_name="Cliente")
+
+    class Meta:
+        db_table='domicilio'
+        ordering=["id_domicilio"]
+
+    def __str__(self):
+        return self.tiempo_de_inmueble
