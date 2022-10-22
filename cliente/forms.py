@@ -71,3 +71,9 @@ class EstadocivilForm(forms.ModelForm):
         widgets = {
 
         }
+
+class DomicilioForm(forms.ModelForm):
+    class Meta:
+        model= Domicilio
+        fields='__all__'
+        exclude = ['cliente']

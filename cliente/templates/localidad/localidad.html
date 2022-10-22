@@ -18,9 +18,12 @@
                                 Registro de Localidad
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form enctype="multipart/form-data" method="post">
                                     <h4 class="card-title">Introducir datos del Domicilio</h4>
                                     <!--aqui va el formulario de datos del domicilio-->
+
+                                    {% include './domicilio.html'%}
+
                                     <br>
                                     <h4 class="card-title">Introducir Ubicación Geografica</h4>
                                     {% include './map.html' %}
