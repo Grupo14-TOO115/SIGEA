@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-uxb@laa$e+=vh)(0qn1s0n60ljt6y#qa-56(e1%vahq@dkkfx&
 DEBUG = True
 
 LOGIN_URL = 'login'
+USE_DJANGO_JQUERY = True
 
 ALLOWED_HOSTS = []
 
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'facturacion',
     'crispy_forms',
     'phone_field',
+    'smart_selects',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -117,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'es-es'
+LANGUAGE_CODE = 'es-sv'
 
 TIME_ZONE = 'America/El_Salvador'
 

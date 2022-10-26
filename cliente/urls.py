@@ -12,5 +12,7 @@ urlpatterns2 = [
 
 urlpatterns = [
     path('crear', crear_cliente, name='crear_cliente'),
+    path('clientes', clientes, name='clientes'),
+    path('secretario', clientes, name='secretario'),
     path('solicitud/<int:id_solicitud>/', include(urlpatterns2)),
 ]

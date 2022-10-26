@@ -5,6 +5,7 @@ from phone_field import PhoneField
 from django.contrib.auth.models import User
 from datetime import date
 from django.utils.translation import gettext_lazy as _
+from smart_selects.db_fields import ChainedForeignKey
 
 # Create your models here.
 
@@ -32,6 +33,7 @@ class Genero(models.Model):
     def __str__(self):
         return self.genero
 
+
 class tipo_Estadocivil(models.Model):
     id_tipoEstadocivil = models.AutoField(primary_key=True)
     nombre_tipoEstadocivil = models.CharField(max_length=20, null=False, blank=False)
@@ -41,6 +43,7 @@ class tipo_Estadocivil(models.Model):
 
     def __str__(self):
         return self.nombre_tipoEstadocivil
+
 
 class TipoIdentificacion(models.Model):
     id_tipoIdentificacion = models.AutoField(primary_key=True)
@@ -105,20 +108,21 @@ class situacionLaboral(models.Model):
 
 class CapacidadEconomica(models.Model):
     id_capacidadEconomica = models.AutoField(primary_key=True, verbose_name="Capacidad Economica ID")
-    salario = models.DecimalField("Salario", max_digits=8, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
-    gastosAFP = models.DecimalField("Descuento de AFP", max_digits=8, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
-    gastosISSS = models.DecimalField("Descuento de ISSS", max_digits=8, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
-    gastosPersonales = models.DecimalField("Gastos Personales", max_digits=8, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
-    prestamos = models.DecimalField("Prestamos Bancarios", max_digits=8, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
-    gastosEducacion = models.DecimalField("Gastos de Educacion", max_digits=8, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
-    otrosIngresos = models.DecimalField("Otros Ingresos",max_digits=8, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
-    total = models.DecimalField("Total Capacidad Econoomica", max_digits=8, decimal_places=2)
+    salario = models.DecimalField("Salario", max_digits=12, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
+    gastosAFP = models.DecimalField("Descuento de AFP", max_digits=12, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
+    gastosISSS = models.DecimalField("Descuento de ISSS", max_digits=12, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
+    gastosPersonales = models.DecimalField("Gastos Personales", max_digits=12, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
+    prestamos = models.DecimalField("Prestamos Bancarios", max_digits=12, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
+    gastosEducacion = models.DecimalField("Gastos de Educacion", max_digits=12, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
+    otrosIngresos = models.DecimalField("Otros Ingresos",max_digits=12, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
+    total = models.DecimalField("Total Capacidad Econoomica", max_digits=12, decimal_places=2)
     class Meta:
         db_table = 'CapacidadEconomica'
         ordering = ["id_capacidadEconomica"]
 
     def __str__(self):
         return self.id_capacidad + " - " + self.total
+
 
 class ActividadEconomica(models.Model):
     id_actividadEconomica = models.AutoField(primary_key=True, verbose_name="Actividad Economica ID")
@@ -137,6 +141,7 @@ class ActividadEconomica(models.Model):
     def __str__(self):
         return self.id_actividadEconomica + " - " + self.id_capacidadEconomica + " - " + self.id_profesion
 
+
 class Solicitud(models.Model):
     id_solicitud = models.AutoField(primary_key=True, verbose_name="Solicitud ID")
     id_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=False)
@@ -152,6 +157,7 @@ class Solicitud(models.Model):
     def __str__(self):
         return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()
 
+
 class Ubicacioneografica(models.Model):
     id_ubicacion = models.AutoField(primary_key=True, verbose_name="Ubicacion ID")
     direccion = models.CharField(max_length=50, null=False, blank=False)
@@ -165,10 +171,73 @@ class Ubicacioneografica(models.Model):
     def __str__(self):
         return self.id_ubicacion + " - " + self.direccion
 
+
+class Pais(models.Model):
+    id_pais = models.AutoField(primary_key=True, verbose_name="Pais ID")
+    codigo_pais = models.CharField(max_length=50, null=False, blank=False)
+    nombre_pais = models.CharField(max_length=50, null=False, blank=False)
+    area_pais = models.IntegerField(null=False, blank=False)
+
+    class Meta:
+        db_table = 'pais'
+        ordering = ["id_pais"]
+
+    def __str__(self):
+        return self.codigo_pais + " - " + self.nombre_pais
+
+
+class Region(models.Model):
+    id_region = models.AutoField(primary_key=True, verbose_name="Region ID")
+    nombre_region = models.CharField(max_length=50, null=False, blank=False)
+    pais = models.ForeignKey(Pais, verbose_name="Pais", on_delete=models.PROTECT, null=False, blank=False)
+
+    class Meta:
+        db_table = 'region'
+        ordering = ["id_region"]
+
+    def __str__(self):
+        return self.nombre_region
+
+
+class SubRegion(models.Model):
+    id_subRegion = models.AutoField(primary_key=True, verbose_name="Sub-Region ID")
+    nombre_subRegion = models.CharField(max_length=50, null=False, blank=False)
+    region = models.ForeignKey(Region, verbose_name="Region", on_delete=models.PROTECT, null=False, blank=False)
+
+    class Meta:
+        db_table = 'subRegion'
+        ordering = ["id_subRegion"]
+
+    def __str__(self):
+        return self.nombre_subRegion
+
+
+class EstadoDomicilio(models.Model):
+    id_estadoDomicilio = models.AutoField(primary_key=True, verbose_name="Estado domicilio ID")
+    nombre_estadoDomicilio = models.CharField(max_length=50, null=False, blank=False)
+
+    class Meta:
+        db_table = 'estadoDomicilio'
+        ordering = ["id_estadoDomicilio"]
+
+    def __str__(self):
+        return self.nombre_estadoDomicilio
+
+
 class Domicilio(models.Model):
     id_domicilio=models.AutoField(primary_key=True, verbose_name="Domicilio ID")
-    tiempo_de_inmueble=models.PositiveIntegerField(null=False, blank=False, verbose_name="Tiempo de inmueble")
-    cliente=models.OneToOneField(Cliente,on_delete=models.CASCADE,null=False, blank=False, verbose_name="Cliente")
+    tiempo_de_inmueble=models.PositiveIntegerField(null=False, blank=False, verbose_name="Tiempo en el inmueble", help_text="Ayuda: <em>Tiempo en meses</em>.")
+    estadoDomicilio = models.ForeignKey(EstadoDomicilio, verbose_name="Estado del domicilio", on_delete=models.PROTECT, null=False, blank=False, default=1)
+    pais = models.ForeignKey(Pais, verbose_name="Pais", on_delete=models.PROTECT, null=False, blank=False, default=1)
+    region = ChainedForeignKey(Region, chained_field="pais", chained_model_field='pais', auto_choose=True,
+                                 show_all=False, verbose_name="Region / Estado", on_delete=models.PROTECT, null=False,
+                                 blank=False)
+    subRegion = ChainedForeignKey(SubRegion, chained_field="region", chained_model_field='region', auto_choose=True,
+                                  show_all=False, verbose_name="Sub-Region / Ciudad", on_delete=models.PROTECT, null=False,
+                                  blank=False)
+    localidad = models.CharField("Localidad", max_length=50, null=False, blank=False,
+                                 help_text="<em>Colonia, Ubanizacion, etc.</em>.")
+    cliente=models.OneToOneField(Cliente, on_delete=models.CASCADE, null=False, blank=False)
 
     class Meta:
         db_table='domicilio'
