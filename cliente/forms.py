@@ -1,3 +1,4 @@
+from dataclasses import field
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
@@ -77,3 +78,11 @@ class DomicilioForm(forms.ModelForm):
         model= Domicilio
         fields='__all__'
         exclude = ['cliente']
+
+class DocumentoLegalForm(forms.ModelForm):
+    class Meta:
+        model = DocumentoLegal
+        fields = '__all__'
+        exclude = ['id_cliente', 'id_documento']
+
+

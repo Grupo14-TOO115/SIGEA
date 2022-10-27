@@ -1,3 +1,4 @@
+from tokenize import blank_re
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.core.exceptions import ValidationError
@@ -152,7 +153,7 @@ class Solicitud(models.Model):
     def __str__(self):
         return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()
 
-class Ubicacioneografica(models.Model):
+class UbicacionGeografica(models.Model):
     id_ubicacion = models.AutoField(primary_key=True, verbose_name="Ubicacion ID")
     direccion = models.CharField(max_length=50, null=False, blank=False)
     latitud = models.FloatField(null=False, blank=False)
@@ -176,3 +177,16 @@ class Domicilio(models.Model):
 
     def __str__(self):
         return self.tiempo_de_inmueble
+
+class DocumentoLegal(models.Model):
+    id_documento = models.AutoField(primary_key=True, verbose_name="Documento ID")
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=False)
+    nombre = models.CharField(max_length=20, null=False, blank=False)
+    imagen = models.ImageField(upload_to='fotografias/', null=False)
+    
+    class Meta:
+        db_table='documentos_legales'
+        ordering=["id_documento"]
+
+    def __str__(self):
+        return self.nombre
