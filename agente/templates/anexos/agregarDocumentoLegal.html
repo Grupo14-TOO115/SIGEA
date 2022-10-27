@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="modal" tabindex="-1" id="modal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal1Label">Agregar Documento</h1>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    {% load crispy_forms_tags %}
+                    <form enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {{ formulario|crispy }}
+                        </div>
+                        <input name="" class="btn btn-success m-2" type="submit" value="Guardar">
+                        <button type="button" class="btn btn-secondary m-2" data-dismiss="modal">Cerrar</button>
+                    </form>
+                </div>
+          </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-success" data-toggle='modal' data-target='#modal1'>Agregar</button>
+</div>

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'facturacion',
     'crispy_forms',
     'phone_field',
+    'agente'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

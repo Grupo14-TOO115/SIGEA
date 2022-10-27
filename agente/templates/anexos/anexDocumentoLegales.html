@@ -1,0 +1,48 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Documentos Legales {%endblock %}
+
+{% block contenido %}
+<br><br><br><br>
+
+{% include './agregarDocumentoLegal.html' %}
+
+<div class="container">
+    <div class="text-center">
+        <div class="row">
+            <div class="col-12">
+                <br><br>
+                <h4>Lista de Documentos Legales Agregados</h4>
+                {% if documentos%}
+                    <table class="table">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Fotografia</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for documento in documentos %}
+                            <tr>
+                                <td>{{ documento.nombre }}</td>
+                                <td>
+                                    <a href="{{ documento.imagen.url }}" target="_blank"><img src="{{ documento.imagen.url }}" height="100" width="130"/></a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'eliminar_documento_legal' documento.id_cliente.id_cliente documento.id_documento %}" class="btn btn-danger" role="button">Eliminar</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <small class="text-muted">No se ha agregado ningún documento...</small>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('webApp.urls')),
     path('cliente/', include('cliente.urls')),
     path('facturacion/', include('facturacion.urls')),
+    path('agente/', include('agente.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'autenticacion.views.error_404'

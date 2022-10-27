@@ -79,10 +79,4 @@ class DomicilioForm(forms.ModelForm):
         fields='__all__'
         exclude = ['cliente']
 
-class DocumentoLegalForm(forms.ModelForm):
-    class Meta:
-        model = DocumentoLegal
-        fields = '__all__'
-        exclude = ['id_cliente', 'id_documento']
-
 
