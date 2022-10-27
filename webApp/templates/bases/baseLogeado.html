@@ -1,0 +1,28 @@
+{% extends "bases/base.html" %}
+
+{% block js %}
+    <script>
+        function salir() {
+            Swal.fire({
+                "title": "Estas seguro de cerrar la sesion?",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, Salir",
+                "confirmButtonColor": "#dc3545"
+            })
+            .then(function(result) {
+                if(result.isConfirmed) {
+                    window.location.href = "{% url 'logout' %}"
+                }
+            })
+        }
+    </script>
+{% endblock %}
+
+{% block header %}
+    <li><a class="nav-link scrollto active" href="{% url 'home' %}">Inicio</a></li>
+    <li><a class=" nav-item nav-link active"  onclick="salir()" href="#">Salir</a></li>
+{% endblock %}
+
+

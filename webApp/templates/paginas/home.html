@@ -2,151 +2,150 @@
 
 {% block titulo %} Inicio {%endblock %}
 
-{% block nvar %}
-
-<li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
-<li><a class="nav-link scrollto" href="#services">Servicios</a></li>
-<li><a class="nav-link scrollto" href="#about">Sobre nosotros</a></li>
-<li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
-<li><a class="nav-b text-white" href="{% url 'login' %}">Log in</a></li>
-
-{%endblock %}
+{% block header %}
+                    <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+                    <li><a class="nav-link scrollto" href="#services">Servicios</a></li>
+                    <li><a class="nav-link scrollto" href="#about">Sobre nosotros</a></li>
+                    <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
+                    <li><a class="nav-link text-white" href="{% url 'login' %}">Log in</a></li>
+{% endblock %}
 
 {% block contenido %}
-
-<section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-    <div class="container text-center text-md-left">
-        <h1>Bienvenido a la cooperativa <span>ASEUES</span></h1>
-        <h2>Creando oportunidades desde 1992</h2>
-        <a href="{% url 'crear_cliente' %}" class="btn-get-started scrollto">Solicitar ser asociado</a>
-    </div>
-</section>
-
-<main id="main">
-    <section id="services" class="what-we-do">
-        <div class="container">
-
-            <div class="section-title">
-                <h2>Servicios</h2>
-                <p>Estos son algunos beneficios que ofrecemos a nuestros asociados</p>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bi bi-bar-chart"></i></div>
-                        <h4>Aportaciones</h4>
-                        <p>El asociado genera utilidades al hacer aportaciones mensuales a la cooperativa, asegurando
-                            asi una estabilidad economica</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bi bi-card-checklist"></i></div>
-                        <h4>Ahorro</h4>
-                        <p>Con una cuenta de ahorro el asociado puede ingresar y retirar dinero en cualquier momento que lo desee</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bi bi-binoculars"></i></div>
-                        <h4>Seguridad</h4>
-                        <p>Gracias a nuestra identificacion pass code se logra identificar que el usuario que desea entrar
-                        a dicha cuenta se trata del propietario</p>
-                    </div>
-                </div>
-
-            </div>
-
+    <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+        <div class="container text-center text-md-left">
+            <h1>Bienvenido a la cooperativa <span>ASEUES</span></h1>
+            <h2>Creando oportunidades desde 1992</h2>
+            <a href="{% url 'crear_cliente' %}" class="btn-get-started scrollto">Solicitar ser asociado</a>
         </div>
     </section>
 
-    <section id="about" class="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    {% load static %}
-                    <img src="{% static 'img/about.jpg' %}" class="img-fluid" alt="">
+    <main id="main">
+        <section id="services" class="what-we-do">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2>Servicios</h2>
+                    <p>Estos son algunos beneficios que ofrecemos a nuestros asociados</p>
                 </div>
-                <div class="col-lg-6 pt-4 pt-lg-0">
-                    <h3>Sobre nosotros</h3>
-                    <p>
-                        ASEUES de R.L. es la Cooperativa de mayor solidez, servicio y confianza para los profesionales
-                        salvadoreños. Cuenta con 51 años de brindar servicio a los Asociados practicando los Principios
-                        y Valores cooperativos universales.
-                    </p>
-                    <ul>
-                        <li><i class="bx bx-check-double"></i>
-                            Nuestra Cooperativa nació el 25 de septiembre de 1992 en la ciudad de San Salvador.
-                        </li>
-                        <li><i class="bx bx-check-double"></i>
-                            ASEUES de R.L. es la primera Asociación Cooperativa de Ahorro y Crédito para profesionales
-                            en El Salvador.
-                        </li>
-                    </ul>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bi bi-bar-chart"></i></div>
+                            <h4>Aportaciones</h4>
+                            <p>El asociado genera utilidades al hacer aportaciones mensuales a la cooperativa, asegurando
+                                asi una estabilidad economica</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bi bi-card-checklist"></i></div>
+                            <h4>Ahorro</h4>
+                            <p>Con una cuenta de ahorro el asociado puede ingresar y retirar dinero en cualquier momento que
+                                lo desee</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bi bi-binoculars"></i></div>
+                            <h4>Seguridad</h4>
+                            <p>Gracias a nuestra identificacion pass code se logra identificar que el usuario que desea
+                                entrar
+                                a dicha cuenta se trata del propietario</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        {% load static %}
+                        <img src="{% static 'img/about.jpg' %}" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-6 pt-4 pt-lg-0">
+                        <h3>Sobre nosotros</h3>
+                        <p>
+                            ASEUES de R.L. es la Cooperativa de mayor solidez, servicio y confianza para los profesionales
+                            salvadoreños. Cuenta con 51 años de brindar servicio a los Asociados practicando los Principios
+                            y Valores cooperativos universales.
+                        </p>
+                        <ul>
+                            <li><i class="bx bx-check-double"></i>
+                                Nuestra Cooperativa nació el 25 de septiembre de 1992 en la ciudad de San Salvador.
+                            </li>
+                            <li><i class="bx bx-check-double"></i>
+                                ASEUES de R.L. es la primera Asociación Cooperativa de Ahorro y Crédito para profesionales
+                                en El Salvador.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact" class="contact section-bg">
-        <div class="container">
+        <section id="contact" class="contact section-bg">
+            <div class="container">
 
-            <div class="section-title">
-                <h2>Contacto</h2>
-                <p>No dudes en contactarnos por los siguientes medios :)</p>
-            </div>
+                <div class="section-title">
+                    <h2>Contacto</h2>
+                    <p>No dudes en contactarnos por los siguientes medios :)</p>
+                </div>
 
-            <div class="row mt-5 justify-content-center">
-                <div class="col-lg-10">
-                    <div class="info-wrap">
-                        <div class="row">
-                            <div class="col-lg-4 info">
-                                <i class="bi bi-geo-alt"></i>
-                                <h4>Localidad</h4>
-                                <p>San salvador, San salvador<br>Ciudad universitaria.</p>
-                            </div>
+                <div class="row mt-5 justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="info-wrap">
+                            <div class="row">
+                                <div class="col-lg-4 info">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <h4>Localidad</h4>
+                                    <p>San salvador, San salvador<br>Ciudad universitaria.</p>
+                                </div>
 
-                            <div class="col-lg-4 info mt-4 mt-lg-0">
-                                <i class="bi bi-envelope"></i>
-                                <h4>Email:</h4>
-                                <p>hs19011@ues.edu.sv<br>tc19017@ues.edu.sv</p>
-                            </div>
+                                <div class="col-lg-4 info mt-4 mt-lg-0">
+                                    <i class="bi bi-envelope"></i>
+                                    <h4>Email:</h4>
+                                    <p>hs19011@ues.edu.sv<br>tc19017@ues.edu.sv</p>
+                                </div>
 
-                            <div class="col-lg-4 info mt-4 mt-lg-0">
-                                <i class="bi bi-phone"></i>
-                                <h4>Telefonos:</h4>
-                                <p>+503 2222-2222<br>+503 7777-7777</p>
+                                <div class="col-lg-4 info mt-4 mt-lg-0">
+                                    <i class="bi bi-phone"></i>
+                                    <h4>Telefonos:</h4>
+                                    <p>+503 2222-2222<br>+503 7777-7777</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
 
-<footer id="footer">
-    <div class="container d-flex py-4">
-        <div class="text-md-left text-center p-2">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Sigea</span></strong>. Derechos reservados
+    <footer id="footer">
+        <div class="container d-flex py-4">
+            <div class="text-md-left text-center p-2">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>Sigea</span></strong>. Derechos reservados
+                </div>
+            </div>
+            <div class="social-links ml-auto p-2">
+                <a href="https://twitter.com/" target="_blank" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="https://www.facebook.com/" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
             </div>
         </div>
-        <div class="social-links ml-auto p-2">
-            <a href="https://twitter.com/" target="_blank" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="https://www.facebook.com/" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="https://www.instagram.com/" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
-        </div>
-    </div>
-</footer>
+    </footer>
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
-<!-- Template Main JS File -->
-{% load static %}
-<script src="{% static 'js/main.js' %}"></script>
-{%endblock %}
+    <!-- Template Main JS File -->
+    {% load static %}
+    <script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
