@@ -1,3 +1,4 @@
+from http import client
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -99,11 +100,8 @@ def crear_estadocivil(request, id_solicitud):
     if formulario_estadocivil.is_valid():
         estadocivil = formulario_estadocivil.save()
 
-        # Recupera un objeto del tipo cliente que coincida con el id_cliente.
-        solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
-        cliente = Cliente.objects.get(id_cliente=solicitud.id_cliente.id_cliente)
-
         # Al objeto "cliente" en el atributo "id_estadocivil" se le asigna el objeto "estadocivil" recién creado.
+        cliente = getClientePorIdDeSolicitud(id_solicitud)
         cliente.id_estadocivil = estadocivil
 
         # se guarda el objeto en la DB, almacenando los atributos que faltaban
@@ -114,19 +112,21 @@ def crear_estadocivil(request, id_solicitud):
     return render(request, 'estado_civil/registrar.html', {'formulario_estadocivil': formulario_estadocivil})
 
 
-#@login_required
 def localidad(request, id_solicitud):
 
     formularioDomicilio = DomicilioForm(request.POST or None)
 
     if formularioDomicilio.is_valid():
-        solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
-        cliente = Cliente.objects.get(id_cliente=solicitud.id_cliente.id_cliente)
-
         domicilio = formularioDomicilio.save(commit=False)
-        domicilio.cliente = cliente
+        domicilio.cliente = getClientePorIdDeSolicitud(id_solicitud)
         domicilio.save()
         return redirect('estado_civil', id_solicitud)
 
     return render(request, 'localidad/localidad.html',{'formulario':formularioDomicilio})
+
+def getClientePorIdDeSolicitud(id_solicitud):
+    solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
+    cliente = Cliente.objects.get(id_cliente=solicitud.id_cliente.id_cliente)
+    return cliente
+
 
