@@ -56,9 +56,9 @@ class TipoIdentificacion(models.Model):
 class estado_civil(models.Model):
     id_estadocivil = models.AutoField(primary_key=True, verbose_name="ID Estado Civil")
     id_tipoEstadocivil = models.ForeignKey(tipo_Estadocivil, verbose_name="Estado civil", on_delete=models.PROTECT, null=False, blank=False,default=1)
-    nombres_conyugue = models.CharField(max_length=30, null=True, blank=False)
-    apellidos_conyugue = models.CharField(max_length=30, null=True, blank=False)
-    telefono = PhoneField(max_length=13, null=True, blank=False)
+    nombres_conyugue = models.CharField(max_length=30, null=True, blank=False, help_text="Ayuda: <em>Solo ingresar estos datos si está casado o comprometido.</em>.")
+    apellidos_conyugue = models.CharField(max_length=30, null=True, blank=False, help_text="Ayuda: <em>Solo ingresar estos datos si está casado o comprometido.</em>.")
+    telefono = PhoneField(max_length=13, null=True, blank=False, help_text="Ayuda: <em>Solo ingresar estos datos si está casado o comprometido.</em>.")
 
     class Meta:
         db_table = 'estado_civil'
