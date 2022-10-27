@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import PasswordResetForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import *
@@ -57,6 +57,18 @@ def entrar(request):
     formulario = AuthenticationForm()
 
     return render(request, "login/login.html", {'formulario': formulario})
+
+
+def recuperarContra(request):
+
+    if request.method == "POST":
+        formulario = PasswordResetForm(None, request.POST)
+        if formulario.is_valid():
+            formulario.save(from_email='hs19011@ues.edu.sv')
+
+    formulario = PasswordResetForm()
+
+    return render(request, "passwordReset/passwordReset.html", {'formulario': formulario})
 
 
 def error_404(request, exception):

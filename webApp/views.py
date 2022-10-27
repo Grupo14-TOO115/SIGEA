@@ -13,20 +13,21 @@ def obtnerUsuario(request):
 
 
 def home(request):
-    if obtnerUsuario(request).es_secretaria:
-        return redirect('vista_secretaria')
+    if request.user.pk:
+        if obtnerUsuario(request).es_secretaria:
+            return redirect('vista_secretaria')
 
-    if obtnerUsuario(request).es_jefatura:
-        return redirect('vista_jefatura')
+        if obtnerUsuario(request).es_jefatura:
+            return redirect('vista_jefatura')
 
-    if obtnerUsuario(request).es_cajera:
-        return redirect('vista_cajera')
+        if obtnerUsuario(request).es_cajera:
+            return redirect('vista_cajera')
 
-    if obtnerUsuario(request).es_agente:
-        return redirect('vista_agente')
+        if obtnerUsuario(request).es_agente:
+            return redirect('vista_agente')
 
-    if obtnerUsuario(request).es_asociado:
-        return redirect('vista_asociado')
+        if obtnerUsuario(request).es_asociado:
+            return redirect('vista_asociado')
 
     return render(request, 'paginas/home.html')
 
