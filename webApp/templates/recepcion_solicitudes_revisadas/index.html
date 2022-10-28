@@ -34,9 +34,8 @@
                             <td> {{solicitud.id_solicitud}}</td>
                             <td> {{solicitud.id_cliente.nombres}} {{solicitud.id_cliente.apellidos}}</td>
                             <td>
-                                 <a class="bi bi-eye-fill"  href="" class="bi bi-eye" role="button">Visualizar</a>
+                                 <a class="bi bi-eye-fill"  href="/ver_solicitud/{{solicitud.id_cliente.id_cliente}}" class="bi bi-eye" role="button">Visualizar</a>
 
-                                 <a class="btn btn-success" href="" class="bi bi-eye" role="button">Aprobar</a>
                             </td>
                         </tr>
                         {% endif %}

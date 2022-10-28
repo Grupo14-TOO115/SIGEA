@@ -8,6 +8,10 @@
     <div class="row">
         <div class="col-12">
             <br><br><br><br>
+            <div class="row">
+                <a name="" class="btn btn-dark" href="javascript:history.back()" role="button"
+                   style="width : 200px; heigth : 200px; margin: 15px">Regresar</a>
+            </div>
             <div class="card">
                 <div class="card-header">
                     Datos del cliente
@@ -37,6 +41,10 @@
                             <td> {{solicitud.id_cliente.nombres}} {{solicitud.id_cliente.apellidos}}</td>
                         </tr>
                         <tr>
+                            <td> Género</td>
+                            <td> {{solicitud.id_cliente.id_genero.genero}}</td>
+                        </tr>
+                        <tr>
                             <td> {{solicitud.id_cliente.id_tipoIdentificacion.nombreTipoIdentificacion}}</td>
                             <td> {{solicitud.id_cliente.identificacion}}</td>
                         </tr>
@@ -58,13 +66,31 @@
                                 <img src="{{solicitud.id_cliente.fotografia}}" height="100" width="100">
                             </td>
                         </tr>
+                        <tr>
+                            <td> Estado Civil</td>
+                            <td> {{solicitud.id_cliente.id_estadocivil.id_tipoEstadocivil.nombre_tipoEstadocivil}}</td>
+                        </tr>
+                        <tr>
+                            <td> Nombre del cónyugue</td>
+                            <td> {{solicitud.id_cliente.id_estadocivil.nombres_conyugue}}
+                                {{solicitud.id_cliente.id_estadocivil.apellidos_conyugue}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Teléfono del cónyugue</td>
+                            <td> {{solicitud.id_cliente.id_estadocivil.telefono}}</td>
+                        </tr>
                         </tbody>
 
                     </table>
-
+                    <div class="row" style="float: right;" >
+                        <a name="" class="btn btn-info" href="javascript:history.back()" role="button"
+                           style="width : 200px; heigth : 200px; margin: 15px">Ver documentos anexos</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 {%endblock %}
