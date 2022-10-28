@@ -13,4 +13,11 @@ urlpatterns2 = [
 urlpatterns = [
     path('crear', crear_cliente, name='crear_cliente'),
     path('solicitud/<int:id_solicitud>/', include(urlpatterns2)),
+    path('listaclientes', asociados, name='cliente_list_view'),
+
+    path('listaclientes/decicion/aprobado/<int:id_cliente>', aprobado, name='aprobado'),
+    path('listaclientes/decicion/rechazado/<int:id_cliente>', rechazado, name='rechazado'),
+
+    path('pdf/<int:id_cliente>/', render_pdf_view, name='cliente-pdf-view'),
+    path('send/mail/<int:id_cliente>', send_mail, name='send_mail')
 ]

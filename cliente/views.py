@@ -4,6 +4,11 @@ from django.contrib import messages
 from .forms import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+from .models import *
 
 
 # Create your views here.
@@ -130,3 +135,87 @@ def localidad(request, id_solicitud):
 
     return render(request, 'localidad/localidad.html',{'formulario':formularioDomicilio})
 
+# Metodo para listar los asociados
+def asociados(request):
+    asociados = Cliente.objects.filter(es_asociado=True)
+    return render(request, 'cliente/lista_clientes_asociados.html', {'asociados': asociados})
+
+
+def aprobado(request, id_cliente):
+    solicitud = Solicitud.objects.get(id_cliente=id_cliente)
+    solicitud.es_aprobado = True
+    solicitud.save()
+
+    return redirect('home')
+
+
+def rechazado(request, id_cliente):
+    solicitud = Solicitud.objects.get(id_cliente=id_cliente)
+    solicitud.es_aprobado = False
+    solicitud.delete()
+
+    return redirect('home')
+
+
+# Vista lista de clientes
+#class ClienteListView(ListView):
+    #model = Cliente
+    #template_name = "cliente/lista_clientes_asociados.html"
+    #context_object_name = "clientes"
+
+def render_pdf_view(request, id_cliente):
+    cliente = Cliente.objects.get(id_cliente = id_cliente)
+    template_path = 'cliente/Pdf_carnet.html'
+    context = {'clientes': cliente}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    # if download:
+    # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # if display:
+    response['Content-Disposition'] ='filename="Carnet Asociado.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+def create_mail(email, subject, template_path, context):
+
+    template = get_template(template_path)
+    content = template.render(context)
+
+    mail = EmailMultiAlternatives(
+        subject=subject,
+        body='',
+        from_email=settings.EMAIL_HOST_USER,
+        to=[
+            email
+        ],
+
+    )
+    mail.attach_alternative(content, 'text/html')
+    return mail
+
+def send_welcome_mail(id_cliente):
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+    mail = cliente.correo
+    welcome_mail = create_mail(
+        mail,
+        'Esto es una prueba de correo xd',
+        'cliente/welcome.html',
+        {
+            'cliente': cliente
+        }
+    )
+    welcome_mail.send(fail_silently=False)
+
+def send_mail(request,id_cliente):
+    send_welcome_mail(id_cliente)
+
+    return  redirect('home')
