@@ -1,0 +1,60 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Beneficiarios {% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br><br><br><br>
+            <div class="card">
+                <div class="card-header">
+                    <a name="" id="" class="btn btn-success" href="{% url 'crearBeneficiario' id_solicitud %}" role="button">Agregar nuevo Beneficiario</a>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        Gestionar Beneficiarios
+
+                    </h4>
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>parentesco</th>
+                            <th>Porcentaje</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Telefono</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for beneficiario in beneficiarios %}
+                        <comment solicitud.id_cliente.nombres></comment>
+                        <tr>
+                            <td> {{beneficiario.parentesco}}</td>
+                            <td> {{beneficiario.porcentaje}}</td>
+                            <td> {{beneficiario.nombres}}</td>
+                            <td> {{beneficiario.apellidos}}</td>
+                            <td> {{beneficiario.telefono}}</td>
+                            <td>
+                                <a class="btn btn-info" href="{% url 'editarBeneficiario' beneficiario.solicitud.id_solicitud beneficiario.id_beneficiario %}" role="button">Editar</a>
+                                
+                                <a class="btn btn-danger" href="{% url 'eliminarBeneficiario' beneficiario.solicitud.id_solicitud beneficiario.id_beneficiario %}" role="button">Eliminar</a>
+                            </td>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-success" role="button" href="" >Siguiente</a>
+                    <a class="btn btn-primary" role="button" href="{% url 'home' %}" >Cancelar</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock %}

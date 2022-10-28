@@ -175,4 +175,47 @@ class Domicilio(models.Model):
         ordering=["id_domicilio"]
 
     def __str__(self):
-        return self.tiempo_de_inmueble
+        return str(self.tiempo_de_inmueble)
+
+class Parentesco(models.Model):
+    id_parentesco=models.AutoField(primary_key=True, verbose_name='ID parentesco')
+    parentesco=models.CharField(max_length=30, null=False, blank=False, verbose_name='Parentesco')
+
+    class Meta:
+        db_table='parentesco'
+        ordering=["id_parentesco"]
+    
+    def __str__(self):
+        return self.parentesco
+
+class ReferenciaPersonal(models.Model):
+    id_referencia=models.AutoField(primary_key=True, verbose_name='ID referencia:')
+    solicitud=models.ForeignKey(Solicitud,on_delete=models. CASCADE, null=False, blank=False)
+    parentesco=models.ForeignKey(Parentesco,on_delete=models.CASCADE,null=False, blank=False, verbose_name='Parentesco')
+    nombres=models.CharField(max_length=30, null=False, blank=False,verbose_name='Nombres')
+    apellidos=models.CharField(max_length=30, null=False, blank=False,verbose_name='Apellidos')
+    telefono=PhoneField(max_length=13, null=False, blank=True,verbose_name='Telefono')
+
+    class Meta: 
+        db_table='referencia personal'
+        ordering=['id_referencia']
+    
+    def __str__(self): 
+        return self.parentesco.__str__()+' - '+self.nombres+' - '+self.apellidos
+
+class Beneficiario(models.Model): 
+    id_beneficiario=models.AutoField(primary_key=True)
+    solicitud=models.ForeignKey(Solicitud, on_delete=models.CASCADE, null=False, blank=False)
+    parentesco=models.ForeignKey(Parentesco, on_delete=models.CASCADE, null=False, blank=False)
+    porcentaje=models.FloatField(null=False,blank=True)
+    nombres=models.CharField(max_length=30, null=False, blank=False)
+    apellidos=models.CharField(max_length=30,null=False,blank=False)
+    telefono=PhoneField(max_length=13, null=False, blank=True,verbose_name='Telefono')
+
+    class Meta: 
+        db_table='beneficiario'
+        ordering=['id_beneficiario']
+    
+    def __str__(self):
+        return self.id_beneficiario.__str__()+' - '+self.parentesco.__str__()+' - '+str(self.porcentaje)+' - '+self.nombres+' - '+self.apellidos
+

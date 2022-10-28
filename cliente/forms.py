@@ -77,3 +77,15 @@ class DomicilioForm(forms.ModelForm):
         model= Domicilio
         fields='__all__'
         exclude = ['cliente']
+
+class ReferenciaForm(forms.ModelForm):
+    class Meta: 
+        model=ReferenciaPersonal
+        fields='__all__'
+        exclude=['id_referencia','solicitud']
+
+class BeneficiarioForm(forms.ModelForm):
+    class Meta: 
+        model=Beneficiario
+        fields='__all__'
+        exclude=['id_beneficiario','solicitud']
