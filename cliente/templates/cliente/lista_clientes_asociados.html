@@ -40,7 +40,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Clientes Asociados</h4>
 
-                    <table class="table table-bordered border-info table-striped table-borderless table-responsive">
+                    <table class="table table-responsive table-bordered border-info table-striped table-borderless ">
                         <thead>
                         <tr>
                             <th>Codigo Asociado</th>
@@ -51,6 +51,7 @@
                             <th>Fotografia</th>
                             <th>Telefono</th>
                             <th>Correo</th>
+                            <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -73,7 +74,10 @@
                                 <a class="btn btn-info" href="{% url 'cliente-pdf-view' cliente.id_cliente %}" target="_blank" role="button">Emitir Carnet</a>
                             </td>
                             <td>
-                                <a class="btn btn-success" onclick="aprobar({{cliente.id_cliente}})"  href="# ">Emitir Resolucion</a>
+                                <a class="btn btn-success" onclick="aprobar({{cliente.id_cliente}})"  href="# ">Aprobar</a>
+                            </td>
+                              <td>
+                                <a class="btn btn-dark" href="{% url 'send_mail1' cliente.id_cliente %}" role="button">Notificar al Cliente</a>
                             </td>
                         </tr>
                         {% endfor %}

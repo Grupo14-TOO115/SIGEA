@@ -135,7 +135,7 @@ def localidad(request, id_solicitud):
 
     return render(request, 'localidad/localidad.html',{'formulario':formularioDomicilio})
 
-# Metodo para listar los asociados
+# Metodo para listar los asociados ya aprobados
 def asociados(request):
     asociados = Cliente.objects.filter(es_asociado=True)
     return render(request, 'cliente/lista_clientes_asociados.html', {'asociados': asociados})
@@ -156,13 +156,7 @@ def rechazado(request, id_cliente):
 
     return redirect('home')
 
-
-# Vista lista de clientes
-#class ClienteListView(ListView):
-    #model = Cliente
-    #template_name = "cliente/lista_clientes_asociados.html"
-    #context_object_name = "clientes"
-
+# Creacion de PDF para carnet Asociado
 def render_pdf_view(request, id_cliente):
     cliente = Cliente.objects.get(id_cliente = id_cliente)
     template_path = 'cliente/Pdf_carnet.html'
@@ -185,6 +179,7 @@ def render_pdf_view(request, id_cliente):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
+# Creacion de un email, en general
 def create_mail(email, subject, template_path, context):
 
     template = get_template(template_path)
@@ -202,13 +197,14 @@ def create_mail(email, subject, template_path, context):
     mail.attach_alternative(content, 'text/html')
     return mail
 
-def send_welcome_mail(id_cliente):
+# Notificacion al correo de incongruencias en datos en la solicitud de Asociado
+def send_notificacion_mail(id_cliente):
     cliente = Cliente.objects.get(id_cliente=id_cliente)
     mail = cliente.correo
     welcome_mail = create_mail(
         mail,
-        'Esto es una prueba de correo xd',
-        'cliente/welcome.html',
+        'INFORMACION IMPORTANTE',
+        'cliente/NotificarCliente.html',
         {
             'cliente': cliente
         }
@@ -216,6 +212,45 @@ def send_welcome_mail(id_cliente):
     welcome_mail.send(fail_silently=False)
 
 def send_mail(request,id_cliente):
-    send_welcome_mail(id_cliente)
+    send_notificacion_mail(id_cliente)
+
+    return  redirect('home')
+
+
+# Envio de correo al cliente de estado de su solicitud "APROBADA"
+def send_aprobacion_mail(id_cliente):
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+    mail = cliente.correo
+    welcome_mail = create_mail(
+        mail,
+        'RESOLUCION DE SOLICITUD',
+        'cliente/SolicitudAprobada.html',
+        {
+            'cliente': cliente
+        }
+    )
+    welcome_mail.send(fail_silently=False)
+
+def send_mail1(request,id_cliente):
+    send_aprobacion_mail(id_cliente)
+
+    return  redirect('home')
+
+# Envio de correo al cliente de estado de su solicitud "RECHAZADA"
+def send_rechazo_mail(id_cliente):
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+    mail = cliente.correo
+    welcome_mail = create_mail(
+        mail,
+        'RESOLUCION DE SOLICITUD',
+        'cliente/SolicitudRechazada.html',
+        {
+            'cliente': cliente
+        }
+    )
+    welcome_mail.send(fail_silently=False)
+
+def send_mail2(request,id_cliente):
+    send_rechazo_mail(id_cliente)
 
     return  redirect('home')
