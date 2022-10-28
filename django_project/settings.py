@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'phone_field',
     'smart_selects',
+    'cajero',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

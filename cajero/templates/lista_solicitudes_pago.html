@@ -1,0 +1,49 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Solicitudes de Pago {%endblock %}
+
+{% block contenido %}
+<br><br><br><br>
+<div class="text-center">
+    <div class="row">
+        <div class="col-12">
+            {% include './buscar.html' %}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="text-center">
+        <div class="row">
+            <div class="col-12">
+                <br><br>
+                <h4>Lista de Solicitudes de Pago de Ingreso</h4>
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <!-- <th>Foto</th> -->
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Efectuar Pago</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for solicitud in solicitudes %}
+                        <tr>
+                            <td>{{ solicitud.id_cliente.identificacion }}</td>
+                           
+                            <td>{{ solicitud.id_cliente.nombres }}</td>
+                            <td>{{ solicitud.id_cliente.apellidos }}</td>
+                            <td>
+                                <a href="{% url 'confirmar_pago' solicitud.id_cliente.id_cliente %}" class="btn btn-success" role="button">Pagar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock %}
