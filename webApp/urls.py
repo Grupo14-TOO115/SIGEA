@@ -13,4 +13,4 @@ urlpatterns = [
     path('recepcion_solicitudes', views.solicitudes, name='recepcion_solicitudes'),
     path('recepcion_solicitudes_revisadas', views.solicitudes_revisadas, name='recepcion_solicitudes_revisadas'),
     path('ver_solicitud/<int:id_solicitud>/', views.solicitud, name='ver_solicitud'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

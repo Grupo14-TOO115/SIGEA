@@ -63,7 +63,9 @@
                         <tr>
                             <td> Fotografía</td>
                             <td>
-                                <img src="{{solicitud.id_cliente.fotografia}}" height="100" width="100">
+                                {% if solicitud.id_cliente.fotografia %}
+                                <img src="{{solicitud.id_cliente.fotografia.url}}" height="225" width="175">
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>

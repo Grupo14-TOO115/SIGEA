@@ -5,7 +5,7 @@
 {% block js %}
 
 <script>
-        function aprobarCliente(id) {
+        function aprobarCliente(id_solicitud) {
             Swal.fire({
                 "title": "¿Estás seguro?",
                 "text": "La solicitud se enviará a jefatura para revisión",
@@ -17,7 +17,7 @@
             })
             .then(function(result) {
                 if(result.isConfirmed) {
-                    window.location.href = "#"+id
+                    window.location.href = ""+id
                 }
             })
         }
