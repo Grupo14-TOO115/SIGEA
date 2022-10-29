@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import *
-from django.contrib.auth.models import User
+from autenticacion.views import registrarUsuario
 from django.contrib.auth.decorators import login_required
 
 
@@ -19,6 +19,10 @@ def crear_cliente(request):
 
         # se crea un objeto "solicitud"
         solicitud = Solicitud()
+
+
+        '''ESTO es una prueba'''
+        registrarUsuario(cliente.id_cliente)
 
         # se le asigna el cliente a la solicitud
         solicitud.id_cliente = cliente
@@ -53,7 +57,6 @@ def crear_capacidad_economica(request, id_solicitud):
 
         capacidadEconomica = formulario_CapacidadEconomica.save(commit=False)
         capacidadEconomica.total= capacidadEconomica.salario + capacidadEconomica.otrosIngresos - capacidadEconomica.gastosAFP - capacidadEconomica.gastosISSS - capacidadEconomica.gastosPersonales - capacidadEconomica.gastosEducacion - capacidadEconomica.prestamos
-
 
         # se le asigna una capacidad economica a la actividad economica
         actividadEconomica.id_capacidadEconomica = capacidadEconomica
@@ -114,7 +117,6 @@ def crear_estadocivil(request, id_solicitud):
     return render(request, 'estado_civil/registrar.html', {'formulario_estadocivil': formulario_estadocivil})
 
 
-#@login_required
 def localidad(request, id_solicitud):
 
     formularioDomicilio = DomicilioForm(request.POST or None)

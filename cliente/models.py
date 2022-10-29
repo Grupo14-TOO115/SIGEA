@@ -81,7 +81,7 @@ class Cliente(models.Model):
     identificacion = models.CharField("N° de identificacion", max_length=20, null=False, blank=False)
     fecha_nacimiento = models.DateField("Fecha de nacimiento",null=False, blank=False, help_text="Consejo: <em>Presione en el calendario</em>.", validators=[validar_edad])
     telefono = PhoneField(max_length=13, null=False, blank=False)
-    correo = models.EmailField(max_length=35,  null=False, blank=False)
+    correo = models.EmailField(max_length=35,  null=False, blank=False, unique=True)
     fotografia = models.ImageField(upload_to='fotografias/', null=True, blank=True)
     es_asociado = models.BooleanField("Es asociado?", null=False, default=False)
 

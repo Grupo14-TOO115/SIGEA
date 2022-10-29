@@ -1,32 +1,14 @@
 from django.shortcuts import render, redirect
-from django.views.generic import View
-from django.contrib.auth.forms import PasswordResetForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from cliente.models import Cliente
 from .forms import *
+from .models import Usuario
+from datetime import date
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.base_user import BaseUserManager
 # Create your views here.
-
-
-class VistaRegistrarse(View):
-
-    def get(self, request):
-        formulario = UserCreationFormExtended()
-        return render(request, "signup/signup.html", {'formulario': formulario})
-
-    def post(self, request):
-        formulario = UserCreationFormExtended(request.POST)
-
-        if formulario.is_valid():
-            usuario = formulario.save()
-
-            messages.success(request, "Se a registrado correctamente")
-            login(request, usuario)
-
-            return redirect('home')
-
-        messages.error(request, "No se ha registrado, revisar datos")
-
-        return render(request, 'signup/signup.html', {'formulario': formulario})
 
 
 def salir(request):
@@ -59,16 +41,56 @@ def entrar(request):
     return render(request, "login/login.html", {'formulario': formulario})
 
 
-def recuperarContra(request):
+def asignarUsername(id_solicitud):
+    usuario = User.objects.get(pk=id_solicitud)
 
-    if request.method == "POST":
-        formulario = PasswordResetForm(None, request.POST)
-        if formulario.is_valid():
-            formulario.save(from_email='hs19011@ues.edu.sv')
+    inicial_1 = usuario.first_name[:1]
+    inicial_2 = usuario.last_name[:1]
+    año = date.today().year.__str__()[2:]
+    correlativo = "-" + usuario.pk.__str__()
 
-    formulario = PasswordResetForm()
+    username = inicial_1 + inicial_2 + año + correlativo
 
-    return render(request, "passwordReset/passwordReset.html", {'formulario': formulario})
+    usuario.username = username
+
+    usuario.save()
+
+
+def registrarUsuario(id_cliente):
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+
+    if cliente:
+        # se crear un objeto usuario
+        usuario = User()
+
+        # genera una contraeña aletoria
+        password = BaseUserManager().make_random_password(6)
+        print(password) # esto deberia de mandarse por correo
+
+        # se le asignan todos los campos de cliente
+        usuario.username = 'temp'
+        usuario.password = make_password(password)
+        usuario.first_name = cliente.nombres
+        usuario.last_name = cliente.apellidos
+        usuario.email = cliente.correo
+
+        # se almacena en la BD
+        usuario.save()
+
+        # se le asigna un nombre de usuario, se la pasa el id
+        asignarUsername(usuario.pk)
+
+        # se crea un usuario del modulo autenticacion
+        rol = Usuario()
+
+        # se asigna un rol y el correspendiente usuario al que pertenece
+        rol.es_asociado = True
+        rol.user = usuario
+
+        # se almacena en la BD
+        rol.save()
+
+        #mandar correo
 
 
 def error_404(request, exception):
