@@ -17,4 +17,8 @@ urlpatterns = [
     path('agente', vista_agente, name='vista_agente'),
 
     path('asociado', vista_asociado, name='vista_asociado'),
+
+    path('recepcion_solicitudes', solicitudes, name='recepcion_solicitudes'),
+    path('recepcion_solicitudes_revisadas', solicitudes_revisadas, name='recepcion_solicitudes_revisadas'),
+    path('ver_solicitud/<int:id_solicitud>/', solicitud, name='ver_solicitud'),
 ]

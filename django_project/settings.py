@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+import os
 
 from django.conf.global_settings import EMAIL_BACKEND
 
@@ -149,6 +150,6 @@ EMAIL_USE_SSL = False
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
-MEDIA_URL = '/'
+MEDIA_URL = '/fotografias/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
