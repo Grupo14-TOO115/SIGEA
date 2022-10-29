@@ -35,7 +35,7 @@ class ClienteForm(forms.ModelForm):
 class ActEconoForm(forms.ModelForm):
     class Meta:
         model = ActividadEconomica
-        fields = ['nombreProfesion','situacionLaboral','lugarTrabajo','paisTrabajo','ciudadTrabajo','telefono', 'asociacion']
+        fields = '__all__'
 
 # FORMULARIO PARA LA CAPACIDAD ECONOMICA
 

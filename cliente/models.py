@@ -130,8 +130,10 @@ class ActividadEconomica(models.Model):
     situacionLaboral = models.ForeignKey(situacionLaboral, verbose_name="Situacion laboral actual",on_delete=models.PROTECT, null=False, default=1)
     nombreProfesion = models.CharField("Profesion u Ocupacion", max_length=50, null=False, blank=False)
     lugarTrabajo = models.CharField("Nombre de Lugar de trabajo o Negocio",max_length=50, null=True, blank=True)
-    paisTrabajo = models.CharField("Pais de Trabajo", max_length=50,null=True, blank=True)
-    ciudadTrabajo = models.CharField("Ciudad de Trabajo",max_length=50, null=True, blank=True)
+    pais = models.ForeignKey(Pais, verbose_name="Pais", on_delete=models.PROTECT, null=False, blank=False, default=1)
+    region = ChainedForeignKey(Region, chained_field="pais", chained_model_field='pais', auto_choose=True, show_all=False, verbose_name="Region / Estado", on_delete=models.PROTECT, null=False, blank=False)
+    subRegion = ChainedForeignKey(SubRegion, chained_field="region", chained_model_field='region', auto_choose=True, show_all=False, verbose_name="Sub-Region / Ciudad", on_delete=models.PROTECT, null=False, blank=False)
+    localidad = models.CharField("Localidad", max_length=50, null=False, blank=False, help_text="<em>Colonia, Ubanizacion, etc.</em>.")
     telefono = PhoneField("Telefono de lugar de trabajo",max_length=13, null=True, blank=True)
     asociacion = models.CharField("Asociaciones a la que pertenece",max_length=50, null=True, blank=True, help_text="Ayuda: <em>Puede ser asociacion economica o social</em>.")
     class Meta:

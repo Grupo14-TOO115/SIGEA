@@ -4,6 +4,11 @@ from django.contrib import messages
 from .forms import *
 from autenticacion.views import registrarUsuario
 from django.contrib.auth.decorators import login_required
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+from .models import *
 
 
 # Create your views here.
@@ -128,3 +133,122 @@ def localidad(request, id_solicitud):
 
     return render(request, 'localidad/localidad.html',{'formulario':formularioDomicilio})
 
+# Metodo para listar los asociados ya aprobados
+def asociados(request):
+    asociados = Cliente.objects.filter(es_asociado=True)
+    return render(request, 'cliente/lista_clientes_asociados.html', {'asociados': asociados})
+
+
+def aprobado(request, id_cliente):
+    solicitud = Solicitud.objects.get(id_cliente=id_cliente)
+    solicitud.es_aprobado = True
+    solicitud.save()
+
+    return redirect('home')
+
+
+def rechazado(request, id_cliente):
+    solicitud = Solicitud.objects.get(id_cliente=id_cliente)
+    solicitud.es_aprobado = False
+    solicitud.delete()
+
+    return redirect('home')
+
+# Creacion de PDF para carnet Asociado
+def render_pdf_view(request, id_cliente):
+    cliente = Cliente.objects.get(id_cliente = id_cliente)
+    template_path = 'cliente/Pdf_carnet.html'
+    context = {'clientes': cliente}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    # if download:
+    # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # if display:
+    response['Content-Disposition'] ='filename="Carnet Asociado.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+# Creacion de un email, en general
+def create_mail(email, subject, template_path, context):
+
+    template = get_template(template_path)
+    content = template.render(context)
+
+    mail = EmailMultiAlternatives(
+        subject=subject,
+        body='',
+        from_email=settings.EMAIL_HOST_USER,
+        to=[
+            email
+        ],
+
+    )
+    mail.attach_alternative(content, 'text/html')
+    return mail
+
+# Notificacion al correo de incongruencias en datos en la solicitud de Asociado
+def send_notificacion_mail(id_cliente):
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+    mail = cliente.correo
+    welcome_mail = create_mail(
+        mail,
+        'INFORMACION IMPORTANTE',
+        'cliente/NotificarCliente.html',
+        {
+            'cliente': cliente
+        }
+    )
+    welcome_mail.send(fail_silently=False)
+
+def send_mail(request,id_cliente):
+    send_notificacion_mail(id_cliente)
+
+    return  redirect('home')
+
+
+# Envio de correo al cliente de estado de su solicitud "APROBADA"
+def send_aprobacion_mail(id_cliente):
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+    mail = cliente.correo
+    welcome_mail = create_mail(
+        mail,
+        'RESOLUCION DE SOLICITUD',
+        'cliente/SolicitudAprobada.html',
+        {
+            'cliente': cliente
+        }
+    )
+    welcome_mail.send(fail_silently=False)
+
+def send_mail1(request,id_cliente):
+    send_aprobacion_mail(id_cliente)
+
+    return  redirect('home')
+
+# Envio de correo al cliente de estado de su solicitud "RECHAZADA"
+def send_rechazo_mail(id_cliente):
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+    mail = cliente.correo
+    welcome_mail = create_mail(
+        mail,
+        'RESOLUCION DE SOLICITUD',
+        'cliente/SolicitudRechazada.html',
+        {
+            'cliente': cliente
+        }
+    )
+    welcome_mail.send(fail_silently=False)
+
+def send_mail2(request,id_cliente):
+    send_rechazo_mail(id_cliente)
+
+    return  redirect('home')
