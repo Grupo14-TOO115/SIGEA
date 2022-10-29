@@ -1,32 +1,14 @@
 from django.shortcuts import render, redirect
-from django.views.generic import View
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from cliente.models import Cliente
 from .forms import *
+from .models import Usuario
+from datetime import date
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.base_user import BaseUserManager
 # Create your views here.
-
-
-class VistaRegistrarse(View):
-
-    def get(self, request):
-        formulario = UserCreationFormExtended()
-        return render(request, "signup/signup.html", {'formulario': formulario})
-
-    def post(self, request):
-        formulario = UserCreationFormExtended(request.POST)
-
-        if formulario.is_valid():
-            usuario = formulario.save()
-
-            messages.success(request, "Se a registrado correctamente")
-            login(request, usuario)
-
-            return redirect('home')
-
-        messages.error(request, "No se ha registrado, revisar datos")
-
-        return render(request, 'signup/signup.html', {'formulario': formulario})
 
 
 def salir(request):
@@ -45,7 +27,13 @@ def entrar(request):
             usuario = authenticate(username=nom_user, password=pas_user)
 
             if usuario is not None:
+                if usuario.last_login is None:
+                    login(request, usuario)
+
+                    return redirect('change_password')
+
                 login(request, usuario)
+
                 redireccion = request.GET.get('next', '/')
 
                 return redirect(redireccion)
@@ -57,6 +45,59 @@ def entrar(request):
     formulario = AuthenticationForm()
 
     return render(request, "login/login.html", {'formulario': formulario})
+
+
+def asignarUsername(id_solicitud):
+    usuario = User.objects.get(pk=id_solicitud)
+
+    inicial_1 = usuario.first_name[:1]
+    inicial_2 = usuario.last_name[:1]
+    año = date.today().year.__str__()[2:]
+    correlativo = "-" + usuario.pk.__str__()
+
+    username = inicial_1 + inicial_2 + año + correlativo
+
+    usuario.username = username
+
+    usuario.save()
+
+
+def registrarUsuario(id_cliente):
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+
+    if cliente:
+        # se crear un objeto usuario
+        usuario = User()
+
+        # genera una contraeña aletoria
+        password = BaseUserManager().make_random_password(6)
+        print(password) # esto deberia de mandarse por correo
+
+        # se le asignan todos los campos de cliente
+        usuario.username = 'temp'
+        usuario.password = make_password(password)
+        usuario.first_name = cliente.nombres
+        usuario.last_name = cliente.apellidos
+        usuario.email = cliente.correo
+
+        # se almacena en la BD
+        usuario.save()
+
+        # se le asigna un nombre de usuario, se la pasa el id
+        asignarUsername(usuario.pk)
+
+        # se crea un usuario del modulo autenticacion
+        rol = Usuario()
+
+        # se asigna un rol y el correspendiente usuario al que pertenece
+        rol.es_asociado = True
+        rol.user = usuario
+        rol.es_primeraVez = True
+
+        # se almacena en la BD
+        rol.save()
+
+        #mandar correo
 
 
 def error_404(request, exception):

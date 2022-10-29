@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 from .models import *
+from smart_selects.form_fields import ChainedModelChoiceField
 
 
 class UserCreationFormExtended(UserCreationForm):
@@ -31,14 +32,15 @@ class ClienteForm(forms.ModelForm):
         }
 
 
-
-#FORMULARIO PARA LA ACTIVIDAD ECONOMICA
+# FORMULARIO PARA LA ACTIVIDAD ECONOMICA
 class ActEconoForm(forms.ModelForm):
     class Meta:
         model = ActividadEconomica
-        fields = ['nombreProfesion','situacionLaboral','lugarTrabajo','paisTrabajo','ciudadTrabajo','telefono', 'asociacion']
+        fields = '__all__'
 
-#FORMULARIO PARA LA CAPACIDAD ECONOMICA
+# FORMULARIO PARA LA CAPACIDAD ECONOMICA
+
+
 class CapacidadEconoForm(forms.ModelForm):
 
     class Meta:
@@ -57,7 +59,6 @@ class CapacidadEconoForm(forms.ModelForm):
         }
 
 
-
 class SolicitudForm(forms.ModelForm):
     class Meta:
         model = Solicitud
@@ -73,10 +74,11 @@ class EstadocivilForm(forms.ModelForm):
 
         }
 
+
 class DomicilioForm(forms.ModelForm):
     class Meta:
-        model= Domicilio
-        fields='__all__'
+        model = Domicilio
+        fields = '__all__'
         exclude = ['cliente']
 
 
