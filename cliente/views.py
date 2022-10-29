@@ -150,6 +150,11 @@ def aprobado(request, id_cliente):
 def rechazado(request, id_cliente):
     solicitud = Solicitud.objects.get(id_cliente=id_cliente)
     solicitud.es_aprobado = False
+
+    # primero envia el correo
+    send_mail2(request, id_cliente)
+
+    #luego se borra
     solicitud.delete()
 
     return redirect('home')
@@ -251,4 +256,4 @@ def send_rechazo_mail(id_cliente):
 def send_mail2(request,id_cliente):
     send_rechazo_mail(id_cliente)
 
-    return  redirect('home')
+    # return  redirect('home')

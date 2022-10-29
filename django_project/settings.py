@@ -150,6 +150,6 @@ EMAIL_USE_SSL = False
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
-MEDIA_URL = '/fotografias/'
+MEDIA_URL = '/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

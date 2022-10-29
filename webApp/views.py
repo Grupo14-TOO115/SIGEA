@@ -3,6 +3,7 @@ from cliente.models import *
 from autenticacion.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from cliente.views import aprobado
 
 # Create your views here.
 
@@ -88,7 +89,7 @@ def solicitudes(request):
 
 
 def solicitudes_revisadas(request):
-    solicitudes = Solicitud.objects.all()
+    solicitudes = Solicitud.objects.filter(es_revisado=True)
     return render(request, 'recepcion_solicitudes_revisadas/index.html', {'solicitudes': solicitudes})
 
 
