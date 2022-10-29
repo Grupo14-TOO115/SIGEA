@@ -24,7 +24,9 @@ def confirmar_pago(request, id_cliente):
     cliente = Cliente.objects.get(id_cliente = id_cliente)
     cliente.es_asociado = True
     cliente.save()
-    
+
+
+
     solicitudPagada = SolicitudPago.objects.get(id_cliente = cliente)
     solicitudPagada.pagado = True
     solicitudPagada.save()
