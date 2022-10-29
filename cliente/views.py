@@ -20,10 +20,6 @@ def crear_cliente(request):
         # se crea un objeto "solicitud"
         solicitud = Solicitud()
 
-
-        '''ESTO es una prueba'''
-        registrarUsuario(cliente.id_cliente)
-
         # se le asigna el cliente a la solicitud
         solicitud.id_cliente = cliente
 

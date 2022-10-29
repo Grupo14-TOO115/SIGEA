@@ -10,6 +10,8 @@ urlpatterns = [
     path('login/', entrar, name='login'),
     path('', entrar, name='login2'),
 
+    path('change-password/', auth_views.PasswordChangeView.as_view(template_name='recuperar/change-password.html', success_url='/'), name='change_password'),
+
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='recuperar/password_reset_form.html', email_template_name='recuperar/password_reset_email.html',), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='recuperar/password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='recuperar/password_reset_confirm.html'), name='password_reset_confirm'),

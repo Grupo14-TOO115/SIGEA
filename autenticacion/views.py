@@ -27,7 +27,13 @@ def entrar(request):
             usuario = authenticate(username=nom_user, password=pas_user)
 
             if usuario is not None:
+                if usuario.last_login is None:
+                    login(request, usuario)
+
+                    return redirect('change_password')
+
                 login(request, usuario)
+
                 redireccion = request.GET.get('next', '/')
 
                 return redirect(redireccion)
@@ -86,6 +92,7 @@ def registrarUsuario(id_cliente):
         # se asigna un rol y el correspendiente usuario al que pertenece
         rol.es_asociado = True
         rol.user = usuario
+        rol.es_primeraVez = True
 
         # se almacena en la BD
         rol.save()
