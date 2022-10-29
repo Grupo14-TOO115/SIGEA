@@ -198,19 +198,14 @@ class ActividadEconomica(models.Model):
     def __str__(self):
         return self.id_actividadEconomica + " - " + self.id_capacidadEconomica + " - " + self.id_profesion
 
-    class Meta:
-        db_table = 'solicitud'
-        ordering = ["id_solicitud"]
-
-    def __str__(self):
-        return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()
 
 class UbicacionGeografica(models.Model):
     id_ubicacion = models.AutoField(primary_key=True, verbose_name="Ubicacion ID")
     direccion = models.CharField(max_length=50, null=False, blank=False)
     latitud = models.FloatField(null=False, blank=False)
     longitud = models.FloatField(null=False, blank=False)
-    
+
+
 class EstadoDomicilio(models.Model):
     id_estadoDomicilio = models.AutoField(primary_key=True, verbose_name="Estado domicilio ID")
     nombre_estadoDomicilio = models.CharField(max_length=50, null=False, blank=False)

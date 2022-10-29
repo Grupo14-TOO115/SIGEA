@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'facturacion',
     'crispy_forms',
     'phone_field',
-    'agente'
+    'agente',
     'smart_selects',
 ]
 
