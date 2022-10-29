@@ -247,3 +247,4 @@ INSERT INTO pais (id_pais, codigo_pais, nombre_pais, area_pais) VALUES
 (245, 'ZM', 'Zambia', 260),
 (246, 'ZW', 'Zimbabwe', 263);
 
+pais

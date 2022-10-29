@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from cliente.views import aprobado
 
+
 # Create your views here.
 
 
@@ -79,17 +80,30 @@ def vista_asociado(request):
     return render(request, 'paginas/asociado.html')
 
 
+def revisado(request, id_solicitud):
+    solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
+    solicitud.es_revisado = True
+    solicitud.save()
+
+    return redirect('home')
+
+
 def documentos_anexos(request):
     return render(request, 'consultar_documentos_anexos/consultar.html')
 
 
-def solicitudes(request):
-    solicitudes = Solicitud.objects.all()
+def solicitudes(request):  # Este es para secretaría
+    solicitudes = Solicitud.objects.filter(es_revisado=False)
     return render(request, 'recepcion_solicitudes/index.html', {'solicitudes': solicitudes})
 
 
-def solicitudes_revisadas(request):
-    solicitudes = Solicitud.objects.filter(es_revisado=True)
+def solicitudes_espera(request):  # Este es para secretaría
+    solicitudes = Solicitud.objects.filter(es_revisado=True).filter(es_validado=False)
+    return render(request, 'solicitudes_espera/index.html', {'solicitudes': solicitudes})
+
+
+def solicitudes_revisadas(request):  # Este es para jefatura
+    solicitudes = Solicitud.objects.filter(es_validado=True)
     return render(request, 'recepcion_solicitudes_revisadas/index.html', {'solicitudes': solicitudes})
 
 

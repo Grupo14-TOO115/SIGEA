@@ -1,5 +1,3 @@
-
-
 INSERT INTO subregion (id_subRegion, nombre_subRegion, region_id) VALUES
 (1, 'Bombuflat', 1),
 (2, 'Garacharma', 1),

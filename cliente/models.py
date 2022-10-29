@@ -249,6 +249,7 @@ class Solicitud(models.Model):
     fecha_resolocion = models.DateField(null=False, default="1000-01-01")
     es_aprobado = models.BooleanField("Es aprobado?", null=False, default=False)
     es_revisado = models.BooleanField("Es revisado?", null=False, default=False)
+    es_validado = models.BooleanField("Es validado?", null=False, default=False)
 
     class Meta:
         db_table = 'solicitud'

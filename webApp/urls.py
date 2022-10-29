@@ -1,4 +1,6 @@
 from django.urls import path
+
+import cliente.views
 from .views import *
 
 # enlaces para mostrar las vistas (URLS)
@@ -19,6 +21,9 @@ urlpatterns = [
     path('asociado', vista_asociado, name='vista_asociado'),
 
     path('recepcion_solicitudes', solicitudes, name='recepcion_solicitudes'),
+    path('solicitudes_espera', solicitudes_espera, name='solicitudes_espera'),
     path('recepcion_solicitudes_revisadas', solicitudes_revisadas, name='recepcion_solicitudes_revisadas'),
-    path('ver_solicitud/<int:id_solicitud>', solicitud, name='ver_solicitud'),
+    path('ver_solicitud/<int:id_solicitud>/', solicitud, name='ver_solicitud'),
+    path('send/noticificacion/<int:id_cliente>', cliente.views.send_mail, name='send_mail'),
+    # Para envio de email de notificacion de solicitud erronea en datos.
 ]
