@@ -2,6 +2,26 @@
 
 {% block titulo %} Solicitudes de Pago {%endblock %}
 
+{% block js %}
+    <script>
+        function pagar(id_cliente) {
+            id_cliente = parseInt(id_cliente)
+            console.log(id_cliente)
+            Swal.fire({
+                "title": "Pago Realizado con Exito",
+                "icon": "success",
+                "confirmButtonText": "OK",
+                "confirmButtonColor": "##008000"
+            })
+            .then(function(result) {
+                if(result.isConfirmed) {
+                    window.location.href = "{% url 'solicitudes_de_pago' %}/" + id_cliente
+                }
+            })
+        }
+    </script>
+{% endblock %}
+
 {% block contenido %}
 <br><br><br><br>
 <div class="text-center">
@@ -22,10 +42,9 @@
                     <thead class="table-dark">
                         <tr>
                             <th>ID</th>
-                            <!-- <th>Foto</th> -->
                             <th>Nombres</th>
                             <th>Apellidos</th>
-                            <th>Efectuar Pago</th>
+                            <th>Accion de Pago</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,7 +55,7 @@
                             <td>{{ solicitud.id_cliente.nombres }}</td>
                             <td>{{ solicitud.id_cliente.apellidos }}</td>
                             <td>
-                                <a href="{% url 'confirmar_pago' solicitud.id_cliente.id_cliente %}" class="btn btn-success" role="button">Pagar</a>
+                                <a href="#" class="btn btn-success" role="button" onclick="pagar({{ solicitud.id_cliente.id_cliente }})">Pagar</a>
                             </td>
                         </tr>
                         {% endfor %}
