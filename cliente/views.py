@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import *
-from autenticacion.views import registrarUsuario
 from django.contrib.auth.decorators import login_required
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -257,3 +256,18 @@ def send_mail2(request,id_cliente):
     send_rechazo_mail(id_cliente)
 
     # return  redirect('home')
+
+def send_usuario_mail(id_cliente, username, password):
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+    mail = cliente.correo
+    welcome_mail = create_mail(
+        mail,
+        'CREDENCIALES DE USUARIO',
+        'cliente/EnvioCredenciales.html',
+        {
+            'cliente': cliente,
+            'username': username,
+            'contraseña': password,
+        }
+    )
+    welcome_mail.send(fail_silently=False)
