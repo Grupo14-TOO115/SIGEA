@@ -156,9 +156,9 @@ def rechazado(request, id_cliente):
 
 # Creacion de PDF para carnet Asociado
 def render_pdf_view(request, id_cliente):
-    cliente = Cliente.objects.get(id_cliente = id_cliente)
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
     template_path = 'cliente/Pdf_carnet.html'
-    context = {'clientes': cliente}
+    context = {'clientes': cliente, 'fecha_expedicion': date.today()}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     # if download:

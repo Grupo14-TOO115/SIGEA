@@ -124,42 +124,6 @@ class CapacidadEconomica(models.Model):
         return self.id_capacidad + " - " + self.total
 
 
-class ActividadEconomica(models.Model):
-    id_actividadEconomica = models.AutoField(primary_key=True, verbose_name="Actividad Economica ID")
-    id_capacidadEconomica = models.ForeignKey(CapacidadEconomica, verbose_name="Capacidad Economica",on_delete=models.PROTECT,null= True)
-    situacionLaboral = models.ForeignKey(situacionLaboral, verbose_name="Situacion laboral actual",on_delete=models.PROTECT, null=False, default=1)
-    nombreProfesion = models.CharField("Profesion u Ocupacion", max_length=50, null=False, blank=False)
-    lugarTrabajo = models.CharField("Nombre de Lugar de trabajo o Negocio",max_length=50, null=True, blank=True)
-    pais = models.ForeignKey(Pais, verbose_name="Pais", on_delete=models.PROTECT, null=False, blank=False, default=1)
-    region = ChainedForeignKey(Region, chained_field="pais", chained_model_field='pais', auto_choose=True, show_all=False, verbose_name="Region / Estado", on_delete=models.PROTECT, null=False, blank=False)
-    subRegion = ChainedForeignKey(SubRegion, chained_field="region", chained_model_field='region', auto_choose=True, show_all=False, verbose_name="Sub-Region / Ciudad", on_delete=models.PROTECT, null=False, blank=False)
-    localidad = models.CharField("Localidad", max_length=50, null=False, blank=False, help_text="<em>Colonia, Ubanizacion, etc.</em>.")
-    telefono = PhoneField("Telefono de lugar de trabajo",max_length=13, null=True, blank=True)
-    asociacion = models.CharField("Asociaciones a la que pertenece",max_length=50, null=True, blank=True, help_text="Ayuda: <em>Puede ser asociacion economica o social</em>.")
-    class Meta:
-        db_table = 'ActividadEconomica'
-
-
-    def __str__(self):
-        return self.id_actividadEconomica + " - " + self.id_capacidadEconomica + " - " + self.id_profesion
-
-
-class Solicitud(models.Model):
-    id_solicitud = models.AutoField(primary_key=True, verbose_name="Solicitud ID")
-    id_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=False)
-    id_actividadEconomica = models.ForeignKey(ActividadEconomica, on_delete=models.PROTECT, null= True)
-    fecha_solicitud = models.DateField(auto_now_add=True)
-    fecha_resolocion = models.DateField(null=False, default="1000-01-01")
-    es_aprobado = models.BooleanField("Es aprobado?", null=False, default=False)
-
-    class Meta:
-        db_table = 'solicitud'
-        ordering = ["id_solicitud"]
-
-    def __str__(self):
-        return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()
-
-
 class Ubicacioneografica(models.Model):
     id_ubicacion = models.AutoField(primary_key=True, verbose_name="Ubicacion ID")
     direccion = models.CharField(max_length=50, null=False, blank=False)
@@ -214,6 +178,26 @@ class SubRegion(models.Model):
         return self.nombre_subRegion
 
 
+class ActividadEconomica(models.Model):
+    id_actividadEconomica = models.AutoField(primary_key=True, verbose_name="Actividad Economica ID")
+    id_capacidadEconomica = models.ForeignKey(CapacidadEconomica, verbose_name="Capacidad Economica",on_delete=models.PROTECT,null= True)
+    situacionLaboral = models.ForeignKey(situacionLaboral, verbose_name="Situacion laboral actual",on_delete=models.PROTECT, null=False, default=1)
+    nombreProfesion = models.CharField("Profesion u Ocupacion", max_length=50, null=False, blank=False)
+    lugarTrabajo = models.CharField("Nombre de Lugar de trabajo o Negocio",max_length=50, null=True, blank=True)
+    pais = models.ForeignKey(Pais, verbose_name="Pais", on_delete=models.PROTECT, null=False, blank=False, default=1)
+    region = ChainedForeignKey(Region, chained_field="pais", chained_model_field='pais', auto_choose=True, show_all=False, verbose_name="Region / Estado", on_delete=models.PROTECT, null=False, blank=False)
+    subRegion = ChainedForeignKey(SubRegion, chained_field="region", chained_model_field='region', auto_choose=True, show_all=False, verbose_name="Sub-Region / Ciudad", on_delete=models.PROTECT, null=False, blank=False)
+    localidad = models.CharField("Localidad", max_length=50, null=False, blank=False, help_text="<em>Colonia, Ubanizacion, etc.</em>.")
+    telefono = PhoneField("Telefono de lugar de trabajo",max_length=13, null=True, blank=True)
+    asociacion = models.CharField("Asociaciones a la que pertenece",max_length=50, null=True, blank=True, help_text="Ayuda: <em>Puede ser asociacion economica o social</em>.")
+
+    class Meta:
+        db_table = 'ActividadEconomica'
+
+    def __str__(self):
+        return self.id_actividadEconomica + " - " + self.id_capacidadEconomica + " - " + self.id_profesion
+
+
 class EstadoDomicilio(models.Model):
     id_estadoDomicilio = models.AutoField(primary_key=True, verbose_name="Estado domicilio ID")
     nombre_estadoDomicilio = models.CharField(max_length=50, null=False, blank=False)
@@ -247,3 +231,20 @@ class Domicilio(models.Model):
 
     def __str__(self):
         return self.tiempo_de_inmueble
+
+
+class Solicitud(models.Model):
+    id_solicitud = models.AutoField(primary_key=True, verbose_name="Solicitud ID")
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=False)
+    id_actividadEconomica = models.ForeignKey(ActividadEconomica, on_delete=models.PROTECT, null= True)
+    fecha_solicitud = models.DateField(auto_now_add=True)
+    fecha_resolocion = models.DateField(null=False, default="1000-01-01")
+    es_aprobado = models.BooleanField("Es aprobado?", null=False, default=False)
+    es_revisado = models.BooleanField("Es revisado?", null=False, default=False)
+
+    class Meta:
+        db_table = 'solicitud'
+        ordering = ["id_solicitud"]
+
+    def __str__(self):
+        return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()

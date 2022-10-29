@@ -150,11 +150,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '')
 MEDIA_URL = '/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'aseuesderl2022@gmail.com'
-EMAIL_HOST_PASSWORD= 'hmrlrfznxvafauar'
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
