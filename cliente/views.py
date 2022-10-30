@@ -138,27 +138,6 @@ def asociados(request):
     asociados = Cliente.objects.filter(es_asociado=True)
     return render(request, 'cliente/lista_clientes_asociados.html', {'asociados': asociados})
 
-
-def aprobado(request, id_cliente):
-    solicitud = Solicitud.objects.get(id_cliente=id_cliente)
-    solicitud.es_aprobado = True
-    solicitud.save()
-
-    return redirect('home')
-
-
-def rechazado(request, id_cliente):
-    solicitud = Solicitud.objects.get(id_cliente=id_cliente)
-    solicitud.es_aprobado = False
-
-    # primero envia el correo
-    send_mail2(request, id_cliente)
-
-    #luego se borra
-    solicitud.delete()
-
-    return redirect('home')
-
 # Creacion de PDF para carnet Asociado
 def render_pdf_view(request, id_cliente):
     cliente = Cliente.objects.get(id_cliente=id_cliente)
@@ -214,10 +193,9 @@ def send_notificacion_mail(id_cliente):
     )
     welcome_mail.send(fail_silently=False)
 
-def send_mail(request,id_cliente):
+def send_mail(id_cliente):
     send_notificacion_mail(id_cliente)
-
-    return  redirect('home')
+    #return  redirect('recepcion_solicitudes')
 
 
 # Envio de correo al cliente de estado de su solicitud "APROBADA"
@@ -234,10 +212,10 @@ def send_aprobacion_mail(id_cliente):
     )
     welcome_mail.send(fail_silently=False)
 
-def send_mail1(request,id_cliente):
+def send_mail1(id_cliente):
     send_aprobacion_mail(id_cliente)
 
-    return  redirect('home')
+    #return  redirect('home')
 
 # Envio de correo al cliente de estado de su solicitud "RECHAZADA"
 def send_rechazo_mail(id_cliente):
@@ -253,7 +231,7 @@ def send_rechazo_mail(id_cliente):
     )
     welcome_mail.send(fail_silently=False)
 
-def send_mail2(request,id_cliente):
+def send_mail2(id_cliente):
     send_rechazo_mail(id_cliente)
 
     # return  redirect('home')

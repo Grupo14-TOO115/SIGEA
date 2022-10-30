@@ -5,7 +5,7 @@
 {% block js %}
 
 <script>
-        function revisarSolicitud(id_solicitud) {
+        function validar1Solicitud(id_solicitud) {
             Swal.fire({
                 "title": "¿Estás seguro?",
                 "text": "La solicitud se enviará a jefatura para emitir resolución",
@@ -13,11 +13,12 @@
                 "showCancelButton": true,
                 "cancelButtonText": "No, Cancelar",
                 "confirmButtonText": "Si, Enviar",
-                "confirmButtonColor": "#dc3545"
+                "confirmButtonColor": "#00008B",
+                "cancelButtonColor": "#696969"
             })
             .then(function(result) {
                 if(result.isConfirmed) {
-                    window.location.href = ""+id
+                    window.location.href = "solicitud-Validada/"+id_solicitud
                 }
             })
         }
@@ -41,10 +42,10 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>Fecha de solicitud</th>
                             <th>No. de solicitud</th>
+                            <th>Fecha de solicitud</th>
                             <th>Cliente solicitante</th>
-                            <th>Acción</th>
+                            <th>Acciones</th>
                         </tr>
                         </thead>
 
@@ -52,13 +53,13 @@
                         {% for solicitud in solicitudes %}
                         <comment solicitud.id_cliente.nombres></comment>
                         <tr>
+                            <td align="center"> {{solicitud.id_solicitud}}</td>
                             <td> {{solicitud.fecha_solicitud}}</td>
-                            <td> {{solicitud.id_solicitud}}</td>
                             <td> {{solicitud.id_cliente.nombres}} {{solicitud.id_cliente.apellidos}}</td>
                             <td>
                                  <a class="btn btn-info"  href="/ver_solicitud/{{solicitud.id_solicitud}}" role="button">Visualizar</a>
 
-                                 <a style="margin-left: 15px;" href="#" onclick="revisarSolicitud({{ solicitud.id_solicitud }})" class="btn btn-success" role="button">Enviar a jefatura</a>
+                                 <a style="margin-left: 15px;" href="#" onclick="validar1Solicitud({{ solicitud.id_solicitud }})" class="btn btn-success" role="button">Enviar a jefatura</a>
                             </td>
                         </tr>
                         {% endfor %}
