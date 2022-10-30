@@ -1,0 +1,57 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Documentos Legales {%endblock %}
+
+{% block contenido %}
+<style>
+#photo_anexo{
+    height: 200px;
+    width: 200px;
+    background-image: image();
+    text-align: center;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 5px 5px 10px black;
+    cursor: pointer;
+}
+
+#photo_anexo {
+  cursor: pointer;
+}
+
+#id_fotografia, label{
+    opacity: 0;
+}
+
+#photo_anexo{
+    opacity: 100%;
+}
+</style>
+
+<br><br><br><br>
+{% load crispy_forms_tags %}
+<div class="text-center">
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <div class="column m-4">
+            <label for="id_fotografia" id="photo_anexo" class="btn btn-outline-dark">
+                <div class="text-center">
+                    <h5>Subir Fotografia</h5>
+                    <p style="font-size: 80px;">
+                        <span>
+                            <i class="bi bi-upload"></i>
+                        </span>
+                    </p>
+                </div>
+            </label>
+            <br>
+            {{ form|crispy }}
+        </div>
+        <div class="colum">
+            <button type="submit" class="btn btn-success btn-lg">Guardar</button> 
+        </div>
+    </form>
+</div>
+{% endblock %}

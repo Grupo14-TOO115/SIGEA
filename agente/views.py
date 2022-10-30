@@ -24,3 +24,15 @@ def eliminarDocumentoLegal(request, id_cliente, id_documento):
 def listarDocumentosLegalesAgregados(cliente):
     documentos = DocumentoLegal.objects.filter(id_cliente=cliente)
     return documentos
+
+def anexarFoto(request, id_cliente):
+    formulario = AnexoImagen(request.POST or None, request.FILES or None)
+
+    if formulario.is_valid():
+        clienteConfoto = formulario.save(commit=False)
+        cliente = Cliente.objects.get(id_cliente=id_cliente)
+        cliente.fotografia = clienteConfoto.fotografia
+        cliente.save()
+        return redirect('home')
+
+    return render(request, 'anexos/fotoAsociado.html', {'form': formulario})
