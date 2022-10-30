@@ -68,13 +68,9 @@
                                 {% endif %}
                             </td>
                         </tr>
-
-                        <!-- Información sobre el estado civil -->
                         <tr>
                             <td> Estado Civil</td>
-                            <td>
-                                {{solicitud.id_cliente.id_estadocivil.id_tipoEstadocivil.nombre_tipoEstadocivil}}
-                            </td>
+                            <td> {{solicitud.id_cliente.id_estadocivil.id_tipoEstadocivil.nombre_tipoEstadocivil}}</td>
                         </tr>
                         <tr>
                             <td> Nombre del cónyugue</td>
@@ -86,12 +82,10 @@
                             <td> Teléfono del cónyugue</td>
                             <td> {{solicitud.id_cliente.id_estadocivil.telefono}}</td>
                         </tr>
-
-
                         </tbody>
 
                     </table>
-                    <div class="row" style="float: right;">
+                    <div class="row" style="float: right;" >
                         <a name="" class="btn btn-info" href="javascript:history.back()" role="button"
                            style="width : 200px; heigth : 200px; margin: 15px">Ver documentos anexos</a>
                     </div>
