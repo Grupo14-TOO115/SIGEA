@@ -8,3 +8,8 @@ class DocumentoLegalForm(forms.ModelForm):
         model = DocumentoLegal
         fields = '__all__'
         exclude = ['id_cliente', 'id_documento']
+
+class AnexoImagen(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = ['fotografia']
