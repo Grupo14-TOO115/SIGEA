@@ -240,6 +240,26 @@ class Domicilio(models.Model):
     def __str__(self):
         return str(self.tiempo_de_inmueble)
 
+
+class Solicitud(models.Model):
+    id_solicitud = models.AutoField(primary_key=True, verbose_name="Solicitud ID")
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=False)
+    id_actividadEconomica = models.ForeignKey(ActividadEconomica, on_delete=models.PROTECT, null= True)
+    fecha_solicitud = models.DateField(auto_now_add=True)
+    fecha_resolocion = models.DateField(null=False, default="1000-01-01")
+    es_aprobado = models.BooleanField("Es aprobado?", null=False, default=False)
+    es_revisado = models.BooleanField("Es revisado?", null=False, default=False)
+    es_validado = models.BooleanField("Es validado?", null=False, default=False)
+
+    class Meta:
+        db_table = 'solicitud'
+        ordering = ["id_solicitud"]
+
+    def __str__(self):
+        return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()
+
+
+
 class Parentesco(models.Model):
     id_parentesco=models.AutoField(primary_key=True, verbose_name='ID parentesco')
     parentesco=models.CharField(max_length=30, null=False, blank=False, verbose_name='Parentesco')
@@ -254,7 +274,7 @@ class Parentesco(models.Model):
 class ReferenciaPersonal(models.Model):
     id_referencia=models.AutoField(primary_key=True, verbose_name='ID referencia:')
     solicitud=models.ForeignKey(Solicitud,on_delete=models. CASCADE, null=False, blank=False)
-    parentesco=models.ForeignKey(Parentesco,on_delete=models.CASCADE,null=False, blank=False, verbose_name='Parentesco')
+    parentesco=models.ForeignKey(Parentesco,on_delete=models.CASCADE,null=False, blank=False, verbose_name='Parentesco', default=1)
     nombres=models.CharField(max_length=30, null=False, blank=False,verbose_name='Nombres')
     apellidos=models.CharField(max_length=30, null=False, blank=False,verbose_name='Apellidos')
     telefono=PhoneField(max_length=13, null=False, blank=True,verbose_name='Telefono')
@@ -298,18 +318,3 @@ class Anexo(models.Model):
     def __str__(self):
         return self.id_anexo.__str__()+' - '+self.solicitud.id_solicitud.__str__()
 
-class Solicitud(models.Model):
-    id_solicitud = models.AutoField(primary_key=True, verbose_name="Solicitud ID")
-    id_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=False)
-    id_actividadEconomica = models.ForeignKey(ActividadEconomica, on_delete=models.PROTECT, null= True)
-    fecha_solicitud = models.DateField(auto_now_add=True)
-    fecha_resolocion = models.DateField(null=False, default="1000-01-01")
-    es_aprobado = models.BooleanField("Es aprobado?", null=False, default=False)
-    es_revisado = models.BooleanField("Es revisado?", null=False, default=False)
-
-    class Meta:
-        db_table = 'solicitud'
-        ordering = ["id_solicitud"]
-
-    def __str__(self):
-        return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()

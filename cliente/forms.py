@@ -36,7 +36,7 @@ class ActEconoForm(forms.ModelForm):
     class Meta:
         model = ActividadEconomica
         fields = '__all__'
-
+        exclude = ['id_capacidadEconomica',]
 
 # FORMULARIO PARA LA CAPACIDAD ECONOMICA
 class CapacidadEconoForm(forms.ModelForm):

@@ -23,7 +23,8 @@ urlpatterns = [
     path('autenticacion/', include('autenticacion.urls')),
     path('', include('webApp.urls')),
     path('cliente/', include('cliente.urls')),
-    path('facturacion/', include('facturacion.urls')),
+    path('jefatura/', include('jefatura.urls')),
+    path('secretaria/', include('secretaria.urls')),
     path('agente/', include('agente.urls')),
     path('chaining/', include('smart_selects.urls')),
     path('cajero/', include('cajero.urls'))

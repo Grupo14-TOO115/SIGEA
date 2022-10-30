@@ -3,6 +3,7 @@
 <form enctype="multipart/form-data" method="post">
     {% csrf_token %}
     <div class="mb-3">
+            {{ formulario_ActividadEconomica.media.js }}
             {{ formulario_ActividadEconomica|crispy }}
     </div>
 

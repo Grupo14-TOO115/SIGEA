@@ -64,8 +64,7 @@ def crear_capacidad_economica(request, id_solicitud):
         capacidadEconomica.save()
         actividadEconomica.save()
 
-        messages.success(request, "Se guardo con exito")
-        # return redirect('falta alexander', id_solicitud)
+        # messages.success(request, "Se guardo con exito")
         return redirect('gestionarReferencias',id_solicitud)
 
     # si el formulario no es valido renderiza la pagina, envia a la pagina el request y el formulario
@@ -338,5 +337,6 @@ def GuardarAnexo(request, id_solicitud):
         anexo=formulario.save(commit=False)
         anexo.solicitud=solicitud
         anexo.save()
+        messages.success(request, "Se guardo con exito")
         return redirect('home')
     return render(request,'anexo/crear.html',{'formulario':formulario})
