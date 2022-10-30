@@ -93,3 +93,10 @@ class BeneficiarioForm(forms.ModelForm):
         model = Beneficiario
         fields = '__all__'
         exclude = ['id_beneficiario','solicitud']
+
+
+class AnexoForm(forms.ModelForm):
+    class Meta:
+        model=Anexo
+        fields='__all__'
+        exclude=['id_anexo','solicitud']

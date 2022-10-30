@@ -20,6 +20,8 @@ urlpatterns2 = [
     path('gestionarBeneficiarios/editar', EditarBeneficiario, name='editarBeneficiario'),
     path('gestionarBeneficiarios/editar/<int:id_beneficiario>', EditarBeneficiario, name='editarBeneficiario'),
     path('gestionarBeneficiarios/eliminar/<int:id_beneficiario>', EliminarBeneficiario, name='eliminarBeneficiario'),
+
+    path('guardarAnexos',GuardarAnexo,name='guardarAnexos')
 ]
 
 urlpatterns = [

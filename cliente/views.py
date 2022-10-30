@@ -329,3 +329,14 @@ def send_usuario_mail(id_cliente, username, password):
         }
     )
     welcome_mail.send(fail_silently=False)
+
+
+def GuardarAnexo(request, id_solicitud):
+    formulario=AnexoForm(request.POST or None,request.FILES or None)
+    if formulario.is_valid():
+        solicitud=Solicitud.objects.get(id_solicitud=id_solicitud)
+        anexo=formulario.save(commit=False)
+        anexo.solicitud=solicitud
+        anexo.save()
+        return redirect('home')
+    return render(request,'anexo/crear.html',{'formulario':formulario})
