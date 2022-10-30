@@ -22,8 +22,13 @@ urlpatterns = [
 
     path('recepcion_solicitudes', solicitudes, name='recepcion_solicitudes'),
     path('solicitudes_espera', solicitudes_espera, name='solicitudes_espera'),
-    path('recepcion_solicitudes_revisadas', solicitudes_revisadas, name='recepcion_solicitudes_revisadas'),
-    path('ver_solicitud/<int:id_solicitud>/', solicitud, name='ver_solicitud'),
-    path('send/noticificacion/<int:id_cliente>', cliente.views.send_mail, name='send_mail'),
-    # Para envio de email de notificacion de solicitud erronea en datos.
+    path('recepcion_solicitudes_validadas', solicitudes_validadas, name='recepcion_solicitudes_validadas'),
+
+    path('ver_solicitud/<int:id_solicitud>', solicitud, name='ver_solicitud'),
+
+    path('solicitud-revisada/<int:id_solicitud>', revisado, name='solicitud-revisada'),
+    path('solicitud-validada/<int:id_solicitud>', validado, name='solicitud-validada'),
+    path('solicitud-Validada/<int:id_solicitud>', validado2, name='solicitud-Validada'),
+    path('solicitud-aprobada/<int:id_solicitud>', aprobado, name='solicitud-validada'),
+    path('solicitud-rechazada/<int:id_solicitud>', rechazado, name='solicitud-rechazada'),
 ]

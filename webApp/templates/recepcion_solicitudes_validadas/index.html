@@ -1,24 +1,42 @@
 {% extends "bases/base.html" %}
 
-{% block titulo %} Recepción de solicitudes {%endblock %}
+{% block titulo %} Recepción de solicitudes revisadas {%endblock %}
 
 {% block js %}
 
 <script>
-        function validarSolicitud(id_solicitud) {
+        function aprobarSolicitud(id_solicitud) {
             Swal.fire({
                 "title": "¿Estás seguro?",
-                "text": "La solicitud se enviará a jefatura para emitir resolución",
+                "text": "La solicitud se aprobará de forma permanente",
                 "icon": "question",
                 "showCancelButton": true,
                 "cancelButtonText": "No, Cancelar",
-                "confirmButtonText": "Si, Enviar",
+                "confirmButtonText": "Si, Aprobar",
                 "confirmButtonColor": "#00008B",
                 "cancelButtonColor": "#696969"
             })
             .then(function(result) {
                 if(result.isConfirmed) {
-                    window.location.href = "solicitud-validada/"+id_solicitud
+                    window.location.href = "solicitud-aprobada/"+id_solicitud
+                }
+            })
+        }
+
+        function rechazarSolicitud(id_solicitud) {
+            Swal.fire({
+                "title": "¿Estás seguro?",
+                "text": "La solicitud se rechazará de forma permanente",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, Rechazar",
+                "confirmButtonColor": "#8B0000",
+                "cancelButtonColor": "#696969"
+            })
+            .then(function(result) {
+                if(result.isConfirmed) {
+                    window.location.href = "solicitud-rechazada/"+id_solicitud
                 }
             })
         }
@@ -36,10 +54,10 @@
             <br><br><br><br>
             <div class="card">
                 <div class="card-header">
-                    Solicitudes por Revisar y Validar
+                    Solicitudes Revisadas y Validadas
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Lista de solicitudes</h4>
+                    <h4 class="card-title">Lista de Solicitudes para Resolución</h4>
 
                     <table class="table table-hover">
                         <thead>
@@ -59,14 +77,9 @@
                             <td> {{solicitud.fecha_solicitud}}</td>
                             <td> {{solicitud.id_cliente.nombres}} {{solicitud.id_cliente.apellidos}}</td>
                             <td>
-                                <a class="btn btn-info" href="/ver_solicitud/{{solicitud.id_solicitud}}" role="button">Visualizar</a>
-
-                                <a style="margin-left: 15px;" href="#"
-                                   onclick="validarSolicitud({{ solicitud.id_solicitud }})" class="btn btn-success"
-                                   role="button">Enviar a jefatura</a>
-
-                                <a class="btn btn-dark" style="margin-left: 15px;" href="{% url 'solicitud-revisada' solicitud.id_solicitud %}" role="button">Notificar al Cliente</a>
-
+                                <a class="bi bi-eye-fill"  href="/ver_solicitud/{{solicitud.id_solicitud}}" class="bi bi-eye" role="button">Visualizar</a>
+                                <a style="margin-left: 15px;" href="#" onclick="aprobarSolicitud({{ solicitud.id_solicitud }})" class="btn btn-success" role="button">Aprobar Solicitud</a>
+                                <a style="margin-left: 15px;" href="#" onclick="rechazarSolicitud({{ solicitud.id_solicitud }})" class="btn btn-danger" role="button">Rechazar Solicitud</a>
                             </td>
                         </tr>
                         {% endfor %}
