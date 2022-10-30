@@ -149,8 +149,8 @@ class Solicitud(models.Model):
         db_table = 'solicitud'
         ordering = ["id_solicitud"]
 
-    def __str__(self):
-        return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()
+    # def __str__(self):
+    #     return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()
 
 class Ubicacioneografica(models.Model):
     id_ubicacion = models.AutoField(primary_key=True, verbose_name="Ubicacion ID")
@@ -219,3 +219,18 @@ class Beneficiario(models.Model):
     def __str__(self):
         return self.id_beneficiario.__str__()+' - '+self.parentesco.__str__()+' - '+str(self.porcentaje)+' - '+self.nombres+' - '+self.apellidos
 
+class Anexo(models.Model):
+    id_anexo=models.AutoField(primary_key=True)
+    solicitud=models.ForeignKey(Solicitud, on_delete=models.CASCADE, null=False, blank=False)
+    dui=models.ImageField(upload_to='fotografias/',verbose_name="DUI",null=False,blank=False)
+    nit=models.ImageField(upload_to='fotografias/',verbose_name="NIT",null=False,blank=False)
+    pasaporte=models.ImageField(upload_to='fotografias/',verbose_name="Pasaporte",null=False,blank=False)
+    isss=models.ImageField(upload_to='fotografias/',verbose_name="Tarjeta ISSS",null=False,blank=False)
+    iva=models.ImageField(upload_to='fotografias/',verbose_name="Tarjeta IVA",null=False,blank=False)
+
+    class Meta:
+        db_table='anexo'
+        ordering=['id_anexo']
+    
+    def __str__(self):
+        return self.id_anexo.__str__()+' - '+self.solicitud.id_solicitud.__str__()
