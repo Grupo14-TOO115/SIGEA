@@ -63,8 +63,9 @@
                         <tr>
                             <td> Fotografía</td>
                             <td>
+
                                 {% if solicitud.id_cliente.fotografia %}
-                                <img src="{{solicitud.id_cliente.fotografia.url}}" height="225" width="175">
+                                <a href="{{solicitud.id_cliente.fotografia.url}}" target="_blank"><img src="{{solicitud.id_cliente.fotografia.url}}" height="225" width="175"/></a>
                                 {% endif %}
                             </td>
                         </tr>
@@ -92,7 +93,7 @@
 
                     </table>
                     <div class="row" style="float: right;">
-                        <a name="" class="btn btn-info" href="javascript:history.back()" role="button"
+                        <a name="" class="btn btn-info" href="/consultar_documentos_anexos/{{solicitud.id_solicitud}}" role="button"
                            style="width : 200px; heigth : 200px; margin: 15px">Ver documentos anexos</a>
                     </div>
                 </div>

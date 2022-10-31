@@ -10,7 +10,6 @@ urlpatterns = [
     path('', home, name='home'),
 
     path('secretaria', vista_secretaria, name='vista_secretaria'),
-    path('secretaria/documentos_anexos', documentos_anexos, name='documentos_anexos'),
 
     path('jefatura', vista_jefatura, name='vista_jefatura'),
 
@@ -23,8 +22,8 @@ urlpatterns = [
     path('recepcion_solicitudes', solicitudes, name='recepcion_solicitudes'),
     path('solicitudes_espera', solicitudes_espera, name='solicitudes_espera'),
     path('recepcion_solicitudes_validadas', solicitudes_validadas, name='recepcion_solicitudes_validadas'),
-
-    path('ver_solicitud/<int:id_solicitud>/', solicitud, name='ver_solicitud'),
+    path('ver_solicitud/<int:id_solicitud>', solicitud, name='ver_solicitud'),
+    path('consultar_documentos_anexos/<int:id_solicitud>', anexo, name='consultar_documentos_anexos'),
 
     path('solicitud-revisada/<int:id_solicitud>', revisado, name='solicitud-revisada'),
     path('solicitud-validada/<int:id_solicitud>', validado, name='solicitud-validada'),

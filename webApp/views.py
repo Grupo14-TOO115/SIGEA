@@ -93,6 +93,7 @@ def revisado(request, id_solicitud):
     messages.success(request, "Se envió notificación al cliente mediante correo.")
     return redirect('recepcion_solicitudes')
 
+
 # SOLICITUD REVISADA Y VALIDADA
 def validado(request, id_solicitud):
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
@@ -103,6 +104,7 @@ def validado(request, id_solicitud):
     messages.success(request, "La solicitud fue enviada a Jefatura exitosamente ")
 
     return redirect('recepcion_solicitudes')
+
 
 # SOLICITUD REVISADA Y VALIDADA
 def validado2(request, id_solicitud):
@@ -115,7 +117,8 @@ def validado2(request, id_solicitud):
 
     return redirect('solicitudes_espera')
 
-#SOLICITUD APROBADA POR JEFATURA
+
+# SOLICITUD APROBADA POR JEFATURA
 def aprobado(request, id_solicitud):
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     solicitud.es_revisado = True
@@ -128,7 +131,8 @@ def aprobado(request, id_solicitud):
 
     return redirect('recepcion_solicitudes_validadas')
 
-#SOLICITUD RECHAZADA POR JEFATURA
+
+# SOLICITUD RECHAZADA POR JEFATURA
 def rechazado(request, id_solicitud):
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     solicitud.es_aprobado = False
@@ -141,9 +145,6 @@ def rechazado(request, id_solicitud):
 
     return redirect('recepcion_solicitudes_validadas')
 
-def documentos_anexos(request):
-    return render(request, 'consultar_documentos_anexos/consultar.html')
-
 
 def solicitudes(request):  # Este es para secretaría
     solicitudes = Solicitud.objects.filter(Q(es_revisado=False) & Q(es_validado=False) & Q(es_aprobado=False))
@@ -154,6 +155,7 @@ def solicitudes_espera(request):  # Este es para secretaría, solicitudes notifi
     solicitudes = Solicitud.objects.filter(Q(es_revisado=True) & Q(es_validado=False) & Q(es_aprobado=False))
     return render(request, 'solicitudes_espera/index.html', {'solicitudes': solicitudes})
 
+
 def solicitudes_validadas(request):  # Este es para jefatura
     solicitudes = Solicitud.objects.filter(Q(es_validado=True) & Q(es_revisado=True) & Q(es_aprobado=False))
     return render(request, 'recepcion_solicitudes_validadas/index.html', {'solicitudes': solicitudes})
@@ -162,3 +164,8 @@ def solicitudes_validadas(request):  # Este es para jefatura
 def solicitud(request, id_solicitud):
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     return render(request, 'ver_solicitud/index.html', {'solicitud': solicitud})
+
+
+def anexo(request, id_solicitud):
+    anexo = Solicitud.objects.get(id_solicitud=id_solicitud)
+    return render(request, 'consultar_documentos_anexos/index.html', {'anexo': anexo})
