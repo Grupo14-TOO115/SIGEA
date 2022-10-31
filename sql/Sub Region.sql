@@ -47922,7 +47922,7 @@ INSERT INTO subregion (id_subRegion, nombre_subRegion, region_id) VALUES
 (48353,'Vijes',805),
 (48354,'Yotoco',805),
 (48355,'Yumbo',805),
-(48356,'Zarzal',805)
+(48356,'Zarzal',805),
 (48357, 'San Salvador', 1086),
 (48358, 'San Martin', 1086),
 (48359, 'Soyapango', 1086);

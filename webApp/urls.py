@@ -24,7 +24,7 @@ urlpatterns = [
     path('solicitudes_espera', solicitudes_espera, name='solicitudes_espera'),
     path('recepcion_solicitudes_validadas', solicitudes_validadas, name='recepcion_solicitudes_validadas'),
 
-    path('ver_solicitud/<int:id_solicitud>', solicitud, name='ver_solicitud'),
+    path('ver_solicitud/<int:id_solicitud>/', solicitud, name='ver_solicitud'),
 
     path('solicitud-revisada/<int:id_solicitud>', revisado, name='solicitud-revisada'),
     path('solicitud-validada/<int:id_solicitud>', validado, name='solicitud-validada'),
