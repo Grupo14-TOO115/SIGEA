@@ -1,4 +1,3 @@
-from dataclasses import field
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
@@ -37,10 +36,9 @@ class ActEconoForm(forms.ModelForm):
     class Meta:
         model = ActividadEconomica
         fields = '__all__'
+        exclude = ['id_capacidadEconomica',]
 
 # FORMULARIO PARA LA CAPACIDAD ECONOMICA
-
-
 class CapacidadEconoForm(forms.ModelForm):
 
     class Meta:
@@ -57,6 +55,7 @@ class CapacidadEconoForm(forms.ModelForm):
             'otrosIngresos': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00', "type": "number"}),
 
         }
+
 
 
 class SolicitudForm(forms.ModelForm):
@@ -82,3 +81,22 @@ class DomicilioForm(forms.ModelForm):
         exclude = ['cliente']
 
 
+class ReferenciaForm(forms.ModelForm):
+    class Meta:
+        model = ReferenciaPersonal
+        fields = '__all__'
+        exclude = ['id_referencia','solicitud']
+
+
+class BeneficiarioForm(forms.ModelForm):
+    class Meta:
+        model = Beneficiario
+        fields = '__all__'
+        exclude = ['id_beneficiario','solicitud']
+
+
+class AnexoForm(forms.ModelForm):
+    class Meta:
+        model=Anexo
+        fields='__all__'
+        exclude=['id_anexo','solicitud']

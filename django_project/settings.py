@@ -44,10 +44,11 @@ INSTALLED_APPS = [
     'cliente',
     'autenticacion',
     'webApp',
-    'facturacion',
     'crispy_forms',
     'phone_field',
     'agente',
+    'jefatura',
+    'secretaria',
     'smart_selects',
     'cajero',
 ]

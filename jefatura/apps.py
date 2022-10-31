@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class FacturacionConfig(AppConfig):
+class JefaturaConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'facturacion'
+    name = 'jefatura'

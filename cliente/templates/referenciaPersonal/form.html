@@ -1,0 +1,13 @@
+{% load crispy_forms_tags %}
+
+<form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+            {{ formulario|crispy }}
+    </div>
+
+    <input name="" class="btn btn-success" type="submit" value="Guardar">
+
+    <a name="" class="btn btn-primary" href="{% url 'gestionarReferencias' id_solicitud %}" role="button">Cancelar</a>
+
+</form>

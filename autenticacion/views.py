@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from cliente.models import Cliente
+from cliente.views import send_usuario_mail
 from .forms import *
 from .models import Usuario
 from datetime import date
@@ -57,9 +58,7 @@ def asignarUsername(id_solicitud):
 
     username = inicial_1 + inicial_2 + año + correlativo
 
-    usuario.username = username
-
-    usuario.save()
+    return username
 
 
 def registrarUsuario(id_cliente):
@@ -84,20 +83,23 @@ def registrarUsuario(id_cliente):
         usuario.save()
 
         # se le asigna un nombre de usuario, se la pasa el id
-        asignarUsername(usuario.pk)
+        usuario.username = asignarUsername(usuario.pk)
+
+        usuario.save()
 
         # se crea un usuario del modulo autenticacion
         rol = Usuario()
 
         # se asigna un rol y el correspendiente usuario al que pertenece
-        rol.es_asociado = True
+        rol.es_asociado = cliente.es_asociado
         rol.user = usuario
         rol.es_primeraVez = True
 
         # se almacena en la BD
         rol.save()
 
-        #mandar correo
+        # mandar correo
+        send_usuario_mail(cliente.id_cliente, usuario.username, password)
 
 
 def error_404(request, exception):
