@@ -4,7 +4,7 @@ from autenticacion.models import *
 from agente.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from cliente.views import send_mail, send_mail1, send_mail2
+from cliente.views import send_notificacion_mail, send_aprobacion_mail, send_rechazo_mail
 from django.db.models import Q
 from django.views.generic import TemplateView
 
@@ -90,7 +90,7 @@ def revisado(request, id_solicitud):
     solicitud.es_validado = False
     solicitud.es_aprobado = False
     id_cliente = solicitud.id_cliente.id_cliente
-    send_mail(id_cliente)
+    send_notificacion_mail(id_cliente)
     solicitud.save()
     messages.success(request, "Se envió notificación al cliente mediante correo.")
     return redirect('recepcion_solicitudes')
@@ -127,10 +127,9 @@ def aprobado(request, id_solicitud):
     solicitud.es_validado = True
     solicitud.es_aprobado = True
     id_cliente = solicitud.id_cliente.id_cliente
-    send_mail1(id_cliente)
+    send_aprobacion_mail(id_cliente)
     solicitud.save()
     messages.success(request, "La solicitud fue aprobada. Se notificó por correo al cliente.")
-
     return redirect('recepcion_solicitudes_validadas')
 
 
@@ -140,11 +139,10 @@ def rechazado(request, id_solicitud):
     solicitud.es_aprobado = False
     # primero envia el correo
     id_cliente = solicitud.id_cliente.id_cliente
-    send_mail2(id_cliente)
+    send_rechazo_mail(id_cliente)
     # luego se borra
     solicitud.delete()
     messages.success(request, "La solicitud fue rechazada. Se notificó por correo al cliente.")
-
     return redirect('recepcion_solicitudes_validadas')
 
 

@@ -23,6 +23,23 @@
             })
         }
 
+        function enviarCorreo(id_solicitud) {
+            Swal.fire({
+                "title": "¿Estás seguro?",
+                "text": "Se enviará un correo, al cliente, en el que notifique incongruencias en los datos en la solicitud presentada. Desea enviarlo? ",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "No, Cancelar",
+                "confirmButtonText": "Si, Enviar",
+                "confirmButtonColor": "#00008B",
+                "cancelButtonColor": "#696969"
+            })
+            .then(function(result) {
+                if(result.isConfirmed) {
+                    window.location.href = "solicitud-revisada/"+id_solicitud
+                }
+            })
+        }
 
 
 </script>
@@ -65,7 +82,8 @@
                                    onclick="validarSolicitud({{ solicitud.id_solicitud }})" class="btn btn-success"
                                    role="button">Enviar a jefatura</a>
 
-                                <a class="btn btn-dark" style="margin-left: 15px;" href="{% url 'solicitud-revisada' solicitud.id_solicitud %}" role="button">Notificar al Cliente</a>
+                                <a class="btn btn-dark" style="margin-left: 15px;" href="#"
+                                   onclick="enviarCorreo({{ solicitud.id_solicitud }})" role="button">Notificar al Cliente</a>
 
                             </td>
                         </tr>

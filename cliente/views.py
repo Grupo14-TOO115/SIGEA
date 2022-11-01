@@ -189,28 +189,6 @@ def getClientePorIdDeSolicitud(id_solicitud):
     cliente = Cliente.objects.get(id_cliente=solicitud.id_cliente.id_cliente)
     return cliente
 
-
-def aprobado(request, id_cliente):
-    solicitud = Solicitud.objects.get(id_cliente=id_cliente)
-    solicitud.es_aprobado = True
-    solicitud.save()
-
-    return redirect('home')
-
-
-def rechazado(request, id_cliente):
-    solicitud = Solicitud.objects.get(id_cliente=id_cliente)
-    solicitud.es_aprobado = False
-
-    # primero envia el correo
-    send_mail2(request, id_cliente)
-
-    #luego se borra
-    solicitud.delete()
-
-    return redirect('home')
-
-
 # Creacion de un email, en general
 def create_mail(email, subject, template_path, context):
 
@@ -243,11 +221,6 @@ def send_notificacion_mail(id_cliente):
     )
     welcome_mail.send(fail_silently=False)
 
-def send_mail(id_cliente):
-    send_notificacion_mail(id_cliente)
-    #return  redirect('recepcion_solicitudes')
-
-
 # Envio de correo al cliente de estado de su solicitud "APROBADA"
 def send_aprobacion_mail(id_cliente):
     cliente = Cliente.objects.get(id_cliente=id_cliente)
@@ -262,11 +235,6 @@ def send_aprobacion_mail(id_cliente):
     )
     welcome_mail.send(fail_silently=False)
 
-def send_mail1(id_cliente):
-    send_aprobacion_mail(id_cliente)
-
-    #return  redirect('home')
-
 # Envio de correo al cliente de estado de su solicitud "RECHAZADA"
 def send_rechazo_mail(id_cliente):
     cliente = Cliente.objects.get(id_cliente=id_cliente)
@@ -280,11 +248,6 @@ def send_rechazo_mail(id_cliente):
         }
     )
     welcome_mail.send(fail_silently=False)
-
-def send_mail2(id_cliente):
-    send_rechazo_mail(id_cliente)
-
-    # return  redirect('home')
 
 def send_usuario_mail(id_cliente, username, password):
     cliente = Cliente.objects.get(id_cliente=id_cliente)
