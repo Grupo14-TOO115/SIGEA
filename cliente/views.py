@@ -189,11 +189,6 @@ def getClientePorIdDeSolicitud(id_solicitud):
     cliente = Cliente.objects.get(id_cliente=solicitud.id_cliente.id_cliente)
     return cliente
 
-# Metodo para listar los asociados ya aprobados
-def asociados(request):
-    asociados = Cliente.objects.filter(es_asociado=True)
-    return render(request, 'cliente/lista_clientes_asociados.html', {'asociados': asociados})
-
 
 def aprobado(request, id_cliente):
     solicitud = Solicitud.objects.get(id_cliente=id_cliente)
@@ -215,28 +210,6 @@ def rechazado(request, id_cliente):
 
     return redirect('home')
 
-# Creacion de PDF para carnet Asociado
-def render_pdf_view(request, id_cliente):
-    cliente = Cliente.objects.get(id_cliente=id_cliente)
-    template_path = 'cliente/Pdf_carnet.html'
-    context = {'clientes': cliente, 'fecha_expedicion': date.today()}
-    # Create a Django response object, and specify content_type as pdf
-    response = HttpResponse(content_type='application/pdf')
-    # if download:
-    # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-    # if display:
-    response['Content-Disposition'] ='filename="Carnet Asociado.pdf"'
-    # find the template and render it.
-    template = get_template(template_path)
-    html = template.render(context)
-
-    # create a pdf
-    pisa_status = pisa.CreatePDF(
-       html, dest=response)
-    # if error then show some funny view
-    if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    return response
 
 # Creacion de un email, en general
 def create_mail(email, subject, template_path, context):
