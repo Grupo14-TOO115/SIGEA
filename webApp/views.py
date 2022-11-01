@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from cliente.models import *
 from autenticacion.models import *
+from agente.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from cliente.views import send_mail, send_mail1, send_mail2
 from django.db.models import Q
+from django.views.generic import TemplateView
 
 
 # Create your views here.
@@ -146,11 +148,6 @@ def rechazado(request, id_solicitud):
     return redirect('recepcion_solicitudes_validadas')
 
 
-def solicitudes(request):  # Este es para secretaría
-    solicitudes = Solicitud.objects.filter(Q(es_revisado=False) & Q(es_validado=False) & Q(es_aprobado=False))
-    return render(request, 'recepcion_solicitudes/index.html', {'solicitudes': solicitudes})
-
-
 def solicitudes_espera(request):  # Este es para secretaría, solicitudes notificadas para correciones
     solicitudes = Solicitud.objects.filter(Q(es_revisado=True) & Q(es_validado=False) & Q(es_aprobado=False))
     return render(request, 'solicitudes_espera/index.html', {'solicitudes': solicitudes})
@@ -161,11 +158,34 @@ def solicitudes_validadas(request):  # Este es para jefatura
     return render(request, 'recepcion_solicitudes_validadas/index.html', {'solicitudes': solicitudes})
 
 
+def solicitudes(request):  # Este es para secretaría
+    solicitudes = Solicitud.objects.filter(Q(es_revisado=False) & Q(es_validado=False) & Q(es_aprobado=False))
+    return render(request, 'recepcion_solicitudes/index.html', {'solicitudes': solicitudes})
+
+
 def solicitud(request, id_solicitud):
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
-    return render(request, 'ver_solicitud/index.html', {'solicitud': solicitud})
+    domicilio = Domicilio.objects.get(cliente=solicitud.id_cliente.id_cliente)
+    beneficiario = Beneficiario.objects.filter(solicitud=id_solicitud)
+    return render(request, 'ver_solicitud/index.html',
+                  {'solicitud': solicitud, 'domicilio': domicilio, 'beneficiario': beneficiario})
+
+
+def beneficiarios(request, id_solicitud):  # Este es para secretaría
+    beneficiarios = Beneficiario.objects.filter(solicitud=id_solicitud)
+    return render(request, 'ver_solicitud/ver_beneficiarios.html', {'beneficiarios': beneficiarios})
+
+
+def referencia(request, id_solicitud):  # Este es para secretaría
+    referencia = ReferenciaPersonal.objects.filter(solicitud=id_solicitud)
+    return render(request, 'ver_solicitud/referencia_personal.html', {'referencia': referencia})
 
 
 def anexo(request, id_solicitud):
     anexo = Solicitud.objects.get(id_solicitud=id_solicitud)
     return render(request, 'consultar_documentos_anexos/index.html', {'anexo': anexo})
+
+
+def documentoslegales(request, id_cliente):
+    documentoslegales = DocumentoLegal.objects.filter(id_cliente=id_cliente)
+    return render(request, 'ver_solicitud/documentos_legales.html', {'documentoslegales': documentoslegales})

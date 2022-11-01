@@ -65,12 +65,42 @@
                             <td>
 
                                 {% if solicitud.id_cliente.fotografia %}
-                                <a href="{{solicitud.id_cliente.fotografia.url}}" target="_blank"><img src="{{solicitud.id_cliente.fotografia.url}}" height="225" width="175"/></a>
+                                <a href="{{solicitud.id_cliente.fotografia.url}}" target="_blank"><img
+                                        src="{{solicitud.id_cliente.fotografia.url}}" height="225" width="175"/></a>
                                 {% endif %}
                             </td>
                         </tr>
 
+                        <!-- Información sobre domicilio-->
+
+
+                        <tr>
+                            <td style="text-align: center;" colspan="4"><strong>Domicilio</strong></td>
+                        </tr>
+                        <tr>
+                            <td> Dirección</td>
+                            <td>
+                                {{domicilio.localidad}}, {{domicilio.subRegion}}, {{domicilio.region}},
+                                {{domicilio.pais}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Tiempo de inmueble</td>
+                            <td>
+                                {{domicilio.tiempo_de_inmueble}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Estado de domicilio</td>
+                            <td>
+                                {{domicilio.estadoDomicilio.nombre_estadoDomicilio}}
+                            </td>
+                        </tr>
+
                         <!-- Información sobre el estado civil -->
+                        <tr>
+                            <td style="text-align: center;" colspan="4"><strong>Estado Civil</strong></td>
+                        </tr>
                         <tr>
                             <td> Estado Civil</td>
                             <td>
@@ -88,12 +118,131 @@
                             <td> {{solicitud.id_cliente.id_estadocivil.telefono}}</td>
                         </tr>
 
+                        <!-- Información sobre actividad económica -->
+                        <tr>
+                            <td style="text-align: center;" colspan="4"><strong>Actividad económica</strong></td>
+                        </tr>
+                        <tr>
+                            <td> Profesión</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.nombreProfesion}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Lugar del trabajo</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.lugarTrabajo}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Localidad</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.localidad}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Teléfono</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.telefono}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Asociación</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.asociacion}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Situación Laboral</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.situacionLaboral.nombre_situacionLaboral}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Dirección</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.subRegion.nombre_subRegion}},
+                                {{solicitud.id_actividadEconomica.region.nombre_region}},
+                                {{solicitud.id_actividadEconomica.pais.nombre_pais}}
+                            </td>
+                        </tr>
+
+                        <!-- Información sobre capacidad económica -->
+                        <tr>
+                            <td style="text-align: center;" colspan="4"><strong>Capacidad económica (USD)</strong></td>
+                        </tr>
+                        <tr>
+                            <td> Salario</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.salario}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Gastos de AFP</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosAFP}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Gastos de ISSS</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosISSS}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Gastos Personales</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosPersonales}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Préstamos</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.prestamos}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Gastos de Educación</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosEducacion}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Otros ingresos</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.otrosIngresos}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Total</td>
+                            <td>
+                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.total}}
+                            </td>
+                        </tr>
+
 
                         </tbody>
 
                     </table>
+                    <div class="row" style="float: right; margin-left: 15px;">
+                        <a name="" class="btn btn-info"
+                           href="/ver_solicitud/ver_beneficiarios/{{solicitud.id_solicitud}}"
+                           role="button"
+                           style="width : 200px; heigth : 200px; margin: 15px">Ver <br> beneficiarios</a>
+                    </div>
+                    <div class="row" style="float: right; margin-left: 15px;">
+                        <a name="" class="btn btn-info" href="/ver_solicitud/referencia_personal/{{solicitud.id_solicitud}}"
+                           role="button"
+                           style="width : 200px; heigth : 200px; margin: 15px">Ver referencia personal</a>
+                    </div>
+                    <div class="row" style="float: right; margin-left: 15px;">
+                        <a name="" class="btn btn-info" href="/ver_solicitud/documentos_legales/{{solicitud.id_cliente.id_cliente}}"
+                           role="button"
+                           style="width : 200px; heigth : 200px; margin: 15px">Ver documentos legales</a>
+                    </div>
                     <div class="row" style="float: right;">
-                        <a name="" class="btn btn-info" href="/consultar_documentos_anexos/{{solicitud.id_solicitud}}" role="button"
+                        <a name="" class="btn btn-info" href="/consultar_documentos_anexos/{{solicitud.id_solicitud}}"
+                           role="button"
                            style="width : 200px; heigth : 200px; margin: 15px">Ver documentos anexos</a>
                     </div>
                 </div>

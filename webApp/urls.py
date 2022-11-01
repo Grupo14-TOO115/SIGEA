@@ -24,6 +24,9 @@ urlpatterns = [
     path('recepcion_solicitudes_validadas', solicitudes_validadas, name='recepcion_solicitudes_validadas'),
     path('ver_solicitud/<int:id_solicitud>', solicitud, name='ver_solicitud'),
     path('consultar_documentos_anexos/<int:id_solicitud>', anexo, name='consultar_documentos_anexos'),
+    path('ver_solicitud/ver_beneficiarios/<int:id_solicitud>', beneficiarios, name='ver_beneficiarios'),
+    path('ver_solicitud/referencia_personal/<int:id_solicitud>', referencia, name='referencia_personal'),
+    path('ver_solicitud/documentos_legales/<int:id_cliente>', documentoslegales, name='documentos_legales'),
 
     path('solicitud-revisada/<int:id_solicitud>', revisado, name='solicitud-revisada'),
     path('solicitud-validada/<int:id_solicitud>', validado, name='solicitud-validada'),

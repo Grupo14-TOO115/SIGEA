@@ -1,0 +1,54 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Ver beneficiarios {%endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br><br><br><br>
+
+            <div class="row">
+                <a name="" class="btn btn-dark" href="javascript:history.back()" role="button"
+                   style="width : 200px; heigth : 200px; margin: 15px">Regresar</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Beneficiarios
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Lista de beneficiarios</h4>
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Porcentaje</th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Parentesco</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for beneficiarios in beneficiarios %}
+                        <tr>
+                            <td style="text-align: center;" colspan="4"><strong>Beneficiario №
+                                {{beneficiarios.id_beneficiario}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td> {{beneficiarios.porcentaje}}%</td>
+                            <td> {{beneficiarios.nombres}} {{beneficiarios.apellidos}}</td>
+                            <td> {{beneficiarios.telefono}}</td>
+                            <td> {{beneficiarios.parentesco.parentesco}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock %}

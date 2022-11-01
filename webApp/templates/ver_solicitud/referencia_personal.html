@@ -1,0 +1,52 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Ver referencia personal {%endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br><br><br><br>
+
+            <div class="row">
+                <a name="" class="btn btn-dark" href="javascript:history.back()" role="button"
+                   style="width : 200px; heigth : 200px; margin: 15px">Regresar</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Referencia Personal
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Referencia Personal</h4>
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Parentesco</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for referencia in referencia %}
+                        <tr>
+                            <td style="text-align: center;" colspan="3"><strong>Referencia №
+                                {{referencia.id_referencia}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td> {{referencia.nombres}} {{referencia.apellidos}}</td>
+                            <td> {{referencia.telefono}}</td>
+                            <td> {{referencia.parentesco.parentesco}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock %}
