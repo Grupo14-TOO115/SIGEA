@@ -15,8 +15,6 @@ urlpatterns = [
 
     path('cajera', vista_cajera, name='vista_cajera'),
 
-    path('agente', vista_agente, name='vista_agente'),
-
     path('asociado', vista_asociado, name='vista_asociado'),
 
     path('recepcion_solicitudes', solicitudes, name='recepcion_solicitudes'),

@@ -5,6 +5,7 @@ from cliente.models import *
 from django.http import HttpResponse
 from .forms import *
 from django.template.loader import get_template
+from django.db.models import Q
 from xhtml2pdf import pisa
 from django.contrib import messages
 from .models import *
@@ -32,7 +33,7 @@ def listarDocumentosLegalesAgregados(cliente):
     return documentos
 
 def anexarFoto(request, id_cliente):
-    formulario = AnexoImagen(request.POST or None, request.FILES or None)
+    formulario = AnexoImagen(request.POST or None)
 
     if formulario.is_valid():
         clienteConfoto = formulario.save(commit=False)
@@ -40,8 +41,9 @@ def anexarFoto(request, id_cliente):
         cliente.fotografia = clienteConfoto.fotografia
         cliente.save()
         messages.success(request, "Se guardo con exito")
-        return redirect('cliente_list_view')
-    
+        return redirect('vista_agente')
+
+
     return render(request, 'anexos/fotoAsociado.html', {'form': formulario})
 
 def generar_carnet(request, id_cliente):
@@ -66,5 +68,15 @@ def generar_carnet(request, id_cliente):
 
 # Metodo para listar los asociados ya aprobados
 def asociados(request):
+    busqueda = request.POST.get("buscar")
     asociados = Cliente.objects.filter(es_asociado=True)
+
+    if busqueda:
+        asociados = Cliente.objects.filter(
+            Q(es_asociado=True) & (
+            Q(identificacion__icontains=busqueda) |
+            Q(nombres__icontains=busqueda) |
+            Q(apellidos__icontains=busqueda))
+        ).distinct()
+        
     return render(request, 'Asociados/lista_asociados.html', {'asociados': asociados})
