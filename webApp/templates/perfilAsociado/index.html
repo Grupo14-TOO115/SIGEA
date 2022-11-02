@@ -1,0 +1,101 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Perfil Asociado {%endblock %}
+
+
+{% block contenido %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br><br><br><br>
+            <div class="card">
+                <div class="card-header">
+                    Datos del Asociado
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Dato</th>
+                            <th>Descripción</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <tr>
+                            <td> Nombre del asociado</td>
+                            <td> {{cliente.nombres}} {{cliente.apellidos}}</td>
+                        </tr>
+                        <tr>
+                            <td>Fecha de nacimiento</td>
+                            <td> {{cliente.fecha_nacimiento}}</td>
+                        </tr>
+                        <tr>
+                            <td>Telefono</td>
+                            <td> {{cliente.telefono}}</td>
+                        </tr>
+                        <tr>
+                            <td>Correo</td>
+                            <td> {{cliente.correo}}</td>
+                        </tr>
+                        <tr>
+                            <td>Fotografia</td>
+                            <td>
+                                {% if cliente.fotografia %}
+                                <img src="{{cliente.fotografia.url}}" height="225" width="175">
+                                {% endif %}
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>{{cliente.id_tipoIdentificacion.nombreTipoIdentificacion}}</td>
+                            <td> {{cliente.identificacion}}</td>
+                        </tr>
+                        <tr>
+                            <td>Genero</td>
+                            <td> {{cliente.id_genero.genero}}</td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Domicilio</td>
+                            <td> {{domicilio.pais}}, {{domicilio.region}}, {{domicilio.subRegion}}, {{domicilio.localidad}}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Estado Civil</td>
+                            <td> {{cliente.id_estadocivil.id_tipoEstadocivil.nombre_tipoEstadocivil}}</td>
+                        </tr>
+
+                        {% if estadoCivil %}
+                        <tr>
+                            <td>Nombre del conyugue</td>
+                            <td> {{cliente.id_estadocivil.nombres_conyugue}} {{cliente.id_estadocivil.apellidos_conyugue}}</td>
+                        </tr>
+                        <tr>
+                            <td>Telefono del conyugue</td>
+                            <td> {{cliente.id_estadocivil.telefono}}</td>
+                        </tr>
+                        {% endif %}
+
+                    
+                        
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a name="" class="btn btn-info" href="{% url 'home' %}" role="button">Regresar</a> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br>
+
+
+{% endblock %}

@@ -21,4 +21,5 @@ urlpatterns = [
     path('recepcion_solicitudes', solicitudes, name='recepcion_solicitudes'),
     path('recepcion_solicitudes_revisadas', solicitudes_revisadas, name='recepcion_solicitudes_revisadas'),
     path('ver_solicitud/<int:id_solicitud>', solicitud, name='ver_solicitud'),
+    path('perfilAsociado/<int:id_cliente>', perfilAsociado, name='perfilAsociado'),
 ]

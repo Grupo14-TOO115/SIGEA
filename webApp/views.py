@@ -96,3 +96,13 @@ def solicitudes_revisadas(request):
 def solicitud(request, id_solicitud):
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     return render(request, 'ver_solicitud/index.html', {'solicitud': solicitud})
+
+def perfilAsociado(request,id_cliente):
+    cliente=Cliente.objects.get(id_cliente=id_cliente)
+    domicilio=Domicilio.objects.get(cliente=cliente)
+    estadoCivil=cliente.id_estadocivil.id_tipoEstadocivil.nombre_tipoEstadocivil
+    if estadoCivil == 'casado' or estadoCivil == 'comprometido' or estadoCivil == 'acompañado':
+        estadoCivil=True
+    else:
+        estadoCivil=False
+    return render(request,'perfilAsociado/index.html',{'cliente':cliente,'domicilio':domicilio,'estadoCivil':estadoCivil})

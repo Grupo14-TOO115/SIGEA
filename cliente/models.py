@@ -290,7 +290,7 @@ class Beneficiario(models.Model):
     id_beneficiario=models.AutoField(primary_key=True)
     solicitud=models.ForeignKey(Solicitud, on_delete=models.CASCADE, null=False, blank=False)
     parentesco=models.ForeignKey(Parentesco, on_delete=models.CASCADE, null=False, blank=False)
-    porcentaje=models.FloatField(null=False,blank=True)
+    porcentaje=models.IntegerField(null=False,blank=True)
     nombres=models.CharField(max_length=30, null=False, blank=False)
     apellidos=models.CharField(max_length=30,null=False,blank=False)
     telefono=PhoneField(max_length=13, null=False, blank=True,verbose_name='Telefono')

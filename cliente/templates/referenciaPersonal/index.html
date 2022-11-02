@@ -46,7 +46,12 @@
                     </table>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-success" role="button" href="{% url 'gestionarBeneficiarios' id_solicitud %}" >Siguiente</a>
+                    {% if contador >= 3 %}
+                        <a class="btn btn-success" role="button" href="{% url 'gestionarBeneficiarios' id_solicitud %}" >Siguiente</a>
+                        {% else %}
+                        <a class="btn btn-secondary" role="button"  href="{% url 'validarReferencias' id_solicitud %}">Siguiente</a>
+                    {% endif %}
+                    
                     <a class="btn btn-primary" role="button" href="{% url 'home' %}" >Cancelar</a>
 
                 </div>
