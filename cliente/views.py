@@ -207,48 +207,6 @@ def create_mail(email, subject, template_path, context):
     mail.attach_alternative(content, 'text/html')
     return mail
 
-# Notificacion al correo de incongruencias en datos en la solicitud de Asociado
-def send_notificacion_mail(id_cliente):
-    cliente = Cliente.objects.get(id_cliente=id_cliente)
-    mail = cliente.correo
-    welcome_mail = create_mail(
-        mail,
-        'INFORMACION IMPORTANTE',
-        'cliente/NotificarCliente.html',
-        {
-            'cliente': cliente
-        }
-    )
-    welcome_mail.send(fail_silently=False)
-
-# Envio de correo al cliente de estado de su solicitud "APROBADA"
-def send_aprobacion_mail(id_cliente):
-    cliente = Cliente.objects.get(id_cliente=id_cliente)
-    mail = cliente.correo
-    welcome_mail = create_mail(
-        mail,
-        'RESOLUCION DE SOLICITUD',
-        'cliente/SolicitudAprobada.html',
-        {
-            'cliente': cliente
-        }
-    )
-    welcome_mail.send(fail_silently=False)
-
-# Envio de correo al cliente de estado de su solicitud "RECHAZADA"
-def send_rechazo_mail(id_cliente):
-    cliente = Cliente.objects.get(id_cliente=id_cliente)
-    mail = cliente.correo
-    welcome_mail = create_mail(
-        mail,
-        'RESOLUCION DE SOLICITUD',
-        'cliente/SolicitudRechazada.html',
-        {
-            'cliente': cliente
-        }
-    )
-    welcome_mail.send(fail_silently=False)
-
 def send_usuario_mail(id_cliente, username, password):
     cliente = Cliente.objects.get(id_cliente=id_cliente)
     mail = cliente.correo

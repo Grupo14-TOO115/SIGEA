@@ -1,0 +1,28 @@
+{% extends "ver_solicitud_secretaria/index_Solicitudes.html" %}
+
+{% block regresar %}
+<div class="row">
+    <a name="" class="btn btn-dark"  href="{% url 'solicitudes_espera' %}" role="button"
+       style="width : 200px; heigth : 200px; margin: 15px">Regresar</a>
+</div>
+{%endblock %}
+
+{% block acciones %}
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <a name="" class="btn btn-info"
+               href="{% url 'ver_beneficiarios_secretaria' solicitud.id_solicitud %}"
+               role="button">Ver <br> beneficiarios</a>
+        </div>
+        <div class="col">
+            <a name="" class="btn btn-info" href="{% url 'referencia_personal_secretaria' solicitud.id_solicitud %}"
+               role="button">Ver referencia personal</a>
+        </div>
+        <div class="col">
+            <a name="" class="btn btn-info" href="{% url 'consultar_documentos_anexos_secretaria' solicitud.id_solicitud %}"
+               role="button">Ver documentos este es anexos</a>
+        </div>
+    </div>
+  </div>
+{%endblock %}

@@ -1,63 +1,53 @@
 {% extends "bases/base.html" %}
 
-{% block titulo %} Recepción de solicitudes revisadas {%endblock %}
+{% block titulo %} Recepción de solicitudes {%endblock %}
 
 {% block js %}
 
 <script>
-        function aprobarSolicitud(id_solicitud) {
+        function validar1Solicitud(id_solicitud) {
             Swal.fire({
                 "title": "¿Estás seguro?",
-                "text": "La solicitud se aprobará de forma permanente",
+                "text": "La solicitud se enviará a jefatura para emitir resolución",
                 "icon": "question",
                 "showCancelButton": true,
                 "cancelButtonText": "No, Cancelar",
-                "confirmButtonText": "Si, Aprobar",
+                "confirmButtonText": "Si, Enviar",
                 "confirmButtonColor": "#00008B",
                 "cancelButtonColor": "#696969"
             })
             .then(function(result) {
                 if(result.isConfirmed) {
-                    window.location.href = "solicitud-aprobada/"+id_solicitud
+                    window.location.href = "solicitud-Validada/"+id_solicitud
                 }
             })
         }
-
-        function rechazarSolicitud(id_solicitud) {
-            Swal.fire({
-                "title": "¿Estás seguro?",
-                "text": "La solicitud se rechazará de forma permanente",
-                "icon": "question",
-                "showCancelButton": true,
-                "cancelButtonText": "No, Cancelar",
-                "confirmButtonText": "Si, Rechazar",
-                "confirmButtonColor": "#8B0000",
-                "cancelButtonColor": "#696969"
-            })
-            .then(function(result) {
-                if(result.isConfirmed) {
-                    window.location.href = "solicitud-rechazada/"+id_solicitud
-                }
-            })
-        }
-
-
 
 </script>
 
 {% endblock %}
 
 {% block contenido %}
-<div class="container">
+<br><br><br><br>
+<div class="text-center">
     <div class="row">
         <div class="col-12">
-            <br><br><br><br>
+            {% include 'buscar_solicitud/buscar.html' %}
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row m-4">
+        <a name="" class="btn btn-dark" href=" {% url 'vista_secretaria' %}" role="button">Regresar</a>
+    </div>
+    <div class="row m-4">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    Solicitudes Revisadas y Validadas
+                    Solicitudes en espera
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Lista de Solicitudes para Resolución</h4>
+                    <h4 class="card-title">Lista de solicitudes</h4>
 
                     <table class="table table-hover">
                         <thead>
@@ -77,14 +67,13 @@
                             <td> {{solicitud.fecha_solicitud}}</td>
                             <td> {{solicitud.id_cliente.nombres}} {{solicitud.id_cliente.apellidos}}</td>
                             <td>
-                                <a class="bi bi-eye-fill"  href="/ver_solicitud/{{solicitud.id_solicitud}}" class="bi bi-eye" role="button">Visualizar</a>
-                                <a style="margin-left: 15px;" href="#" onclick="aprobarSolicitud({{ solicitud.id_solicitud }})" class="btn btn-success" role="button">Aprobar Solicitud</a>
-                                <a style="margin-left: 15px;" href="#" onclick="rechazarSolicitud({{ solicitud.id_solicitud }})" class="btn btn-danger" role="button">Rechazar Solicitud</a>
+                                 <a class="btn btn-info"  href="{% url 'ver_solicitud_espera_secretaria' solicitud.id_solicitud %}" role="button">Visualizar</a>
+
+                                 <a style="margin-left: 15px;" href="#" onclick="validar1Solicitud({{ solicitud.id_solicitud }})" class="btn btn-success" role="button">Enviar a jefatura</a>
                             </td>
                         </tr>
                         {% endfor %}
                         </tbody>
-
                     </table>
                 </div>
             </div>

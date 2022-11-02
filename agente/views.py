@@ -9,6 +9,7 @@ from django.db.models import Q
 from xhtml2pdf import pisa
 from django.contrib import messages
 from .models import *
+from webApp.views import *
 
 def documentosLegales(request, id_cliente):
     form = DocumentoLegalForm(request.POST or None, request.FILES or None)
@@ -66,8 +67,12 @@ def generar_carnet(request, id_cliente):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
-# Metodo para listar los asociados ya aprobados
+#@login_required
 def asociados(request):
+    # if not obtenerUsuario(request).es_agente:
+    #     messages.warning(request, "Este apartado es solo para un agente")
+    #     return redirect('home')
+        
     busqueda = request.POST.get("buscar")
     asociados = Cliente.objects.filter(es_asociado=True)
 

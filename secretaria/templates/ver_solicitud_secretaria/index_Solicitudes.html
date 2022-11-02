@@ -8,10 +8,7 @@
     <div class="row">
         <div class="col-12">
             <br><br><br><br>
-            <div class="row">
-                <a name="" class="btn btn-dark" href="javascript:history.back()" role="button"
-                   style="width : 200px; heigth : 200px; margin: 15px">Regresar</a>
-            </div>
+            {% block regresar %}{%endblock %}
             <div class="card">
                 <div class="card-header">
                     Datos del cliente
@@ -65,7 +62,7 @@
                             <td>
 
                                 {% if solicitud.id_cliente.fotografia %}
-                                <a href="{{solicitud.id_cliente.fotografia.url}}" target="_blank"><img
+                                <a  href="{{solicitud.id_cliente.fotografia.url}}" target="_blank"><img
                                         src="{{solicitud.id_cliente.fotografia.url}}" height="225" width="175"/></a>
                                 {% endif %}
                             </td>
@@ -219,32 +216,10 @@
                                 {{solicitud.id_actividadEconomica.id_capacidadEconomica.total}}
                             </td>
                         </tr>
-
-
                         </tbody>
-
                     </table>
-                    <div class="row" style="float: right; margin-left: 15px;">
-                        <a name="" class="btn btn-info"
-                           href="/ver_solicitud/ver_beneficiarios/{{solicitud.id_solicitud}}"
-                           role="button"
-                           style="width : 200px; heigth : 200px; margin: 15px">Ver <br> beneficiarios</a>
-                    </div>
-                    <div class="row" style="float: right; margin-left: 15px;">
-                        <a name="" class="btn btn-info" href="/ver_solicitud/referencia_personal/{{solicitud.id_solicitud}}"
-                           role="button"
-                           style="width : 200px; heigth : 200px; margin: 15px">Ver referencia personal</a>
-                    </div>
-                    <div class="row" style="float: right; margin-left: 15px;">
-                        <a name="" class="btn btn-info" href="/ver_solicitud/documentos_legales/{{solicitud.id_cliente.id_cliente}}"
-                           role="button"
-                           style="width : 200px; heigth : 200px; margin: 15px">Ver documentos legales</a>
-                    </div>
-                    <div class="row" style="float: right;">
-                        <a name="" class="btn btn-info" href="/consultar_documentos_anexos/{{solicitud.id_solicitud}}"
-                           role="button"
-                           style="width : 200px; heigth : 200px; margin: 15px">Ver documentos anexos</a>
-                    </div>
+                    <hr>
+                    {% block acciones %}{%endblock %}
                 </div>
             </div>
         </div>

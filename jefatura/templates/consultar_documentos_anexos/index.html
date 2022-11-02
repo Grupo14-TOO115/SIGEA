@@ -1,0 +1,120 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Consultar documentos anexos{%endblock %}
+
+
+{% block contenido %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br><br><br><br>
+            <div class="row">
+                <a name="" class="btn btn-dark" href="{% url 'ver_solicitud_jefatura' id_solicitud %}" role="button"
+                   style="width : 200px; heigth : 200px; margin: 15px">Regresar</a>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    Documentos anexos
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Tipo de documento</th>
+                            <th>Archivo</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <!-- DUI -->
+                        <tr>
+                            <td> DUI</td>
+                            <td> {% if anexo.id_anexo.dui %}
+                                <a target="_blank" class="btn btn-secondary"
+                                   href="{{ anexo.id_anexo.dui.url }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-file-earmark-image" viewBox="0 0 16 16">
+                                        <path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                        <path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"></path>
+                                    </svg>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <!-- Fin del DUI -->
+                        <!-- NIT -->
+                        <tr>
+                            <td> NIT</td>
+                            <td> {% if anexo.id_anexo.nit %}
+                                <a target="_blank" class="btn btn-secondary"
+                                   href="{{ anexo.id_anexo.nit.url }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-file-earmark-image" viewBox="0 0 16 16">
+                                        <path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                        <path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"></path>
+                                    </svg>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <!-- Fin del NIT -->
+                        <!-- Pasaporte -->
+                        <tr>
+                            <td> Pasaporte</td>
+                            <td> {% if anexo.id_anexo.pasaporte %}
+                                <a target="_blank" class="btn btn-secondary"
+                                   href="{{ anexo.id_anexo.pasaporte.url }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-file-earmark-image" viewBox="0 0 16 16">
+                                        <path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                        <path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"></path>
+                                    </svg>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <!-- Fin del Pasaporte -->
+                        <!-- ISSS -->
+                        <tr>
+                            <td> ISSS</td>
+                            <td> {% if anexo.id_anexo.isss %}
+                                <a target="_blank" class="btn btn-secondary"
+                                   href="{{ anexo.id_anexo.isss.url }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-file-earmark-image" viewBox="0 0 16 16">
+                                        <path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                        <path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"></path>
+                                    </svg>
+                                </a>
+                                {% endif %}
+                            </td>
+                            </td>
+                        </tr>
+                        <!-- Fin del ISSS -->
+                        <!-- IVA -->
+                        <tr>
+                            <td> IVA</td>
+                            <td> {% if anexo.id_anexo.iva %}
+                                <a target="_blank" class="btn btn-secondary"
+                                   href="{{ anexo.id_anexo.iva.url }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-file-earmark-image" viewBox="0 0 16 16">
+                                        <path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                        <path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"></path>
+                                    </svg>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <!-- Fin del IVA -->
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock %}

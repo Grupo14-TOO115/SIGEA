@@ -29,9 +29,4 @@ urlpatterns = [
     path('clientes', clientes, name='clientes'),
     path('secretario', clientes, name='secretario'),
     path('solicitud/<int:id_solicitud>/', include(urlpatterns2)),
-
-    path('send/notificacion/<int:id_cliente>', send_notificacion_mail, name='send_notificacion_mail'), #Para envio de email de notificacion de solicitud erronea en datos.
-    path('send/aprobacion/<int:id_cliente>', send_aprobacion_mail, name='send_aprobacion_mail'), #Para envio de email de solicitud Aprobada
-    path('send/rechazo/<int:id_cliente>', send_rechazo_mail, name='send_rechazo_mail') #Para envio de email de solicitud Rechazada
-
 ]

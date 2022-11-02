@@ -27,7 +27,7 @@ urlpatterns = [
     path('secretaria/', include('secretaria.urls')),
     path('agente/', include('agente.urls')),
     path('chaining/', include('smart_selects.urls')),
-    path('cajero/', include('cajero.urls'))
+    path('cajero/', include('cajero.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'autenticacion.views.error_404'
