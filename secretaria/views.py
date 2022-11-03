@@ -4,7 +4,6 @@ from .models import *
 from webApp.views import *
 from cliente.views import *
 
-
 def validarSecretaria(request):
     usuarios = Usuario.objects.all()
 
@@ -17,7 +16,7 @@ def validarSecretaria(request):
     if existe and obtenerUsuario(request).es_secretaria:
         return True
 
-    messages.warning(request, "Este apartado es solo para secretaria")
+    messages.warning(request, "Este apartado es solo para un secretario")
 
     return False
 
@@ -113,8 +112,8 @@ def solicitudes_espera(request):  # Este es para secretaría, solicitudes notifi
     return render(request, 'solicitudes_espera/index.html', {'solicitudes': solicitudes})
 
 # Notificacion al correo de incongruencias en datos en la solicitud de Asociado
-@login_required
 def send_notificacion_mail(id_cliente):
+    print("---------------------------------------")
     cliente = Cliente.objects.get(id_cliente=id_cliente)
     mail = cliente.correo
     welcome_mail = create_mail(

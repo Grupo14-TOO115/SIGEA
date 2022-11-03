@@ -69,6 +69,7 @@ def rechazado(request, id_solicitud):
     return redirect('recepcion_solicitudes_validadas')
 
 
+@login_required
 def solicitudes_validadas(request):  # Este es para jefatura
 
     if not validarJefatura(request):
@@ -79,7 +80,6 @@ def solicitudes_validadas(request):  # Este es para jefatura
 
 
 # Envio de correo al cliente de estado de su solicitud "APROBADA"
-@login_required
 def send_aprobacion_mail(id_cliente):
     cliente = Cliente.objects.get(id_cliente=id_cliente)
     mail = cliente.correo
@@ -95,7 +95,6 @@ def send_aprobacion_mail(id_cliente):
 
 
 # Envio de correo al cliente de estado de su solicitud "RECHAZADA"
-@login_required
 def send_rechazo_mail(id_cliente):
     cliente = Cliente.objects.get(id_cliente=id_cliente)
     mail = cliente.correo

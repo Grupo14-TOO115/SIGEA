@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from cliente.models import *
-from autenticacion.models import *
-from agente.models import *
+from autenticacion.models import Usuario
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
@@ -107,7 +106,9 @@ def vista_asociado(request):
             existe = True
 
     if existe and obtenerUsuario(request).es_asociado:
-        return render(request, 'paginas/asociado.html')
+        cliente = Cliente.objects.get(correo=request.user.email)
+
+        return render(request, 'paginas/asociado.html',{'id_cliente': cliente.id_cliente})
 
     messages.warning(request, "Este apartado es solo para un asociado")
     return redirect('home')
@@ -133,7 +134,7 @@ def perfilAsociado(request,id_cliente):
     cliente=Cliente.objects.get(id_cliente=id_cliente)
     domicilio=Domicilio.objects.get(cliente=cliente)
     estadoCivil=cliente.id_estadocivil.id_tipoEstadocivil.nombre_tipoEstadocivil
-    if estadoCivil == 'casado' or estadoCivil == 'comprometido' or estadoCivil == 'acompañado':
+    if estadoCivil == 'Casado' or estadoCivil == 'Comprometido' or estadoCivil == 'Acompañado':
         estadoCivil=True
     else:
         estadoCivil=False

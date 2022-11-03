@@ -46,7 +46,7 @@
                     </table>
                 </div>
                 <div class="card-footer">
-                    {% if contador >= 3 %}
+                    {% if contador >= 2 %}
                         <a class="btn btn-success" role="button" href="{% url 'gestionarBeneficiarios' id_solicitud %}" >Siguiente</a>
                         {% else %}
                         <a class="btn btn-secondary" role="button"  href="{% url 'validarReferencias' id_solicitud %}">Siguiente</a>

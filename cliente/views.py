@@ -136,8 +136,8 @@ def ValidarReferencias(request,id_solicitud):
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     referencias=solicitud.referenciapersonal_set.filter(solicitud=solicitud)
     contador=referencias.count()
-    if contador<=3:
-        messages.info(request,'Es necesario agregar al menos 3 referencias')
+    if contador<=2:
+        messages.info(request,'Es necesario agregar al menos 2 referencias')
     return redirect('gestionarReferencias',id_solicitud)
 
 
@@ -254,13 +254,13 @@ def GuardarAnexo(request, id_solicitud):
     formulario = AnexoForm(request.POST or None, request.FILES or None)
 
     if formulario.is_valid():
+        anexo = formulario.save()
+
         solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
 
-        anexo = formulario.save(commit=False)
+        solicitud.id_anexo = anexo
 
-        anexo.solicitud = solicitud
-
-        anexo.save()
+        solicitud.save()
 
         messages.success(request, "Se envio la solicitud correctamente")
 
