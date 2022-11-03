@@ -7,8 +7,6 @@ from django.contrib.auth.decorators import login_required
 from cliente.models import *
 from .models import *
 from autenticacion.views import registrarUsuario
-from xhtml2pdf import pisa
-from django.template.loader import get_template
 
 
 def lista_solicitudes_pago(request):
@@ -39,19 +37,3 @@ def confirmar_pago(request, id_cliente):
     registrarUsuario(cliente.id_cliente)
 
     return redirect('solicitudes_de_pago')
-
-def export_pdf(request, id_cliente):
-    cliente = Cliente.objects.get(id_cliente=id_cliente)
-    template_path = 'prueba.html'
-    context = {'cliente': cliente}
-    response = HttpResponse(content_type='application/pdf')
-
-    response['Content-Disposition'] ='filename="tezst recibo_de_pago.pdf"'
-    template = get_template(template_path)
-    html = template.render(context)
-
-    pisa_status = pisa.CreatePDF(html, dest=response)
-
-    if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    return response

@@ -29,4 +29,6 @@ urlpatterns = [
     path('clientes', clientes, name='clientes'),
     path('secretario', clientes, name='secretario'),
     path('solicitud/<int:id_solicitud>/', include(urlpatterns2)),
+
+     path('export/<int:id_cliente>', export_recibo_pdf, name="export-pdf" ),
 ]

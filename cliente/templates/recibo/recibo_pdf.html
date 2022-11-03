@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+        <style>
+            body{
+                font-size: x-large;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            @page {
+                size: letter landscape;
+                @frame content_frame {
+                    left: 120pt;
+                    width: 512pt;
+                    top: 40pt;
+                    height: 400pt;
+                    margin: 0;
+                    }                
+            }
+            .container-flex{
+                display: flex;
+                flex-direction: row;
+                text-align: center;
+            }
+            
+            #general-info{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            #client-info{
+                text-align: justify;
+            }
+            img{
+                height: 100px;
+                width: 100px;
+                border: 2px solid black;
+                border-radius: 50%;
+            }
+        </style>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Recibo de Pago</title>
+  </head>
+
+    <body>
+        <div class="container-flex">
+            <div id="general-info">
+                <div>
+                    {% load static %}
+                    <img src="{% static '../../../../webApp/static/img/logo.png' %}">
+                </div>
+                <div>
+                    <p><b>ASEUES DE RL, SAN SALVADOR, EL SALVADOR</b></p>
+                    <p><b>{{ fecha }}</b></p>
+                </div>
+            </div>
+            <div id="client-info">
+                <p>Nosotros como cooperativa, damo permiso al aspirante <b>{{ cliente.nombres }} {{ cliente.apellidos }}</b> cuyo codigo de asociado es <b>{{ cliente.id_cliente }}</b>, con el numero de identificacion <b>{{ cliente.identificacion }}</b>, para poder realizar el pago de la apertura de cuenta y poder hacer uso de nuestros servicios.
+            </div>
+        </div>
+        <hr>
+        <p><b>Total a Pagar: $25</b></p>
+    </body>
+</html>

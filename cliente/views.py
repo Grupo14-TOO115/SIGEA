@@ -233,3 +233,20 @@ def GuardarAnexo(request, id_solicitud):
         messages.success(request, "Se guardo con exito")
         return redirect('home')
     return render(request,'anexo/crear.html',{'formulario':formulario})
+
+#generar recibo de pago
+def export_recibo_pdf(request, id_cliente):
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
+    template_path = 'recibo/recibo_pdf.html'
+    context = {'cliente': cliente, 'fecha': date.today()}
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] ='filename="recibo_de_pago.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+
+    pisa_status = pisa.CreatePDF(html, dest=response)
+
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
