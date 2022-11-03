@@ -11,9 +11,31 @@ from django.contrib import messages
 from .models import *
 from webApp.views import *
 
+def validarAgente(request):
+    usuarios = Usuario.objects.all()
+
+    existe = False
+
+    for usua in usuarios:
+        if request.user.pk == usua.user.pk:
+            existe = True
+
+    if existe and obtenerUsuario(request).es_agente:
+        return True
+
+    messages.warning(request, "Este apartado es solo para un agente")
+
+    return False
+
+
+@login_required
 def documentosLegales(request, id_cliente):
+
+    if not validarAgente(request):
+        return redirect('home')
+
     form = DocumentoLegalForm(request.POST or None, request.FILES or None)
-    cliente = cliente = Cliente.objects.get(id_cliente=id_cliente)
+    cliente = Cliente.objects.get(id_cliente=id_cliente)
 
     if form.is_valid():
         docLegal = form.save(commit=False)
@@ -24,17 +46,30 @@ def documentosLegales(request, id_cliente):
     form = DocumentoLegalForm()
     return render(request, 'anexos/anexDocumentoLegales.html', {'formulario': form, 'documentos': documentosAgregados})
 
+
+@login_required
 def eliminarDocumentoLegal(request, id_cliente, id_documento):
+
+    if not validarAgente(request):
+        return redirect('home')
+
     documento = DocumentoLegal.objects.get(id_documento=id_documento)
     documento.delete()
     return redirect('documentos_legales', id_cliente)
+
 
 def listarDocumentosLegalesAgregados(cliente):
     documentos = DocumentoLegal.objects.filter(id_cliente=cliente)
     return documentos
 
+
+@login_required
 def anexarFoto(request, id_cliente):
-    formulario = AnexoImagen(request.POST or None)
+
+    if not validarAgente(request):
+        return redirect('home')
+
+    formulario = AnexoImagen(request.POST or None, request.FILES or None)
 
     if formulario.is_valid():
         clienteConfoto = formulario.save(commit=False)
@@ -42,12 +77,18 @@ def anexarFoto(request, id_cliente):
         cliente.fotografia = clienteConfoto.fotografia
         cliente.save()
         messages.success(request, "Se guardo con exito")
-        return redirect('vista_agente')
+        return redirect('vista_agente_2')
 
 
     return render(request, 'anexos/fotoAsociado.html', {'form': formulario})
 
+
+@login_required
 def generar_carnet(request, id_cliente):
+
+    if not validarAgente(request):
+        return redirect('home')
+
     cliente = Cliente.objects.get(id_cliente=id_cliente)
     template_path = 'Asociados/Pdf_carnet.html'
     context = {'clientes': cliente, 'fecha_expedicion': date.today()}
@@ -67,11 +108,11 @@ def generar_carnet(request, id_cliente):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
-#@login_required
+@login_required
 def asociados(request):
-    # if not obtenerUsuario(request).es_agente:
-    #     messages.warning(request, "Este apartado es solo para un agente")
-    #     return redirect('home')
+
+    if not validarAgente(request):
+        return redirect('home')
         
     busqueda = request.POST.get("buscar")
     asociados = Cliente.objects.filter(es_asociado=True)

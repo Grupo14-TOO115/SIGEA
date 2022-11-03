@@ -24,6 +24,8 @@
 
 {% block contenido %}
 <br><br><br><br>
+
+
 <div class="text-center">
     <div class="row">
         <div class="col-12">
@@ -36,7 +38,12 @@
     <div class="text-center">
         <div class="row">
             <div class="col-12">
-                <br><br>
+
+                <div class="row">
+                    <a name="" class="btn btn-dark" href="{% url 'home' %}" role="button"
+                       style="width : 200px; heigth : 200px; margin: 15px">Regresar</a>
+                </div>
+
                 <h4>Lista de Solicitudes de Pago de Ingreso</h4>
                 <table class="table">
                     <thead class="table-dark">

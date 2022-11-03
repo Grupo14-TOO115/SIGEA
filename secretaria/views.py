@@ -4,7 +4,30 @@ from .models import *
 from webApp.views import *
 from cliente.views import *
 
+
+def validarSecretaria(request):
+    usuarios = Usuario.objects.all()
+
+    existe = False
+
+    for usua in usuarios:
+        if request.user.pk == usua.user.pk:
+            existe = True
+
+    if existe and obtenerUsuario(request).es_secretaria:
+        return True
+
+    messages.warning(request, "Este apartado es solo para secretaria")
+
+    return False
+
+
+@login_required
 def solicitudes(request):
+
+    if not validarSecretaria(request):
+        return redirect('home')
+
     busqueda = request.POST.get("buscar")
     solicitudes = Solicitud.objects.filter(Q(es_revisado=False) & Q(es_validado=False) & Q(es_aprobado=False))
 
@@ -18,8 +41,14 @@ def solicitudes(request):
     
     return render(request, 'recepcion_solicitudes/index.html', {'solicitudes': solicitudes})
 
+
 # SOLICITUD NO VALIDADA, EN ESPERA, NOTIFICADA AL CLIENTE
+@login_required
 def revisado(request, id_solicitud):
+
+    if not validarSecretaria(request):
+        return redirect('home')
+
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     solicitud.es_revisado = True
     solicitud.es_validado = False
@@ -32,7 +61,12 @@ def revisado(request, id_solicitud):
 
 
 # SOLICITUD REVISADA Y VALIDADA
+@login_required
 def validado(request, id_solicitud):
+
+    if not validarSecretaria(request):
+        return redirect('home')
+
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     solicitud.es_revisado = True
     solicitud.es_validado = True
@@ -44,7 +78,12 @@ def validado(request, id_solicitud):
 
 
 # SOLICITUD REVISADA Y VALIDADA
+@login_required
 def validado2(request, id_solicitud):
+
+    if not validarSecretaria(request):
+        return redirect('home')
+
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     solicitud.es_revisado = True
     solicitud.es_validado = True
@@ -54,7 +93,12 @@ def validado2(request, id_solicitud):
 
     return redirect('solicitudes_espera')
 
+@login_required
 def solicitudes_espera(request):  # Este es para secretaría, solicitudes notificadas para correciones
+
+    if not validarSecretaria(request):
+        return redirect('home')
+
     busqueda = request.POST.get("buscar")
     solicitudes = Solicitud.objects.filter(Q(es_revisado=True) & Q(es_validado=False) & Q(es_aprobado=False))
 
@@ -69,6 +113,7 @@ def solicitudes_espera(request):  # Este es para secretaría, solicitudes notifi
     return render(request, 'solicitudes_espera/index.html', {'solicitudes': solicitudes})
 
 # Notificacion al correo de incongruencias en datos en la solicitud de Asociado
+@login_required
 def send_notificacion_mail(id_cliente):
     cliente = Cliente.objects.get(id_cliente=id_cliente)
     mail = cliente.correo
@@ -82,29 +127,58 @@ def send_notificacion_mail(id_cliente):
     )
     welcome_mail.send(fail_silently=False)
 
+
+@login_required
 def solicitud(request, id_solicitud):
+
+    if not validarSecretaria(request):
+        return redirect('home')
+
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     domicilio = Domicilio.objects.get(cliente=solicitud.id_cliente.id_cliente)
     beneficiario = Beneficiario.objects.filter(solicitud=id_solicitud)
     return render(request, 'ver_solicitud_secretaria/solicitudes.html',
                   {'solicitud': solicitud, 'domicilio': domicilio, 'beneficiario': beneficiario})
 
+
+@login_required
 def solicitud_espera(request, id_solicitud):
+
+    if not validarSecretaria(request):
+        return redirect('home')
+
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     domicilio = Domicilio.objects.get(cliente=solicitud.id_cliente.id_cliente)
     beneficiario = Beneficiario.objects.filter(solicitud=id_solicitud)
     return render(request, 'ver_solicitud_secretaria/solicitudes_espera.html',
                   {'solicitud': solicitud, 'domicilio': domicilio, 'beneficiario': beneficiario})
 
+
+@login_required
 def beneficiarios(request, id_solicitud):
+
+    if not validarSecretaria(request):
+        return redirect('home')
+
     beneficiarios = Beneficiario.objects.filter(solicitud=id_solicitud)
     return render(request, 'ver_solicitud_secretaria/ver_beneficiarios.html', {'beneficiarios': beneficiarios, 'id_solicitud': id_solicitud})
 
 
+@login_required
 def referencia(request, id_solicitud):
+
+    if not validarSecretaria(request):
+        return redirect('home')
+
     referencia = ReferenciaPersonal.objects.filter(solicitud=id_solicitud)
     return render(request, 'ver_solicitud_secretaria/referencia_personal.html', {'referencia': referencia, 'id_solicitud': id_solicitud})
 
+
+@login_required
 def anexo(request, id_solicitud):
+
+    if not validarSecretaria(request):
+        return redirect('home')
+
     anexo = Solicitud.objects.get(id_solicitud=id_solicitud)
     return render(request, 'consultar_documentos_anexos_secretaria/index.html', {'anexo': anexo, 'id_solicitud': id_solicitud})

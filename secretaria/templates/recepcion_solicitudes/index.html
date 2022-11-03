@@ -55,7 +55,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container-fluid">
     <div class="row m-4">
         <a name="" class="btn btn-dark" href=" {% url 'vista_secretaria' %}" role="button">Regresar</a>
     </div>
@@ -85,11 +85,13 @@
                             <td> {{solicitud.fecha_solicitud}}</td>
                             <td> {{solicitud.id_cliente.nombres}} {{solicitud.id_cliente.apellidos}}</td>
                             <td>
-                                <a class="btn btn-info" href="{% url 'ver_solicitud_secretaria' solicitud.id_solicitud %}" role="button">Visualizar</a>
+                                <a class="btn btn-info m-2" href="{% url 'ver_solicitud_secretaria' solicitud.id_solicitud %}" role="button">Visualizar</a>
+
                                 <a style="margin-left: 15px;" href="#"
-                                   onclick="validarSolicitud({{ solicitud.id_solicitud }})" class="btn btn-success"
+                                   onclick="validarSolicitud({{ solicitud.id_solicitud }})" class="btn btn-success m-2"
                                    role="button">Enviar a jefatura</a>
-                                <a class="btn btn-dark" style="margin-left: 15px;" href="#"
+
+                                <a class="btn btn-dark m-2" style="margin-left: 15px;" href="#"
                                    onclick="enviarCorreo({{ solicitud.id_solicitud }})" role="button">Notificar al Cliente</a>
                             </td>
                         </tr>

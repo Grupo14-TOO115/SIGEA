@@ -84,7 +84,7 @@
                         <tr>
                             <td> Tiempo de inmueble</td>
                             <td>
-                                {{domicilio.tiempo_de_inmueble}}
+                                {{domicilio.tiempo_de_inmueble}} meses
                             </td>
                         </tr>
                         <tr>
@@ -132,12 +132,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td> Localidad</td>
-                            <td>
-                                {{solicitud.id_actividadEconomica.localidad}}
-                            </td>
-                        </tr>
-                        <tr>
                             <td> Teléfono</td>
                             <td>
                                 {{solicitud.id_actividadEconomica.telefono}}
@@ -158,6 +152,7 @@
                         <tr>
                             <td> Dirección</td>
                             <td>
+                                {{solicitud.id_actividadEconomica.localidad}},
                                 {{solicitud.id_actividadEconomica.subRegion.nombre_subRegion}},
                                 {{solicitud.id_actividadEconomica.region.nombre_region}},
                                 {{solicitud.id_actividadEconomica.pais.nombre_pais}}
@@ -171,25 +166,25 @@
                         <tr>
                             <td> Salario</td>
                             <td>
-                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.salario}}
+                                ${{solicitud.id_actividadEconomica.id_capacidadEconomica.salario}}
                             </td>
                         </tr>
                         <tr>
                             <td> Gastos de AFP</td>
                             <td>
-                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosAFP}}
+                                ${{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosAFP}}
                             </td>
                         </tr>
                         <tr>
                             <td> Gastos de ISSS</td>
                             <td>
-                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosISSS}}
+                                ${{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosISSS}}
                             </td>
                         </tr>
                         <tr>
                             <td> Gastos Personales</td>
                             <td>
-                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosPersonales}}
+                                ${{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosPersonales}}
                             </td>
                         </tr>
                         <tr>
@@ -201,19 +196,19 @@
                         <tr>
                             <td> Gastos de Educación</td>
                             <td>
-                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosEducacion}}
+                                ${{solicitud.id_actividadEconomica.id_capacidadEconomica.gastosEducacion}}
                             </td>
                         </tr>
                         <tr>
                             <td> Otros ingresos</td>
                             <td>
-                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.otrosIngresos}}
+                                ${{solicitud.id_actividadEconomica.id_capacidadEconomica.otrosIngresos}}
                             </td>
                         </tr>
                         <tr>
                             <td> Total</td>
                             <td>
-                                {{solicitud.id_actividadEconomica.id_capacidadEconomica.total}}
+                                ${{solicitud.id_actividadEconomica.id_capacidadEconomica.total}}
                             </td>
                         </tr>
                         </tbody>

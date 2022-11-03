@@ -13,57 +13,118 @@ def obtenerUsuario(request):
 
     return usuario
 
+
 def home(request):
     if request.user.pk:
-        if obtenerUsuario(request).es_secretaria:
-            return redirect('vista_secretaria')
+        usuarios = Usuario.objects.all()
 
-        if obtenerUsuario(request).es_jefatura:
-            return redirect('vista_jefatura')
+        existe = False
 
-        if obtenerUsuario(request).es_cajera:
-            return redirect('vista_cajera')
+        for usua in usuarios:
+            if request.user.pk == usua.user.pk:
+                existe = True
 
-        if obtenerUsuario(request).es_agente:
-            return redirect('vista_agente')
+        if existe:
+            if obtenerUsuario(request).es_secretaria:
+                return redirect('vista_secretaria')
 
-        if obtenerUsuario(request).es_asociado:
-            return redirect('vista_asociado')
+            if obtenerUsuario(request).es_jefatura:
+                return redirect('vista_jefatura')
+
+            if obtenerUsuario(request).es_cajera:
+                return redirect('vista_cajera')
+
+            if obtenerUsuario(request).es_agente:
+                return redirect('vista_agente')
+
+            if obtenerUsuario(request).es_asociado:
+                return redirect('vista_asociado')
 
     return render(request, 'paginas/home.html')
 
 
-#@login_required
+@login_required
 def vista_secretaria(request):
-    # if not obtenerUsuario(request).es_secretaria:
-    #     messages.warning(request, "Este apartado es solo para secretario/a")
-    #     return redirect('home')
+    usuarios = Usuario.objects.all()
 
-    return render(request, 'paginas/secretaria.html')
+    existe = False
 
+    for usua in usuarios:
+        if request.user.pk == usua.user.pk:
+            existe = True
 
-#@login_required
+    if existe and obtenerUsuario(request).es_secretaria:
+        return render(request, 'paginas/secretaria.html')
+
+    messages.warning(request, "Este apartado es solo para secretario/a")
+
+    return redirect('home')
+
+@login_required
 def vista_jefatura(request):
-    # if not obtenerUsuario(request).es_jefatura:
-    #     messages.warning(request, "Este apartado es solo para jefatura")
-    #     return redirect('home')
+    usuarios = Usuario.objects.all()
 
-    return render(request, 'paginas/jefatura.html')
+    existe = False
+
+    for usua in usuarios:
+        if request.user.pk == usua.user.pk:
+            existe = True
+
+    if existe and obtenerUsuario(request).es_jefatura:
+        return render(request, 'paginas/jefatura.html')
+
+    messages.warning(request, "Este apartado es solo para jefatura")
+
+    return redirect('home')
 
 
 @login_required
 def vista_cajera(request):
-    if not obtenerUsuario(request).es_cajera:
-        messages.warning(request, "Este apartado es solo para cajero/a")
-        return redirect('home')
+    usuarios = Usuario.objects.all()
 
-    return render(request, 'paginas/cajera.html')
+    existe = False
+
+    for usua in usuarios:
+        if request.user.pk == usua.user.pk:
+            existe = True
+
+    if existe and obtenerUsuario(request).es_cajera:
+        return render(request, 'paginas/cajera.html')
+
+    messages.warning(request, "Este apartado es solo para cajero/a")
+
+    return redirect('home')
 
 
 @login_required
 def vista_asociado(request):
-    if not obtenerUsuario(request).es_asociado:
-        messages.warning(request, "Este apartado es solo para un asociado")
-        return redirect('home')
+    usuarios = Usuario.objects.all()
 
-    return render(request, 'paginas/asociado.html')
+    existe = False
+
+    for usua in usuarios:
+        if request.user.pk == usua.user.pk:
+            existe = True
+
+    if existe and obtenerUsuario(request).es_asociado:
+        return render(request, 'paginas/asociado.html')
+
+    messages.warning(request, "Este apartado es solo para un asociado")
+    return redirect('home')
+
+
+@login_required
+def vista_agente(request):
+    usuarios = Usuario.objects.all()
+
+    existe = False
+
+    for usua in usuarios:
+        if request.user.pk == usua.user.pk:
+            existe = True
+
+    if existe and obtenerUsuario(request).es_agente:
+        return render(request, 'paginas/agente.html')
+
+    messages.warning(request, "Este apartado es solo para un agente")
+    return redirect('home')

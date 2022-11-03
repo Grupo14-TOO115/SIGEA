@@ -10,6 +10,6 @@ urlpatterns2 = [
 ]
 
 urlpatterns = [
-    path('lista_asociados', asociados, name='vista_agente'),
+    path('lista_asociados', asociados, name='vista_agente_2'),
     path('lista_asociados/<int:id_cliente>/', include(urlpatterns2)),
 ]
