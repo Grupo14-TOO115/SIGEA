@@ -89,6 +89,8 @@ class ReferenciaForm(forms.ModelForm):
 
 
 class BeneficiarioForm(forms.ModelForm):
+
+    porcentaje=forms.IntegerField(min_value=0,max_value=100)
     class Meta:
         model = Beneficiario
         fields = '__all__'

@@ -10,12 +10,14 @@ urlpatterns2 = [
     path('estado_civil', crear_estadocivil, name='estado_civil'),
 
     path('gestionarReferencias', GestionarReferencias, name='gestionarReferencias'),
+    path('gestionarReferencias/validar', ValidarReferencias, name='validarReferencias'),    
     path('gestionarReferencias/crear', GuardarReferenciaPersonal, name='crearReferencia'),
     path('gestionarReferencias/editar', EditarReferenciaPersonal, name='editarReferencia'),
     path('gestionarReferencias/editar/<int:id_referencia>', EditarReferenciaPersonal, name='editarReferencia'),
     path('gestionarReferencias/eliminar/<int:id_referencia>', EliminarReferenciaPersonal, name='eliminarReferencia'),
 
     path('gestionarBeneficiarios', GestionarBeneficiarios, name='gestionarBeneficiarios'),
+    path('validarBeneficiarios', validarBeneficiario, name='validarBeneficiarios'),
     path('gestionarBeneficiarios/crear', GuardarBeneficiario, name='crearBeneficiario'),
     path('gestionarBeneficiarios/editar', EditarBeneficiario, name='editarBeneficiario'),
     path('gestionarBeneficiarios/editar/<int:id_beneficiario>', EditarBeneficiario, name='editarBeneficiario'),

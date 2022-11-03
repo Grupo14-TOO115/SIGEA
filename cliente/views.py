@@ -129,7 +129,18 @@ def localidad(request, id_solicitud):
 def GestionarReferencias(request,id_solicitud):
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     referencias=solicitud.referenciapersonal_set.filter(solicitud=solicitud)
-    return render(request,'referenciaPersonal/index.html',{'referencias': referencias,'id_solicitud':id_solicitud})
+    contador=referencias.count()
+    return render(request,'referenciaPersonal/index.html',{'referencias': referencias,'id_solicitud':id_solicitud,'contador':contador})
+
+def ValidarReferencias(request,id_solicitud):
+    solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
+    referencias=solicitud.referenciapersonal_set.filter(solicitud=solicitud)
+    contador=referencias.count()
+    if contador<=3:
+        messages.info(request,'Es necesario agregar al menos 3 referencias')
+    return redirect('gestionarReferencias',id_solicitud)
+
+
 
 def EditarReferenciaPersonal(request,id_solicitud,id_referencia):
     referencia=ReferenciaPersonal.objects.get(id_referencia=id_referencia)
@@ -158,7 +169,22 @@ def EliminarReferenciaPersonal(request, id_solicitud,id_referencia):
 def GestionarBeneficiarios(request, id_solicitud):
     solicitud=Solicitud.objects.get(id_solicitud=id_solicitud)
     beneficiarios=solicitud.beneficiario_set.filter(solicitud=solicitud)
-    return render(request, 'beneficiario/index.html', {'beneficiarios':beneficiarios,'id_solicitud':id_solicitud})
+    contador=beneficiarios.count()
+    contadorPorcentaje=0
+    for beneficiario in beneficiarios:
+        contadorPorcentaje+=beneficiario.porcentaje
+    if contadorPorcentaje > 100:
+        messages.info(request,'El porcentaje en los beneficiarios ha sido sobrepasado')
+        
+    return render(request, 'beneficiario/index.html', {'beneficiarios':beneficiarios,'id_solicitud':id_solicitud,'contador':contador,'contadorPorcentaje':contadorPorcentaje})
+
+def validarBeneficiario(request, id_solicitud):
+    solicitud=Solicitud.objects.get(id_solicitud=id_solicitud)
+    beneficiarios=solicitud.beneficiario_set.filter(solicitud=solicitud)
+    contador=beneficiarios.count()
+    if contador < 1:
+        messages.info(request, 'Es necesario agregar al menos 1 Beneficiario')
+    return redirect('gestionarBeneficiarios',id_solicitud)
 
 def GuardarBeneficiario(request, id_solicitud):
     formulario=BeneficiarioForm(request.POST or None)

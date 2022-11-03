@@ -94,6 +94,7 @@ class Cliente(models.Model):
     fotografia = models.ImageField(upload_to='fotografias/', null=True, blank=True)
     es_asociado = models.BooleanField("Es asociado?", null=False, default=False)
 
+
     class Meta:
         db_table = 'cliente'
         ordering = ["id_cliente"]
@@ -267,22 +268,6 @@ class Domicilio(models.Model):
         return str(self.tiempo_de_inmueble)
 
 
-class Anexo(models.Model):
-    id_anexo = models.AutoField(primary_key=True)
-    dui = models.ImageField(upload_to='fotografias/', verbose_name="DUI", null=False, blank=False)
-    nit = models.ImageField(upload_to='fotografias/', verbose_name="NIT", null=False, blank=False)
-    pasaporte = models.ImageField(upload_to='fotografias/', verbose_name="Pasaporte", null=False, blank=False)
-    isss = models.ImageField(upload_to='fotografias/', verbose_name="Tarjeta ISSS", null=False, blank=False)
-    iva = models.ImageField(upload_to='fotografias/', verbose_name="Tarjeta IVA", null=False, blank=False)
-
-    class Meta:
-        db_table = 'anexo'
-        ordering = ['id_anexo']
-
-    def __str__(self):
-        return self.id_anexo.__str__() + ' - ' + self.solicitud.id_solicitud.__str__()
-
-
 class Solicitud(models.Model):
     id_solicitud = models.AutoField(primary_key=True, verbose_name="Solicitud ID")
     id_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=False)
@@ -300,6 +285,7 @@ class Solicitud(models.Model):
 
     def __str__(self):
         return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()
+
 
 
 class Parentesco(models.Model):
@@ -332,18 +318,34 @@ class ReferenciaPersonal(models.Model):
 
 
 class Beneficiario(models.Model):
-    id_beneficiario = models.AutoField(primary_key=True)
-    solicitud = models.ForeignKey(Solicitud, on_delete=models.CASCADE, null=False, blank=False)
-    parentesco = models.ForeignKey(Parentesco, on_delete=models.CASCADE, null=False, blank=False)
-    porcentaje = models.FloatField(null=False, blank=True)
-    nombres = models.CharField(max_length=30, null=False, blank=False)
-    apellidos = models.CharField(max_length=30, null=False, blank=False)
-    telefono = PhoneField(max_length=13, null=False, blank=True, verbose_name='Telefono')
+    id_beneficiario=models.AutoField(primary_key=True)
+    solicitud=models.ForeignKey(Solicitud, on_delete=models.CASCADE, null=False, blank=False)
+    parentesco=models.ForeignKey(Parentesco, on_delete=models.CASCADE, null=False, blank=False)
+    porcentaje=models.IntegerField(null=False,blank=True)
+    nombres=models.CharField(max_length=30, null=False, blank=False)
+    apellidos=models.CharField(max_length=30,null=False,blank=False)
+    telefono=PhoneField(max_length=13, null=False, blank=True,verbose_name='Telefono')
 
     class Meta:
         db_table = 'beneficiario'
         ordering = ['id_beneficiario']
 
     def __str__(self):
-        return self.id_beneficiario.__str__() + ' - ' + self.parentesco.__str__() + ' - ' + str(
-            self.porcentaje) + ' - ' + self.nombres + ' - ' + self.apellidos
+        return self.id_beneficiario.__str__()+' - '+self.parentesco.__str__()+' - '+str(self.porcentaje)+' - '+self.nombres+' - '+self.apellidos
+
+class Anexo(models.Model):
+    id_anexo=models.AutoField(primary_key=True)
+    solicitud=models.ForeignKey(Solicitud, on_delete=models.CASCADE, null=False, blank=False)
+    dui=models.ImageField(upload_to='fotografias/',verbose_name="DUI",null=False,blank=False)
+    nit=models.ImageField(upload_to='fotografias/',verbose_name="NIT",null=False,blank=False)
+    pasaporte=models.ImageField(upload_to='fotografias/',verbose_name="Pasaporte",null=False,blank=False)
+    isss=models.ImageField(upload_to='fotografias/',verbose_name="Tarjeta ISSS",null=False,blank=False)
+    iva=models.ImageField(upload_to='fotografias/',verbose_name="Tarjeta IVA",null=False,blank=False)
+
+    class Meta:
+        db_table='anexo'
+        ordering=['id_anexo']
+
+    def __str__(self):
+        return self.id_anexo.__str__()+' - '+self.solicitud.id_solicitud.__str__()
+
