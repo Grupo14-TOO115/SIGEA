@@ -3,10 +3,11 @@
 <form enctype="multipart/form-data" method="post">
     {% csrf_token %}
     <div class="mb-3">
+            {{ formulario.media.js }}
             {{ formulario|crispy }}
     </div>
 
-    <input name="" class="btn btn-success" type="submit" value="Guardar">
+    <input name="" class="btn btn-success" type="submit" value="Siguiente">
 
     <a name="" class="btn btn-primary" href="{% url 'home' %}" role="button">Cancelar</a>
 

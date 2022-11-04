@@ -1,0 +1,45 @@
+{% extends "bases/base.html" %}
+
+{% block titulo %} Localidad {%endblock %}
+
+{% block contenido %}
+<br>
+<br>
+<br>
+<br>
+<div class="container text-center">
+    <div class="row">
+        <div class="col-6">
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-12 ">
+                        <div class="card">
+                            <div class="card-header">
+                                Registro de Localidad
+                            </div>
+                            <div class="card-body">
+                                <form enctype="multipart/form-data" method="post">
+                                    <h4 class="card-title">Introducir datos del Domicilio</h4>
+                                    <!--aqui va el formulario de datos del domicilio-->
+
+                                    {% include './editarLocalidad.html'%}
+
+                                    <br>
+                                    <h4 class="card-title">Introducir Ubicación Geografica</h4>
+                                    {% include './map.html' %}
+                                    <input name="" class="btn btn-success" type="submit" value="Siguiente">
+                                    <a name="" class="btn btn-primary" href="{% url 'home' %}" role="button">Cancelar</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div id="map_google"></div>
+        </div>
+    </div>
+    <br><br>
+</div>
+{% endblock %}
