@@ -138,7 +138,7 @@ class CapacidadEconomica(models.Model):
         ordering = ["id_capacidadEconomica"]
 
     def __str__(self):
-        return self.id_capacidadEconomica + " - " + self.total
+        return self.id_capacidad + " - " + self.total
 
 
 class Ubicacioneografica(models.Model):

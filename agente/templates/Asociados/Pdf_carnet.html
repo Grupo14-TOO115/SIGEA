@@ -8,16 +8,10 @@
                 @frame content_frame {
                     left: 120pt;
                     width: 512pt;
-                    top: 30pt;
-                    height: 600pt;
+                    top: 40pt;
+                    height: 400pt;
                     margin: 0;
                     }
-            }
-            img{
-                height: 40px;
-                width: 40px;
-                border: 2px solid black;
-                border-radius: 15%;
             }
         </style>
         <meta charset="utf-8">
@@ -28,10 +22,6 @@
   <body>
         <br><br>
         <div id="header_content" align="center">
-            <div>
-                    {% load static %}
-                    <img src="{% static '../../../../webApp/static/img/logo.png' %}">
-                </div>
             <h1> ASEUES DE RL, SAN SALVADOR, EL SALVADOR</h1>
             <hr width="100%" size="1">
             <h1> CARNET ASOCIADO </h1>
@@ -41,7 +31,7 @@
 
                 <li class="list-group-item">
                     {% if clientes.fotografia %}
-                        <img src="{{ clientes.fotografia }}" height="100" width="100"/>
+                        <img src="{{ clientes.fotografia }}" height="210px"/>
                     {% endif %}
                 </li><br>
                 <li class="list-group-item"><h2>Codigo Asociado: {{ clientes.id_cliente }}</h2></li>

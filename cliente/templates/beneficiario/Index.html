@@ -51,16 +51,12 @@
                 <div class="card-footer">
                     
                     {% if contador > 0  and contadorPorcentaje <= 100 %}
-                        {% if solicitud.es_revisado %}
-                            <a class="btn btn-success" role="button" href="{% url 'editarAnexo' id_solicitud %}" >Siguiente</a>
-
+                        <a class="btn btn-success" role="button" href="{% url 'guardarAnexos' id_solicitud %}" >Siguiente</a>
                         {% else %}
-                            <a class="btn btn-success" role="button" href="{% url 'guardarAnexos' id_solicitud %}" >Siguiente</a>
-                        {% endif %}
-                    {% else %}
                         <a class="btn btn-secondary" role="button" href="{% url 'validarBeneficiarios' id_solicitud %}" >Siguiente</a>
                     {% endif %}
                     <a class="btn btn-primary" role="button" href="{% url 'home' %}" >Cancelar</a>
+
                 </div>
             </div>
         </div>
