@@ -118,13 +118,8 @@ def solicitud(request, id_solicitud):
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     domicilio = Domicilio.objects.get(cliente=solicitud.id_cliente.id_cliente)
     beneficiario = Beneficiario.objects.filter(solicitud=id_solicitud)
-    estadoCivil = solicitud.id_cliente.id_estadocivil.id_tipoEstadocivil.nombre_tipoEstadocivil
-    if estadoCivil == 'Casado' or estadoCivil == 'Comprometido' or estadoCivil == 'Acompañado':
-        estadoCivil=True
-    else:
-        estadoCivil=False
     return render(request, 'ver_solicitud/index.html',
-                  {'solicitud': solicitud, 'domicilio': domicilio, 'beneficiario': beneficiario,'estadoCivil':estadoCivil})
+                  {'solicitud': solicitud, 'domicilio': domicilio, 'beneficiario': beneficiario})
 
 @login_required
 def beneficiarios(request, id_solicitud):

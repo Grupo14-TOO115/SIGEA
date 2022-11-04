@@ -9,6 +9,13 @@ urlpatterns2 = [
     path('localidad/', localidad, name='localidad'),
     path('estado_civil', crear_estadocivil, name='estado_civil'),
 
+    # editar solicitud
+    path('editar_cliente', editar_cliente, name='editar_cliente'),
+    path('editar_localidad', editar_localidad, name='editar_localidad'),
+    path('editar_actividad_economica', editar_actividad_economica, name='editar_actividad_economica'),
+    path('editar_capacidad_economica', editar_capacidad_economica, name='editar_capacidad_economica'),
+    path('editarAnexo',editarAnexo,name='editarAnexo'),
+
     path('gestionarReferencias', GestionarReferencias, name='gestionarReferencias'),
     path('gestionarReferencias/validar', ValidarReferencias, name='validarReferencias'),    
     path('gestionarReferencias/crear', GuardarReferenciaPersonal, name='crearReferencia'),

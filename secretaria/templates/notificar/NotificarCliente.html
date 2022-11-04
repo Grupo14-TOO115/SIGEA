@@ -10,7 +10,10 @@
         <hr width="100%" size="2">
         <h3>Estimado/a Sr/Sra {{ cliente.nombres }} {{ cliente.apellidos }} <br>Le informamos que su solicitud de admision como asociado a nuestra cooperativa se encuentra
             en pausa, debido a incongruencias en los datos digitados con los archivos anexos presentados.<br>
-            <br>Para subsanar, debe ingresar al siguiente enlace y volver a digitar correctamente sus datos: </h3>
+            <br>Para subsanar, debe ingresar al siguiente enlace y volver a digitar correctamente sus datos:
+
+            <a href="http://127.0.0.1:8000{% url 'editar_cliente' cliente.id_cliente %}" target="_blank">Editar Solicitud</a>
+        </h3>
 
     </div>
 

@@ -104,7 +104,6 @@
                                 {{solicitud.id_cliente.id_estadocivil.id_tipoEstadocivil.nombre_tipoEstadocivil}}
                             </td>
                         </tr>
-                        {% if estadoCivil %}
                         <tr>
                             <td> Nombre del cónyugue</td>
                             <td> {{solicitud.id_cliente.id_estadocivil.nombres_conyugue}}
@@ -115,7 +114,6 @@
                             <td> Teléfono del cónyugue</td>
                             <td> {{solicitud.id_cliente.id_estadocivil.telefono}}</td>
                         </tr>
-                        {% endif %}
 
                         <!-- Información sobre actividad económica -->
                         <tr>

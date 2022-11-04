@@ -175,8 +175,8 @@ def GestionarBeneficiarios(request, id_solicitud):
         contadorPorcentaje+=beneficiario.porcentaje
     if contadorPorcentaje > 100:
         messages.info(request,'El porcentaje en los beneficiarios ha sido sobrepasado')
-
-    return render(request, 'beneficiario/Index.html', {'beneficiarios':beneficiarios,'id_solicitud':id_solicitud,'contador':contador,'contadorPorcentaje':contadorPorcentaje})
+        
+    return render(request, 'beneficiario/index.html', {'beneficiarios':beneficiarios,'id_solicitud':id_solicitud,'solicitud':solicitud,'contador':contador,'contadorPorcentaje':contadorPorcentaje})
 
 def validarBeneficiario(request, id_solicitud):
     solicitud=Solicitud.objects.get(id_solicitud=id_solicitud)
@@ -284,3 +284,67 @@ def export_recibo_pdf(request, id_cliente):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+def editar_cliente(request, id_solicitud):
+    solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
+    cliente = Cliente.objects.get(id_cliente=solicitud.id_cliente.id_cliente)
+
+    formulario = ClienteForm(request.POST or None, instance=cliente)
+
+    fecha = cliente.fecha_nacimiento
+    fecha.__format__('%Y/%m/%d')
+    formulario.initial['fecha_nacimiento'] = fecha.__str__()
+
+    if formulario.is_valid() and request.POST:
+        formulario.save()
+        return redirect('editar_localidad', id_solicitud)
+
+    return render(request, 'cliente/editar.html', {'formulario':formulario})
+
+def editar_localidad(request, id_solicitud):
+    solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
+    domicilio = Domicilio.objects.get(cliente=solicitud.id_cliente.id_cliente)
+    formulario = DomicilioForm(request.POST or None, instance=domicilio)
+
+    if formulario.is_valid() and request.POST:
+        formulario.save()
+
+        return redirect('editar_actividad_economica', id_solicitud)
+    return render(request, 'localidad/form2.html', {'formulario':formulario})
+
+def editar_actividad_economica(request, id_solicitud):
+    solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
+    actividad = ActividadEconomica.objects.get(id_actividadEconomica=solicitud.id_actividadEconomica.id_actividadEconomica)
+
+    formulario = ActEconoForm(request.POST or None, instance=actividad)
+
+    if formulario.is_valid() and request.POST:
+        formulario.save()
+
+        return redirect('editar_capacidad_economica', id_solicitud)
+    return render(request, 'actividadEconomica/editar.html', {'formulario':formulario})
+
+def editar_capacidad_economica(request, id_solicitud):
+    solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
+    capacidad = CapacidadEconomica.objects.get(id_capacidadEconomica=solicitud.id_actividadEconomica.id_capacidadEconomica.id_capacidadEconomica)
+
+    formulario = CapacidadEconoForm(request.POST or None, instance=capacidad)
+
+    if formulario.is_valid() and request.POST:
+        formulario.save()
+
+        return redirect('gestionarReferencias', id_solicitud)
+    return render(request, 'capacidadEconomica/editar.html', {'formulario':formulario})
+
+def editarAnexo(request, id_solicitud):
+    solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
+    anexo = Anexo.objects.get(id_anexo = solicitud.id_anexo.id_anexo)
+
+    formulario = AnexoForm(request.POST or None, request.FILES or None, instance=anexo)
+
+    if formulario.is_valid():
+        formulario.save()
+
+        return redirect('home')
+
+    return render(request,'anexo/editar.html',{'formulario':formulario})
