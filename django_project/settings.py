@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
-import os
 
 from django.conf.global_settings import EMAIL_BACKEND
 
@@ -30,7 +29,7 @@ SECRET_KEY = 'django-insecure-uxb@laa$e+=vh)(0qn1s0n60ljt6y#qa-56(e1%vahq@dkkfx&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['alexander700.pythonanywhere.com',]
 
 # Application definition
 
@@ -92,10 +91,10 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sigeadb',
-        'USER': 'sigeaUser',
+        'NAME': 'alexander700$sigeadb',
+        'USER': 'alexander700',
         'PASSWORD': 'sigea1234',
-        'HOST': 'localhost',
+        'HOST': 'alexander700.mysql.pythonanywhere-services.com',
         'PORT': '3306',
     }
 }
@@ -134,7 +133,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_URL = 'login'
 USE_DJANGO_JQUERY = True

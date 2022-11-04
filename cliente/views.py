@@ -175,8 +175,8 @@ def GestionarBeneficiarios(request, id_solicitud):
         contadorPorcentaje+=beneficiario.porcentaje
     if contadorPorcentaje > 100:
         messages.info(request,'El porcentaje en los beneficiarios ha sido sobrepasado')
-        
-    return render(request, 'beneficiario/index.html', {'beneficiarios':beneficiarios,'id_solicitud':id_solicitud,'contador':contador,'contadorPorcentaje':contadorPorcentaje})
+
+    return render(request, 'beneficiario/Index.html', {'beneficiarios':beneficiarios,'id_solicitud':id_solicitud,'contador':contador,'contadorPorcentaje':contadorPorcentaje})
 
 def validarBeneficiario(request, id_solicitud):
     solicitud=Solicitud.objects.get(id_solicitud=id_solicitud)

@@ -31,7 +31,7 @@
 
                 <li class="list-group-item">
                     {% if clientes.fotografia %}
-                        <img src="{{ clientes.fotografia }}" height="210px"/>
+                        <img src="{{ clientes.fotografia.path }}" height="210px"/>
                     {% endif %}
                 </li><br>
                 <li class="list-group-item"><h2>Codigo Asociado: {{ clientes.id_cliente }}</h2></li>

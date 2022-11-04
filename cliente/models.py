@@ -73,7 +73,7 @@ class estado_civil(models.Model):
         ordering = ["id_estadocivil"]
 
     def __str__(self):
-        return self.id_tipoEstadocivil.__str__() + " - " + self.nombres_conyugue
+        return self.id_tipoEstadocivil.__str__() + " - " + self.nombres_conyugue.__str__()
 
 
 class Cliente(models.Model):
@@ -138,7 +138,7 @@ class CapacidadEconomica(models.Model):
         ordering = ["id_capacidadEconomica"]
 
     def __str__(self):
-        return self.id_capacidad + " - " + self.total
+        return self.id_capacidadEconomica.__str__() + " - " + self.total.__str__()
 
 
 class Ubicacioneografica(models.Model):
@@ -220,7 +220,7 @@ class ActividadEconomica(models.Model):
         db_table = 'ActividadEconomica'
 
     def __str__(self):
-        return self.id_actividadEconomica + " - " + self.id_capacidadEconomica + " - " + self.id_profesion
+        return self.id_actividadEconomica.__str__() + " - " + self.id_capacidadEconomica.__str__() + " - " + self.nombreProfesion
 
 
 class UbicacionGeografica(models.Model):
@@ -281,7 +281,7 @@ class Anexo(models.Model):
         ordering=['id_anexo']
 
     def __str__(self):
-        return self.id_anexo.__str__()+' - '+self.solicitud.id_solicitud.__str__()
+        return self.id_anexo.__str__()
 
 
 class Solicitud(models.Model):
@@ -300,7 +300,7 @@ class Solicitud(models.Model):
         ordering = ["id_solicitud"]
 
     def __str__(self):
-        return self.id_solicitud + " - " + self.fecha_solicitud + " - " + self.id_cliente.__str__()
+        return self.id_solicitud.__str__() + " - " + self.fecha_solicitud.__str__() + " - " + self.id_cliente.__str__()
 
 
 

@@ -37,7 +37,7 @@ def solicitudes(request):
             Q(id_cliente__nombres__icontains=busqueda) |
             Q(id_cliente__apellidos__icontains=busqueda))
         ).distinct()
-    
+
     return render(request, 'recepcion_solicitudes/index.html', {'solicitudes': solicitudes})
 
 
@@ -108,7 +108,7 @@ def solicitudes_espera(request):  # Este es para secretaría, solicitudes notifi
             Q(id_cliente__nombres__icontains=busqueda) |
             Q(id_cliente__apellidos__icontains=busqueda))
         ).distinct()
-        
+
     return render(request, 'solicitudes_espera/index.html', {'solicitudes': solicitudes})
 
 # Notificacion al correo de incongruencias en datos en la solicitud de Asociado
@@ -136,8 +136,13 @@ def solicitud(request, id_solicitud):
     solicitud = Solicitud.objects.get(id_solicitud=id_solicitud)
     domicilio = Domicilio.objects.get(cliente=solicitud.id_cliente.id_cliente)
     beneficiario = Beneficiario.objects.filter(solicitud=id_solicitud)
+    estadoCivil = solicitud.id_cliente.id_estadocivil.id_tipoEstadocivil.nombre_tipoEstadocivil
+    if estadoCivil == 'Casado' or estadoCivil == 'Comprometido' or estadoCivil == 'Acompañado':
+        estadoCivil=True
+    else:
+        estadoCivil=False
     return render(request, 'ver_solicitud_secretaria/solicitudes.html',
-                  {'solicitud': solicitud, 'domicilio': domicilio, 'beneficiario': beneficiario})
+                  {'solicitud': solicitud, 'domicilio': domicilio, 'beneficiario': beneficiario,'estadoCivil':estadoCivil})
 
 
 @login_required
